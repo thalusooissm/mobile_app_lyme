@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: CupertinoApp(
-        title: 'Namer App',
+        title: 'Lyme',
         theme: FontTheme.appTheme,
         home: LoginScreen(),
       ),
