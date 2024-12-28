@@ -145,8 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(
-                        height:
-                            16), // Use only height since Column handles vertical layout
+                        height:                            16), // Use only height since Column handles vertical layout
                     Text(
                       'Đăng Nhập',
                       style: FontTheme.customStyles['title1Emphasized']
@@ -158,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: FontTheme.customStyles['bodyRegular']
                           ?.copyWith(color: AppColors.labelPrimaryLight),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
