@@ -71,9 +71,14 @@ class FontTheme {
       fontWeight: FontWeight.w400,
       fontFamily: 'SFPro',
     ),
-    'caption1': TextStyle(
+    'caption1Regular': TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
+      fontFamily: 'SFPro',
+    ),
+    'caption1Emphasized': TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
   };
