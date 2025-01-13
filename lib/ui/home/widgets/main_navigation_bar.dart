@@ -7,18 +7,10 @@ class MainTabBar extends StatefulWidget {
 }
 
 class _MainTabBarState extends State<MainTabBar> {
-  int _currentIndex = 0; // Keep track of the selected tab
-
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
         items: [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.compass),
@@ -45,39 +37,55 @@ class _MainTabBarState extends State<MainTabBar> {
       tabBuilder: (context, index) {
         switch (index) {
           case 0:
-            return Navigator(
-              onGenerateRoute: (settings) => CupertinoPageRoute(
-                builder: (context) => ExploreScreen(),
-              ),
-            );
+            return ExploreScreen();
           case 1:
-            return Navigator(
-              onGenerateRoute: (settings) => CupertinoPageRoute(
-                builder: (context) => SearchScreen(),
-              ),
-            );
+            return SearchScreen();
           case 2:
-            return Navigator(
-              onGenerateRoute: (settings) => CupertinoPageRoute(
-                builder: (context) => FavoritesScreen(),
-              ),
-            );
+            return FavoritesScreen();
           case 3:
-            return Navigator(
-              onGenerateRoute: (settings) => CupertinoPageRoute(
-                builder: (context) => TicketsScreen(),
-              ),
-            );
+            return TicketsScreen();
           case 4:
-            return Navigator(
-              onGenerateRoute: (settings) => CupertinoPageRoute(
-                builder: (context) => AccountScreen(),
-              ),
-            );
+            return AccountScreen();
           default:
-            return Container();
+            return Center(child: Text('Unknown Tab'));
         }
       },
     );
+  }
+}
+
+// Placeholder screens for each tab
+class ExploreScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Explore Screen'));
+  }
+}
+
+class SearchScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Search Screen'));
+  }
+}
+
+class FavoritesScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Favorites Screen'));
+  }
+}
+
+class TicketsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Tickets Screen'));
+  }
+}
+
+class AccountScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Account Screen'));
   }
 }
