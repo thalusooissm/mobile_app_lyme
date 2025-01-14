@@ -56,6 +56,12 @@ class FontTheme {
       fontWeight: FontWeight.w700,
       fontFamily: 'SFPro',
     ),
+    'title3Emphasized': TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'SFPro',
+    ),
+
     'headlineRegular': TextStyle(
       fontSize: 17,
       fontWeight: FontWeight.w600,
@@ -81,6 +87,12 @@ class FontTheme {
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
+      'footnoteEmphasized': TextStyle(
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'SFPro',
+    ),
+
   };
 }
 
