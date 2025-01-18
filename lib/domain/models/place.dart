@@ -1,3 +1,4 @@
+
 class Place {
   final int placeId; // Primary Key
   final String placeName;
@@ -13,10 +14,10 @@ class Place {
 
   factory Place.fromMap(Map<String, dynamic> map) {
     return Place(
-      placeId: map['place_id'],
-      placeName: map['place_name'],
-      placeDescription: map['place_des'],
-      placeImage: map['place_image'],
+    placeId: map['place_id'] ?? 0,
+    placeName: map['place_name'] ?? 'Unknown',
+    placeDescription: map['place_des'] ?? 'No Description',
+    placeImage: map['place_image'] ?? 'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
     );
   }
 
@@ -29,4 +30,5 @@ class Place {
       'place_image': placeImage,
     };
   }
+
 }

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
 
-import 'package:lyme_app/ui/discover/widgets/discover_screen.dart';  // Assuming these are correctly defined
+import 'package:lyme_app/ui/discover/widgets/discover_screen.dart';
+import 'package:lyme_app/ui/search/widgets/search_screen.dart';  // Assuming these are correctly defined
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,9 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Home Screen'),
-      ),
+      // navigationBar: CupertinoNavigationBar(
+      //   middle: Text('Home Screen'),
+      // ),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           activeColor: AppColors.primary,  // Set the color when selected
@@ -118,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
             case 0:
               return DiscoverScreen();
             case 1:
-              return Center(child: Text('Tab 2 content'));
+              return SearchScreen();
             case 2:
               return Center(child: Text('Tab 3 content'));
             case 3:

@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Import this if you're using an SVG image
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lyme_app/domain/models/place.dart'; 
 
-class PlaceCard extends StatefulWidget {
-  final String placeName; // Place name to be passed as a parameter
-  final String imagePath; // Path for the background image
+class PlaceCard extends StatelessWidget {
+  final Place place; 
 
-  PlaceCard({required this.placeName, required this.imagePath});
+  const PlaceCard({Key? key, required this.place}) : super(key: key);
 
-  @override
-  _PlaceCardState createState() => _PlaceCardState();
-}
-
-class _PlaceCardState extends State<PlaceCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Handle the tap action here (optional)
-        print('Tapped on place: ${widget.placeName}');
+        // Handle the tap action here
+        print('Tapped on place: ${place.placeName}');
       },
       child: Container(
         width: 160,
@@ -38,20 +33,20 @@ class _PlaceCardState extends State<PlaceCard> {
           fit: StackFit.expand,
           children: [
             // Background image
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  widget.imagePath, // Using the image path passed from the widget
-                  fit: BoxFit.cover, // Ensure image covers the area
-                ),
-              ),
-            ),
+ Positioned.fill(
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(12),
+    child: Image.network(
+      'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg', // Replace with the actual URL
+      fit: BoxFit.cover, // Optional: adjust the fit to ensure the image fills the space appropriately
+    ),
+  ),
+),
             // Gradient overlay
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                  gradient: LinearGradient(
                     begin: Alignment(0.00, -1.00),
                     end: Alignment(0, 1),
                     colors: [
@@ -59,12 +54,8 @@ class _PlaceCardState extends State<PlaceCard> {
                       Colors.black.withAlpha((0.75 * 255).toInt()),
                       Colors.black.withAlpha((0.75 * 255).toInt()),
                     ],
-                    stops: [
-                      0.4, // 80%
-                      0.8, // 100%
-                      1.0, // 100%
-                    ],
-                    ),
+                    stops: [0.4, 0.8, 1.0],
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
@@ -73,16 +64,19 @@ class _PlaceCardState extends State<PlaceCard> {
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-              padding: EdgeInsets.all(12),
-              child: Text(
-                widget.placeName, // Access the place name from the widget
-                style: FontTheme.customStyles['bodyRegular']?.copyWith(
-                color: AppColors.white, // Adjust text color
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  place.placeName, // Access the place name from the Place object
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              ),
             ),
-    
           ],
         ),
       ),
