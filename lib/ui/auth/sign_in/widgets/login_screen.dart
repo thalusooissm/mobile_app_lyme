@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             horizontal: 20, vertical: 0),
                         child: Text(
                           _errorTextEmail!,
-                          style: FontTheme.customStyles['caption1']?.copyWith(color: AppColors.red),
+                          style: FontTheme.customStyles['caption1Regular']?.copyWith(color: AppColors.red),
                         ),
                       ),
                       SizedBox(height: 16),
@@ -261,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               horizontal: 16, vertical: 0),
                           child: Text(
                             'Mật khẩu phải chứa ít nhất 8 ký tự, có cả chữ hoa, chữ thường, số và ký tự đặc biệt.',
-                            style: FontTheme.customStyles['caption1']?.copyWith(color: AppColors.labelSecondaryLight),
+                            style: FontTheme.customStyles['caption1Regular']?.copyWith(color: AppColors.labelSecondaryLight),
                           ),
                         ),
                         SizedBox(height: 4),
@@ -291,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 horizontal: 20, vertical: 0),
                             child: Text(
                               _errorTextPassword!,
-                              style: FontTheme.customStyles['caption1']?.copyWith(color: AppColors.red),
+                              style: FontTheme.customStyles['caption1Regular']?.copyWith(color: AppColors.red),
                             ),
                           ),
                       ],
@@ -349,7 +349,154 @@ class _LoginScreenState extends State<LoginScreen> {
                               .labelPrimaryDark, // Specify the white color here
                         ),
                       ),
-                    ))
+                    )),
+                SizedBox(height: 16,),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Image container
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                             Container(
+                              width: 76,
+                              height: 76,
+                              decoration: ShapeDecoration(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    width: 0.33,
+                                    color: AppColors.nonOpaqueSeparator,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(
+                                  'assets/images/event_thumb.png',
+                                  width: 76,
+                                  height: 76,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 8), // Spacing between columns
+                      Expanded( // Ensure the second column adjusts to the available space
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Organizer info row
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 16,
+                                      width: 16,
+                                      decoration: ShapeDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage("assets/images/organizer_avt.png"),
+                                          fit: BoxFit.fill,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 2,
+                                            strokeAlign: BorderSide.strokeAlignOutside,
+                                            color: AppColors.white,
+                                          ),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 4), // Small gap between avatar and text
+                                    Flexible( // Prevent text overflow in the organizer info
+                                      child: Text(
+                                        'Nguyễn Việt Anh, MIFA',
+                                        style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                                          color: AppColors.labelSecondaryLight,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    SvgPicture.asset('assets/images/place.svg'),
+                                    SizedBox(width: 2,),
+                                    Text(
+                                      'Sắp hết',
+                                      style: FontTheme.customStyles['caption1Emphasized']?.copyWith(
+                                        color: AppColors.labelPrimaryLight,
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                            SizedBox(height: 6), // Spacing between rows
+                            // Event title row
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Flexible( // Prevent text overflow in the event title
+                                  child: Text(
+                                    'Triển lãm Những Địa hạt Phù du',
+                                    style: FontTheme.customStyles['subHeadlineRegular']?.copyWith(
+                                      color: AppColors.labelPrimaryLight,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 6), // Spacing between rows
+                            Row(
+                              children: [
+                                SvgPicture.asset('assets/images/schedule.svg'),
+                                SizedBox(width: 4,),
+                                Text(
+                                  '20:00 21/08 (Ngày mai)',
+                                  style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                                    color: AppColors.labelSecondaryLight,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 6,),
+                            Row(
+                              children: [
+                                SvgPicture.asset('assets/images/place.svg'),
+                                SizedBox(width: 4,),
+                                Text(
+                                  'TP. Hồ Chí Minh',
+                                  style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                                    color: AppColors.labelSecondaryLight,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
               ],
             ),
       ),

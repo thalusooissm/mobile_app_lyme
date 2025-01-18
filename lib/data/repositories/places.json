@@ -1,0 +1,32 @@
+[
+    {
+      "place_id": 1,
+      "place_name": "TP. Hồ Chí Minh",
+      "place_des": "A vibrant city known for its rich culture and history.",
+      "place_image": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "place_id": 2,
+      "place_name": "New York",
+      "place_des": "The city that never sleeps, filled with iconic landmarks.",
+      "place_image": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "place_id": 3,
+      "place_name": "Tokyo",
+      "place_des": "A bustling metropolis blending tradition and technology.",
+      "place_image": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "place_id": 4,
+      "place_name": "London",
+      "place_des": "A historical city known for its art, history, and culture.",
+      "place_image": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "place_id": 5,
+      "place_name": "Berlin",
+      "place_des": "A dynamic city with a rich history and vibrant culture.",
+      "place_image": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    }
+  ]
