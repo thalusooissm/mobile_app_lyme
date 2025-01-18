@@ -1,0 +1,62 @@
+[
+    {
+      "user_id": 1,
+      "full_name": "John Doe",
+      "user_type": "Organizer",
+      "insta_link": "https://instagram.com/johndoe",
+      "fb_link": "https://facebook.com/johndoe",
+      "x_link": "https://twitter.com/johndoe",
+      "birthdate": "1990-05-15T00:00:00",
+      "gender": "Male",
+      "user_name": "johndoe",
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "user_id": 2,
+      "full_name": "Jane Smith",
+      "user_type": "Speaker",
+      "insta_link": "https://instagram.com/janesmith",
+      "fb_link": "https://facebook.com/janesmith",
+      "x_link": "https://twitter.com/janesmith",
+      "birthdate": "1985-08-20T00:00:00",
+      "gender": "Female",
+      "user_name": "janesmith",
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "user_id": 3,
+      "full_name": "Alice Johnson",
+      "user_type": "Panelist",
+      "insta_link": "https://instagram.com/alicejohnson",
+      "fb_link": "https://facebook.com/alicejohnson",
+      "x_link": "https://twitter.com/alicejohnson",
+      "birthdate": "1992-02-12T00:00:00",
+      "gender": "Female",
+      "user_name": "alicejohnson",
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "user_id": 4,
+      "full_name": "Robert Brown",
+      "user_type": "Host",
+      "insta_link": "https://instagram.com/robertbrown",
+      "fb_link": "https://facebook.com/robertbrown",
+      "x_link": "https://twitter.com/robertbrown",
+      "birthdate": null,
+      "gender": "Male",
+      "user_name": "robertbrown",
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    },
+    {
+      "user_id": 5,
+      "full_name": "Emily Davis",
+      "user_type": "Coordinator",
+      "insta_link": "",
+      "fb_link": "",
+      "x_link": "",
+      "birthdate": "2000-11-05T00:00:00",
+      "gender": "Female",
+      "user_name": "emilydavis",
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+    }
+  ]

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
 import 'package:lyme_app/ui/auth/sign_in/widgets/login_screen.dart';
+import 'package:lyme_app/ui/home/widgets/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        home: LoginScreen(),
+        home: HomeScreen(),
       ),
     );
   }
