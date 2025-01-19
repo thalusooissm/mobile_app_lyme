@@ -75,6 +75,9 @@ class AppColors {
 
   static const Color nonOpaqueSeparator = Color.fromRGBO(84, 84, 86, 0.34);
 
+  static const Color tabUnselected = Color.fromRGBO(153, 153, 153, 1);
+
+
   AppColors(String s);
 
 //   static const lightColorScheme = ColorScheme(
