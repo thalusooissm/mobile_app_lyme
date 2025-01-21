@@ -24,6 +24,9 @@ class AppColors {
   static const Color backgroundSecondary = Color.fromRGBO(242, 242, 247, 1);
   static const Color backgroundTertiary = Color.fromRGBO(255, 255, 255, 1);
 
+
+  static const Color backgroundBlur75 = Color.fromRGBO(242, 242, 247, 0.75);
+
   static const Color backgroundGroupedPrimary =
       Color.fromRGBO(242, 242, 247, 1);
   static const Color backgroundGroupedSecondary =

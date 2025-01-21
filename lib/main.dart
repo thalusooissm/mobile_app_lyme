@@ -25,7 +25,7 @@ class LymeApp extends StatelessWidget {
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        initialRoute: '/',
+        initialRoute: '/home',
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
           case '/':

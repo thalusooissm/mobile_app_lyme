@@ -59,8 +59,24 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundPrimary,
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Khám phá'),
-        backgroundColor: AppColors.backgroundPrimary,
+        leading: Row(
+          children: [
+            Text('Khám Phá', style: FontTheme.customStyles['title3Emphasized']?.copyWith(color: AppColors.labelPrimaryLight)),
+            SizedBox(width: 8),
+            Container(
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/logo2.png'),
+                  fit: BoxFit.fill,
+                ),
+                borderRadius: BorderRadius.circular(50), // Half of the width/height to make it round
+              ),
+            ),          ],
+        ),
+        backgroundColor: Colors.white.withAlpha((0.01 * 255).toInt()),
+        enableBackgroundFilterBlur: true,
       ),
       child: SafeArea(
         child: SingleChildScrollView(
