@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 
+import 'package:lyme_app/ui/authenticatio_modal/widgets/authentication_modal.dart';
+
 // import 'package:flutter/cupertino.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -35,7 +37,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         child: Stack(
           children: [
             Container(
-              color: Colors.white.withOpacity(0.8), // 20% opacity
+              color: Colors.white.withAlpha((0.8 * 255).toInt()), // 20% opacity
             ),
             // Background Image
             Image.asset(
@@ -85,7 +87,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                       minWidth: 0, // Minimum width constraint
                                       minHeight: 0, // Minimum height constraint
                                     ),
-                                    child: ModalContent(),
+                                    child: AuthenticationModal(),
                                   ),
                                 );
                               },
@@ -119,159 +121,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 }
 
-class ModalContent extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(32), // Uniform border radius
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min, // Adjust to fit content
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // Header Row
-            SizedBox(
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    'images/frame512.svg',
-                    fit: BoxFit.fitWidth,
-                    width: 56,
-                    // height: 56,
-                    placeholderBuilder: (BuildContext context) =>
-                        CircularProgressIndicator(),
-                  ),
-                  Container(
-                    decoration: ShapeDecoration(
-                      color: AppColors.fillSecondary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(500),
-                      ),
-                    ),
-                    padding: EdgeInsets.all(
-                        5), // Padding around the content inside the container
-                    child: SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: SvgPicture.asset(
-                              'images/close_icon_24px.svg',
-                              placeholderBuilder: (BuildContext context) =>
-                                  CircularProgressIndicator(),
-                            ))),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Body Section
-            Text(
-              'Bắt Đầu',
-              style: FontTheme.customStyles['title2Emphasized']?.copyWith(
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Đặt vé cho sự kiện, theo dõi những chủ đề nổi bật, và quản lý vé tất cả các sự kiện.',
-              style: FontTheme.customStyles['bodyRegular']?.copyWith(
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 32),
-            // Login Buttons
-            SizedBox(
-              width: double
-                  .infinity, // Expands the button to fill the available width
-
-              child: CupertinoButton(
-                onPressed: () {
-                  // Handle the login button press
-                },
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                color: AppColors.primary, // Specify the white color here
-
-                borderRadius: BorderRadius.circular(12),
-
-                child: Text(
-                  'Đăng Nhập',
-                  style: FontTheme.customStyles['headlineRegular']?.copyWith(
-                    color: AppColors
-                        .labelPrimaryDark, // Specify the white color here
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double
-                  .infinity, // Expands the button to fill the available width
-              child: CupertinoButton(
-                onPressed: () {
-                  // Handle the create account button press
-                },
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                borderRadius: BorderRadius.circular(12),
-
-                color:
-                    AppColors.primaryAsSurface, // Specify the white color here
-                child: Text(
-                  'Tạo Tài Khoản',
-                  style: FontTheme.customStyles['headlineRegular']?.copyWith(
-                    color: AppColors.primary, // Specify the white color here
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double
-                  .infinity, // Expands the button to fill the available width
-
-              child: Text(
-                'Hoặc',
-                textAlign: TextAlign.center,
-                style: FontTheme.customStyles['bodyRegular']
-                    ?.copyWith(color: Colors.black),
-              ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double
-                  .infinity, // Expands the button to fill the available width
-              child: CupertinoButton(
-                onPressed: () {
-                  // Handle the button press
-                },
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                child: Center(
-                  child: Text(
-                    'Bắt Đầu Mà Không Cần Tài Khoản',
-                    style: FontTheme.customStyles['headlineRegular']?.copyWith(
-                      color: AppColors.primary, // Specify the white color here
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 void funcA() {}
 

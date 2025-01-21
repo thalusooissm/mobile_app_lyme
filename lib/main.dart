@@ -1,32 +1,51 @@
 // import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
-import 'package:lyme_app/ui/auth/sign_in/widgets/login_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:lyme_app/ui/auth/sign_in/widgets/sign_in_screen.dart';
+import 'package:lyme_app/ui/auth/sign_up/widgets/sign_up_screen.dart';
 import 'package:lyme_app/ui/home/widgets/home_screen.dart';
+import 'package:lyme_app/ui/setting/setting.dart';
+import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
+import 'package:lyme_app/ui/auth/sign_up/widgets/create_password_screen.dart';
 
-// import 'ui/auth/sign_in/widgets/login_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(LymeApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LymeApp extends StatelessWidget {
+  const LymeApp({super.key});
   
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
+      create: (context) => LymeAppState(),
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        home: HomeScreen(),
+        initialRoute: '/',
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/':
+            return CupertinoPageRoute(builder: (_) => WelcomeScreen());
+          case '/sign_in':
+            return CupertinoPageRoute(builder: (_) => SignInScreen());
+          case '/sign_up':
+          return CupertinoPageRoute(builder: (_) => SignUpScreen());
+          case '/home':
+            return CupertinoPageRoute(builder: (_) => HomeScreen());
+          case '/setting':
+            return CupertinoPageRoute(builder: (_) => SettingScreen());
+          case '/create_password':
+            return CupertinoPageRoute(builder: (_) => CreatePasswordScreen());
+
+        };
+      },
       ),
     );
   }
 }
 
-class MyAppState extends ChangeNotifier {}
+class LymeAppState extends ChangeNotifier {}
