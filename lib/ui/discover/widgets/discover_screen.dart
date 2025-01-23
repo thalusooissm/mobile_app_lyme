@@ -49,7 +49,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   Future<List<EventDetail>> fetchEvents() async {
-    final String response = await rootBundle.loadString('/Users/thalu/Desktop/Undergraduate_Thesis/mobile_app_lyme/lib/data/repositories/events.json');
+    final String response = await rootBundle.loadString('data/repositories/events.json');
     final List<dynamic> data = json.decode(response);
     return data.map((item) => EventDetail.fromMap(item)).toList();
   }
@@ -71,7 +71,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   image: AssetImage('images/logo2.png'),
                   fit: BoxFit.fill,
                 ),
-                borderRadius: BorderRadius.circular(50), // Half of the width/height to make it round
+                borderRadius: BorderRadius.circular(50),
               ),
             ),          ],
         ),

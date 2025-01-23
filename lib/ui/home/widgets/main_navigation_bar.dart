@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lyme_app/ui/core/themes/colors.dart';
 
 class MainTabBar extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class _MainTabBarState extends State<MainTabBar> {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
+        backgroundColor: AppColors.backgroundBlur75,
+      
         items: [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.compass),
