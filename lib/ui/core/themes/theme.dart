@@ -92,6 +92,12 @@ class FontTheme {
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
+      'footnoteRegular': TextStyle(
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'SFPro',
+    ),
+
 
   };
 }
