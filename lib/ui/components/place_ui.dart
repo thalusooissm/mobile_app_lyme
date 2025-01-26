@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lyme_app/ui/core/themes/colors.dart';
-import 'package:lyme_app/ui/core/themes/theme.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyme_app/domain/models/place.dart'; 
 
 class PlaceCard extends StatelessWidget {
@@ -13,7 +10,6 @@ class PlaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Handle the tap action here
         print('Tapped on place: ${place.placeName}');
       },
       child: Container(
