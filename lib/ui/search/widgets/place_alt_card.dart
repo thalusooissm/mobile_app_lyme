@@ -70,7 +70,7 @@ class _PlaceAltCardState extends State<PlaceAltCard> {
             SizedBox(
               width: 24,
               height: 24,
-              child: SvgPicture.asset('/icons/arrow_right_alt.svg'),
+              child: SvgPicture.asset('lib/assets/icons/arrow_right_alt.svg'),
             ),
           ],
         ),

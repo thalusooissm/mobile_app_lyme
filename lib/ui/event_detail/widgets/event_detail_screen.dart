@@ -242,7 +242,7 @@ class EventDetailScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   SvgPicture.asset(
-                    'images/icons/arrow_forward_ios.svg',
+                    'lib/assets/icons/arrow_forward_ios.svg',
                     width: 16,
                     height: 16,
                   ),
@@ -282,7 +282,7 @@ class EventDetailScreen extends StatelessWidget {
           Expanded(
             child: _primaryActionButton(
               label: 'Đặt vé',
-              icon: 'icons/dat_ve_icon.svg',
+              icon: 'lib/assets/icons/dat_ve_icon.svg',
               onPressed: _handleJoinEvent,
             ),
           ),
@@ -290,7 +290,7 @@ class EventDetailScreen extends StatelessWidget {
           Expanded(
             child: _secondaryActionButton(
               label: 'Ghi chú',
-              icon: 'icons/ghi_chu_icon.svg',
+              icon: 'lib/assets/icons/ghi_chu_icon.svg',
               onPressed: () {},
             ),
           ),
@@ -298,7 +298,7 @@ class EventDetailScreen extends StatelessWidget {
           Expanded(
             child: _secondaryActionButton(
               label: 'Chia sẻ',
-              icon: 'icons/chia_se_icon.svg',
+              icon: 'lib/assets/icons/chia_se_icon.svg',
               onPressed: () {},
             ),
           ),
@@ -306,7 +306,7 @@ class EventDetailScreen extends StatelessWidget {
           Expanded(
             child: _secondaryActionButton(
               label: 'Khác',
-              icon: 'icons/khac_icon.svg',
+              icon: 'lib/assets/icons/khac_icon.svg',
               onPressed: () {},
             ),
           ),
@@ -327,7 +327,7 @@ class EventDetailScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         child: SvgPicture.asset(
-          'icons/add_to_fav_icon.svg',
+          'lib/assets/icons/add_to_fav_icon.svg',
           width: 24,
           height: 24,
         ),

@@ -50,13 +50,14 @@ class _AuthenticationModalState extends State<AuthenticationModal> {
           SizedBox(
             width: 56,
             height: 56,
-            child: SvgPicture.asset(
-              'images/frame512.svg',
+            child: Transform.scale(
+              scale: 1.5,
+              child: Image.asset(
+              'lib/assets/images/vector.png',
               fit: BoxFit.fitWidth,
               width: 56,
               height: 56,
-              placeholderBuilder: (BuildContext context) =>
-                  CircularProgressIndicator(),
+              ),
             ),
           ),
           Container(
@@ -73,9 +74,9 @@ class _AuthenticationModalState extends State<AuthenticationModal> {
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: SvgPicture.asset(
-                  'images/close_icon_24px.svg',
+                  'lib/assets/images/close_icon_24px.svg',
                   placeholderBuilder: (BuildContext context) =>
-                      CircularProgressIndicator(),
+                      CupertinoActivityIndicator(),
                 ),
               ),
             ),

@@ -123,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           child: SvgPicture.asset(
-            'images/alternate_email.svg',
+            'lib/assets/images/alternate_email.svg',
             fit: BoxFit.fitWidth,
             placeholderBuilder: (BuildContext context) =>
                 const CircularProgressIndicator(),

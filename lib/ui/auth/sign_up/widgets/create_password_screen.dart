@@ -148,7 +148,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
             ),
           ),
           child:           SvgPicture.asset(
-            'images/password.svg',
+            'lib/assets/images/password.svg',
             fit: BoxFit.fitWidth,
             placeholderBuilder: (BuildContext context) =>
                 const CupertinoActivityIndicator(),

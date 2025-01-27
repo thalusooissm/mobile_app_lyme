@@ -149,7 +149,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
           child: SvgPicture.asset(
-            'assets/images/person.svg',
+            'lib/assets/images/person.svg',
             semanticsLabel: 'Person Icon',
           ),
         ),

@@ -19,7 +19,7 @@ class EventCard extends StatelessWidget {
 
   Future<List<Host>> fetchHosts(List<int> hostIds) async {
     try {
-      final String response = await rootBundle.loadString('data/repositories/users.json');
+      final String response = await rootBundle.loadString('lib/assets/data/repositories/users.json');
       final List<dynamic> data = jsonDecode(response);
       List<Host> allHosts = data.map((hostMap) => Host.fromMap(hostMap)).toList();
       return allHosts.where((host) => hostIds.contains(host.userId)).toList();

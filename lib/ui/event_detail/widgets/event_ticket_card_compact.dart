@@ -25,7 +25,7 @@ class _EventTicketCardCompactState extends State<EventTicketCardCompact> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SvgPicture.asset(
-          '/icons/leading_icon_ticket.svg',
+          'lib/assets/icons/leading_icon_ticket.svg',
           width: 24.0,
           height: 24.0,
           placeholderBuilder: (context) => CircularProgressIndicator(),
