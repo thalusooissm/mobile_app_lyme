@@ -32,7 +32,7 @@ class _AccountScreenState extends State<AccountScreen> {
               height: 28,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/logo2.png'),
+                  image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(50),
@@ -136,7 +136,7 @@ Padding(
                 decoration: ShapeDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                        "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"),
+                        "https://lh3.googleusercontent.com/pw/AP1GczMuhDy9EbDXwhmL4iP8eQh_ErOaMWfwWasMRQ55HaMlKJh8mSFxdmWAUlSk61GJtFpW4E3awj1pcuO9SNOudHsukjIsfxHBF6ARhgVmMOb0WSGsQCqvN4aiWklgQO_eZ76slFhIk_0QMrbRkXJLMZGspw=w1448-h1930-s-no-gm"),
                     fit: BoxFit.fill,
                   ),
                   shape: RoundedRectangleBorder(
@@ -207,15 +207,15 @@ Padding(
           SizedBox(height: 16),
           Row(
             children: [
-              SvgPicture.asset('icons/linkedin_icon.svg'),
+              SvgPicture.asset('lib/assets/icons/linkedin_icon.svg'),
               SizedBox(width: 16),
-              SvgPicture.asset('icons/insta_icon.svg'),
+              SvgPicture.asset('lib/assets/icons/insta_icon.svg'),
               SizedBox(width: 16),
-              SvgPicture.asset('icons/fb_icon.svg'),
+              SvgPicture.asset('lib/assets/icons/fb_icon.svg'),
               SizedBox(width: 16),
-              SvgPicture.asset('icons/x_icon.svg'),
+              SvgPicture.asset('lib/assets/icons/x_icon.svg'),
               SizedBox(width: 16),
-              SvgPicture.asset('icons/web_icon.svg'),
+              SvgPicture.asset('lib/assets/icons/web_icon.svg'),
               SizedBox(width: 16),
             ],
           ),
@@ -272,7 +272,7 @@ Widget _buildSettingCard(
           ),
           SizedBox(width: 8),
           SvgPicture.asset(
-            'icons/arrow_right_alt.svg',
+            'lib/assets/icons/arrow_right_alt.svg',
             width: 24,
             height: 24,
           ),

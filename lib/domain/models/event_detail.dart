@@ -26,28 +26,33 @@ class EventDetail {
   });
 
   factory EventDetail.fromMap(Map<String, dynamic> map) {
-    return EventDetail(
-      eventId: map['event_id'] ?? 0,
-      eventName: map['event_name'] ?? 'Untitled Event',
-      startTime: map['start_time'] != null
-          ? DateTime.parse(map['start_time'])
-          : DateTime.now(),
-      placeId: map['place_id'] ?? 0,
-      hostIds: List<int>.from(map['host_ids'] ?? []),
-      topicId: map['topic_id'] ?? 0,
-      chainId: map['chain_id'] ?? 0,
-      about: map['about'] ?? 'No details provided.',
-      image: map['image'] ?? 'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-      endTime: map['end_time'] != null
-          ? DateTime.parse(map['end_time'])
-          : DateTime.now().add(Duration(hours: 2)),
-      addressId: map['address_id'] ?? 0,
-    );
+    try {
+      return EventDetail(
+        eventId: map['_id'] ?? 0,
+        eventName: map['event_name'] ?? 'Untitled Event',
+        startTime: map['start_time'] != null
+            ? DateTime.parse(map['start_time'])
+            : DateTime.now(),
+        placeId: map['place_id'] ?? 0,
+        hostIds: List<int>.from(map['host_ids'] ?? []),
+        topicId: map['topic_id'] ?? 0,
+        chainId: map['chain_id'] ?? 0,
+        about: map['about'] ?? 'No details provided.',
+        image: map['image'] ?? '',
+        endTime: map['end_time'] != null
+            ? DateTime.parse(map['end_time'])
+            : DateTime.now().add(Duration(hours: 2)),
+        addressId: map['address_id'] ?? 0,
+      );
+    } catch (e) {
+      print('Error decoding EventDetail: $e');
+      rethrow; // Optional: Throw the error if you want to halt execution.
+    }
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'event_id': eventId,
+      '_id': eventId,
       'event_name': eventName,
       'start_time': startTime.toIso8601String(),
       'place_id': placeId,

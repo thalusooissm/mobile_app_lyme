@@ -1,6 +1,6 @@
 // import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:realm/realm.dart';
+// import 'package:realm/realm.dart';
 
 
 // import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:lyme_app/ui/auth/sign_in/widgets/sign_in_screen.dart';
 import 'package:lyme_app/ui/auth/sign_up/widgets/sign_up_screen.dart';
 // import 'package:lyme_app/ui/event_detail/widgets/event_detail_screen.dart';
 import 'package:lyme_app/ui/home/widgets/home_screen.dart';
-import 'package:lyme_app/ui/setting/setting.dart';
+import 'package:lyme_app/ui/setting/widgets/setting_screen.dart';
 import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';

@@ -41,7 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             // Background Image
             Image.asset(
-              'assets/images/image.png',
+              'lib/assets/images/image.png',
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.6,
               fit: BoxFit.cover,
@@ -58,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/images/group.png',
+                        'lib/assets/images/group.png',
                         width: 136.0,
                       ),
                     ],

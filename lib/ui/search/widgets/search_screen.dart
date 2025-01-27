@@ -32,13 +32,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<List<Place>> fetchPlaces() async {
-    final String response = await rootBundle.loadString('data/repositories/places.json');
+    final String response = await rootBundle.loadString('lib/assets/data/repositories/places.json');
     final List<dynamic> data = json.decode(response);
     return data.map((item) => Place.fromMap(item)).toList();
   }
 
   Future<List<EventDetail>> fetchEvents() async {
-    final String response = await rootBundle.loadString('data/repositories/events.json');
+    final String response = await rootBundle.loadString('lib/assets/data/repositories/events.json');
     final List<dynamic> data = json.decode(response);
     return data.map((item) => EventDetail.fromMap(item)).toList();
   }

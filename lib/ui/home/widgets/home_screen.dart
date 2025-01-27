@@ -33,13 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
   BottomNavigationBarItem(
     icon: _currentIndex == 0
         ? SvgPicture.asset(
-            'icons/discover_icon_selected.svg',            width: 24,
+            'lib/assets/icons/discover_icon_selected.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
           )
         : SvgPicture.asset(
-            'icons/discover_icon.svg',            width: 24,
+            'lib/assets/icons/discover_icon.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
@@ -49,13 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
   BottomNavigationBarItem(
     icon: _currentIndex == 1
         ? SvgPicture.asset(
-            'icons/search_icon_selected.svg',            width: 24,
+            'lib/assets/icons/search_icon_selected.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
           )
         : SvgPicture.asset(
-            'icons/search_icon.svg',            width: 24,
+            'lib/assets/icons/search_icon.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
@@ -65,13 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
   BottomNavigationBarItem(
     icon: _currentIndex == 2
         ? SvgPicture.asset(
-            'icons/quan_tam_icon_selected.svg',
+            'lib/assets/icons/quan_tam_icon_selected.svg',
                         width: 24,
             height: 24,
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
           )
         : SvgPicture.asset(
-            'icons/quan_tam_icon.svg',
+            'lib/assets/icons/quan_tam_icon.svg',
             width: 24,
             height: 24,
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
@@ -81,13 +81,13 @@ class _HomeScreenState extends State<HomeScreen> {
   BottomNavigationBarItem(
     icon: _currentIndex == 3
         ? SvgPicture.asset(
-            'icons/my_ticket_icon_selected.svg',            width: 24,
+            'lib/assets/icons/my_ticket_icon_selected.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
           )
         : SvgPicture.asset(
-            'icons/my_ticket_icon.svg',            width: 24,
+            'lib/assets/icons/my_ticket_icon.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
@@ -97,13 +97,13 @@ class _HomeScreenState extends State<HomeScreen> {
   BottomNavigationBarItem(
     icon: _currentIndex == 4
         ? SvgPicture.asset(
-            'icons/account_icon_selected.svg',            width: 24,
+            'lib/assets/icons/account_icon_selected.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
           )
         : SvgPicture.asset(
-            'icons/account_icon.svg',            width: 24,
+            'lib/assets/icons/account_icon.svg',            width: 24,
             height: 24,
 
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
