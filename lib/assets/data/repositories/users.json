@@ -9,7 +9,9 @@
       "birthdate": "1990-05-15T00:00:00",
       "gender": "Male",
       "user_name": "johndoe",
-      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+      "host_type": "Speaker",
+      "bio": "Public speaker and motivator"
     },
     {
       "user_id": 2,
@@ -21,7 +23,10 @@
       "birthdate": "1985-08-20T00:00:00",
       "gender": "Female",
       "user_name": "janesmith",
-      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+      "host_type": "Speaker",
+      "bio": "Public speaker and motivator"
+  
     },
     {
       "user_id": 3,
@@ -33,7 +38,10 @@
       "birthdate": "1992-02-12T00:00:00",
       "gender": "Female",
       "user_name": "alicejohnson",
-      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+      host_type: "Speaker",
+      bio: "Public speaker and motivator.",
+  
     },
     {
       "user_id": 4,
@@ -45,7 +53,9 @@
       "birthdate": null,
       "gender": "Male",
       "user_name": "robertbrown",
-      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+      "host_type": "Speaker",
+      "bio": "Public speaker and motivator.",  
     },
     {
       "user_id": 5,
@@ -57,6 +67,9 @@
       "birthdate": "2000-11-05T00:00:00",
       "gender": "Female",
       "user_name": "emilydavis",
-      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg"
+      "avatar": "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+      "host_type": "Speaker",
+      "bio": "Public speaker and motivator.",
+  
     }
   ]

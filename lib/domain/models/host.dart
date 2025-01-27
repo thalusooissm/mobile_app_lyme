@@ -2,42 +2,51 @@ class Host {
   final int userId; // Primary Key
   final String fullName;
   final String userType;
-  final String instaLink;
-  final String fbLink;
-  final String xLink; // Assuming "x_link" refers to a social link
-  final DateTime? birthdate; // Nullable, as birthdate may not always be provided
+  final String? instaLink; // Nullable
+  final String? fbLink; // Nullable
+  final String? xLink; // Nullable
+  final DateTime? birthdate; // Nullable
   final String gender;
   final String userName;
   final String avatar;
+  final String hostType; // Required
+  final String? bio; // Nullable
 
   Host({
     required this.userId,
     required this.fullName,
     required this.userType,
-    required this.instaLink,
-    required this.fbLink,
-    required this.xLink,
+    this.instaLink,
+    this.fbLink,
+    this.xLink,
     this.birthdate,
     required this.gender,
     required this.userName,
     required this.avatar,
+    required this.hostType, // Now required
+    this.bio,
   });
 
   factory Host.fromMap(Map<String, dynamic> map) {
+    if (map['host_type'] == null) {
+      throw ArgumentError('host_type is required but not found in the map');
+    }
+
     return Host(
       userId: map['user_id'] as int,
       fullName: map['full_name'] ?? 'Unknown',
       userType: map['user_type'] ?? 'Unknown',
-      instaLink: map['insta_link'] ?? '',
-      fbLink: map['fb_link'] ?? '',
-      xLink: map['x_link'] ?? '',
+      instaLink: map['insta_link'] as String?,
+      fbLink: map['fb_link'] as String?,
+      xLink: map['x_link'] as String?,
       birthdate: map['birthdate'] != null
           ? DateTime.parse(map['birthdate'])
           : null,
       gender: map['gender'] ?? 'Unknown',
       userName: map['user_name'] ?? 'Anonymous',
-      avatar: map['avatar'] ??
-          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg', // Fallback for avatar
+      avatar: map['avatar'] ?? '',
+      hostType: map['host_type'] as String, // Required
+      bio: map['bio'] as String?,
     );
   }
 
@@ -53,6 +62,8 @@ class Host {
       'gender': gender,
       'user_name': userName,
       'avatar': avatar,
+      'host_type': hostType, // Required field included
+      'bio': bio,
     };
   }
 }

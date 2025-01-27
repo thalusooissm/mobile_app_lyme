@@ -227,7 +227,7 @@ Padding(
   Widget _buildButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         child:
           CupertinoButton(
@@ -282,3 +282,4 @@ Widget _buildSettingCard(
   );
 }
 }
+  

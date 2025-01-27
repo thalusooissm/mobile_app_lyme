@@ -31,139 +31,144 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      // constraints: BoxConstraints(minHeight: 110),
-      decoration: BoxDecoration(color: Colors.white),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 12),
-            child: Container(
-              width: 76,
-              height: 76,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(eventDetail.image),
-                  fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed('/event_detail');
+        print('Event card tapped');
+      },
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(color: Colors.white),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Container(
+                width: 76,
+                height: 76,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(eventDetail.image),
+                    fit: BoxFit.fill,
+                  ),
+                  border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
-                borderRadius: BorderRadius.circular(12), // Half of the width/height to make it round
               ),
             ),
-          ),
-          SizedBox(width: 8),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      // Host Avatar
-                      FutureBuilder<List<Host>>(
-                        future: fetchHosts(eventDetail.hostIds),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (snapshot.hasError) {
-                            return Center(child: Text('Error: ${snapshot.error}'));
-                          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return Center(child: Text('No hosts found.'));
-                          } else {
-                            final hosts = snapshot.data!;
-                            return Container(
-                              height: 24,
-                              width: hosts.length * 22.0,
-                              child: Stack(
-                                children: hosts.asMap().entries.map((entry) {
-                                  final index = entry.key;
-                                  final host = entry.value;
-                                  return Positioned(
-                                    left: index * 14.0, // Adjust the left position to create overlap
-                                    child: HostAvatarWidget(hostAvatar: host.avatar),
-                                  );
-                                }).toList(),
-                              ),
-                            );
-                          }
-                        },
+            SizedBox(width: 8),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        // Host Avatar
+                        FutureBuilder<List<Host>>(
+                          future: fetchHosts(eventDetail.hostIds),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(child: Text('Error: ${snapshot.error}'));
+                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return Center(child: Text('No hosts found.'));
+                            } else {
+                              final hosts = snapshot.data!;
+                              return SizedBox(
+                                height: 24,
+                                width: hosts.length * 22.0,
+                                child: Stack(
+                                  children: hosts.asMap().entries.map((entry) {
+                                    final index = entry.key;
+                                    final host = entry.value;
+                                    return Positioned(
+                                      left: index * 14.0,
+                                      child: HostAvatarWidget(hostAvatar: host.avatar),
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        // Host Name
+                        FutureBuilder<List<Host>>(
+                          future: fetchHosts(eventDetail.hostIds),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(child: Text('Error: ${snapshot.error}'));
+                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return Center(child: Text('No hosts found.'));
+                            } else {
+                              final hosts = snapshot.data!;
+                              final hostNames = hosts.map((host) => host.fullName).join(', ');
+                              return Text(
+                                hostNames,
+                                style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                                  color: AppColors.labelSecondaryLight,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    // Event Name
+                    Text(
+                      eventDetail.eventName,
+                      style: FontTheme.customStyles['subheadlineRegular']?.copyWith(
+                        color: AppColors.labelPrimaryLight,
                       ),
-                      // Host Name
-                      FutureBuilder<List<Host>>(
-                        future: fetchHosts(eventDetail.hostIds),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (snapshot.hasError) {
-                            return Center(child: Text('Error: ${snapshot.error}'));
-                          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return Center(child: Text('No hosts found.'));
-                          } else {
-                            final hosts = snapshot.data!;
-                            final hostNames = hosts.map((host) => host.fullName).join(', ');
-                            return Text(
-                              hostNames,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 6),
+                    // Footer Section
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset('icons/time_icon.svg', width: 16, height: 16),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${eventDetail.startTime}',
                               style: FontTheme.customStyles['caption1Regular']?.copyWith(
                                 color: AppColors.labelSecondaryLight,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  // Event Name
-                  Text(
-                    eventDetail.eventName,
-                    style: FontTheme.customStyles['subheadlineRegular']?.copyWith(
-                      color: AppColors.labelPrimaryLight,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            SvgPicture.asset('icons/place_icon.svg', width: 16, height: 16),
+                            const SizedBox(width: 4),
+                            Text(
+                              'abc',
+                              style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                                color: AppColors.labelSecondaryLight,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 6),
-                  // Footer Section
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset('icons/time_icon.svg', width: 16, height: 16),
-                          const SizedBox(width: 4),
-                          Text(
-                            '${eventDetail.startTime}',
-                            style: FontTheme.customStyles['caption1Regular']?.copyWith(
-                              color: AppColors.labelSecondaryLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          SvgPicture.asset('icons/place_icon.svg', width: 16, height: 16),
-                          const SizedBox(width: 4),
-                          Text(
-                            'abc',
-                            style: FontTheme.customStyles['caption1Regular']?.copyWith(
-                              color: AppColors.labelSecondaryLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
