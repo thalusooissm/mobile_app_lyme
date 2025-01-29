@@ -8,26 +8,55 @@ import 'package:lyme_app/domain/models/host.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 
+import 'package:lyme_app/data/services/api/models/users_service.dart';
 
-class EventCard extends StatelessWidget {
+class EventCard extends StatefulWidget {
   final EventDetail eventDetail;
+  late Future<List<Host>> _hostsFuture;
 
-  const EventCard({
+  EventCard({
     Key? key,
     required this.eventDetail,
   }) : super(key: key);
 
-  Future<List<Host>> fetchHosts(List<int> hostIds) async {
-    try {
-      final String response = await rootBundle.loadString('lib/assets/data/repositories/users.json');
-      final List<dynamic> data = jsonDecode(response);
-      List<Host> allHosts = data.map((hostMap) => Host.fromMap(hostMap)).toList();
-      return allHosts.where((host) => hostIds.contains(host.userId)).toList();
-    } catch (e) {
-      print("Error fetching hosts: $e");
-      return [];
-    }
+  @override
+  _EventCardState createState() => _EventCardState();
+}
+
+class _EventCardState extends State<EventCard> {
+  late Future<List<Host>> _hostsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _hostsFuture = _initializeHosts();
   }
+
+  // Future<List<Host>> fetchHosts(List<int> hostIds) async {
+  //   try {
+  //     final String response = await rootBundle.loadString('lib/assets/data/repositories/users.json');
+  //     final List<dynamic> data = jsonDecode(response);
+  //     List<Host> allHosts = data.map((hostMap) => Host.fromMap(hostMap)).toList();
+  //     return allHosts.where((host) => hostIds.contains(host.userId)).toList();
+  //   } catch (e) {
+  //     print("Error fetching hosts: $e");
+  //     return [];
+  //   }
+  // }
+
+  Future<List<Host>> _initializeHosts() async {
+  await UsersService.connect();
+  final List<Map<String, dynamic>> data = await UsersService.getUsersByIds(
+    widget.eventDetail.hostIds.map((e) => e.toString()).toList(),
+  );
+  if (data.isEmpty) {
+    print('No events found in the database.');
+    return [];
+  }
+  return data.map((map) => Host.fromMap(map)).toList();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +78,7 @@ class EventCard extends StatelessWidget {
                 height: 76,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(eventDetail.image),
+                    image: NetworkImage(widget.eventDetail.image),
                     fit: BoxFit.fill,
                   ),
                   border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
@@ -68,7 +97,7 @@ class EventCard extends StatelessWidget {
                       children: [
                         // Host Avatar
                         FutureBuilder<List<Host>>(
-                          future: fetchHosts(eventDetail.hostIds),
+                          future: _hostsFuture,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Center(child: CircularProgressIndicator());
@@ -97,7 +126,7 @@ class EventCard extends StatelessWidget {
                         ),
                         // Host Name
                         FutureBuilder<List<Host>>(
-                          future: fetchHosts(eventDetail.hostIds),
+                          future: _hostsFuture,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Center(child: CircularProgressIndicator());
@@ -124,7 +153,7 @@ class EventCard extends StatelessWidget {
                     const SizedBox(height: 6),
                     // Event Name
                     Text(
-                      eventDetail.eventName,
+                      widget.eventDetail.eventName,
                       style: FontTheme.customStyles['subheadlineRegular']?.copyWith(
                         color: AppColors.labelPrimaryLight,
                       ),
@@ -138,10 +167,14 @@ class EventCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            SvgPicture.asset('icons/time_icon.svg', width: 16, height: 16),
+                          Icon(
+                            Icons.watch_later_rounded,
+                            color: AppColors.fillTertiary,
+                            size: 16,
+                          ), 
                             const SizedBox(width: 4),
                             Text(
-                              '${eventDetail.startTime}',
+                              '${widget.eventDetail.startTime}',
                               style: FontTheme.customStyles['caption1Regular']?.copyWith(
                                 color: AppColors.labelSecondaryLight,
                               ),
@@ -151,7 +184,12 @@ class EventCard extends StatelessWidget {
                         const SizedBox(height: 6),
                         Row(
                           children: [
-                            SvgPicture.asset('icons/place_icon.svg', width: 16, height: 16),
+                            Icon(
+                              Icons.explore_rounded,
+                                                          color: AppColors.fillTertiary,
+                            size: 16,
+
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               'abc',
