@@ -1,9 +1,9 @@
 import 'package:lyme_app/domain/models/event_detail.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
-class EventsService {
+class UsersService {
   static Db? db;
-  static DbCollection? eventCollection;
+  static DbCollection? usersCollection;
 
   static Future<void> connect() async {
     try {
@@ -13,11 +13,10 @@ class EventsService {
       print('Connected to MongoDB');
 
       final collections = await db!.getCollectionNames();
-      print('Available collections: $collections');
 
-      const targetCollection = "events";
+      const targetCollection = "users";
       if (collections.contains(targetCollection)) {
-        eventCollection = db!.collection(targetCollection);
+        usersCollection = db!.collection(targetCollection);
         print('Collection "$targetCollection" found and assigned.');
       } else {
         print('Collection "$targetCollection" does not exist in the database.');
@@ -29,7 +28,7 @@ class EventsService {
 
   static Future<List<Map<String, dynamic>>> getData() async {
     try {
-      final arrData = await eventCollection!.find().toList();
+      final arrData = await usersCollection!.find().toList();
       if (arrData.isEmpty) {
         print('The collection is empty.');
       } else {
@@ -42,20 +41,37 @@ class EventsService {
     }
   }
 
-  static Future<Map<String, dynamic>?> getEventById(String eventId) async {
+  static Future<Map<String, dynamic>?> getUserById(String userId) async {
     try {
-      final ObjectId objectId = ObjectId.parse(eventId);
-      final event = await eventCollection!.findOne(where.id(objectId));
+      final ObjectId objectId = ObjectId.parse(userId);
+      final user = await usersCollection!.findOne(where.id(objectId));
 
-      if (event != null) {
-        print('Event found: $event');
+      if (user != null) {
+        print('User found: $user');
       } else {
-        print('No event found with ID: $eventId');
+        print('No user found with ID: $userId');
       }
-      return event;
+      return user;
     } catch (e) {
-      print('Error fetching event by ID: $e');
+      print('Error fetching user by ID: $e');
       return null;
+    }
+  }
+
+    static Future<List<Map<String, dynamic>>> getUsersByIds(List<String> userIds) async {
+    try {
+      final objectIds = userIds.map((id) => ObjectId.parse(id)).toList();
+      final users = await usersCollection!.find(where.oneFrom('_id', objectIds)).toList();
+
+      if (users.isNotEmpty) {
+        print('Users found: $users');
+      } else {
+        print('No users found for given IDs.');
+      }
+      return users;
+    } catch (e) {
+      print('Error fetching users by IDs: $e');
+      return [];
     }
   }
 }
