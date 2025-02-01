@@ -51,7 +51,7 @@ class _EventCardState extends State<EventCard> {
     widget.eventDetail.hostIds.map((e) => e.toString()).toList(),
   );
   if (data.isEmpty) {
-    print('No events found in the database.');
+    print('No hosts found in the database.');
     return [];
   }
   return data.map((map) => Host.fromMap(map)).toList();
@@ -96,40 +96,59 @@ class _EventCardState extends State<EventCard> {
                     Row(
                       children: [
                         // Host Avatar
+FutureBuilder<List<Host>>(
+  future: _hostsFuture,
+  builder: (context, snapshot) {
+    if (snapshot.connectionState != ConnectionState.done) {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    if (snapshot.hasError) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Error: ${snapshot.error}', textAlign: TextAlign.center),
+            SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _hostsFuture = _hostsFuture; // Reload function
+                });
+              },
+              child: Text('Retry'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      return Center(child: Text('No hosts found.'));
+    }
+
+    final hosts = snapshot.data!;
+    return SizedBox(
+      height: 40, // More flexible size
+      width: hosts.length * 30.0, // Adjust for better spacing
+      child: Stack(
+        children: hosts.asMap().entries.map((entry) {
+          final index = entry.key;
+          final host = entry.value;
+          return Positioned(
+            left: index * 18.0, // Improved spacing
+            child: HostAvatarWidget(hostAvatar: host.avatar),
+          );
+        }).toList(),
+      ),
+    );
+  },
+),                        // Host Name
                         FutureBuilder<List<Host>>(
                           future: _hostsFuture,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            } else if (snapshot.hasError) {
-                              return Center(child: Text('Error: ${snapshot.error}'));
-                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                              return Center(child: Text('No hosts found.'));
-                            } else {
-                              final hosts = snapshot.data!;
-                              return SizedBox(
-                                height: 24,
-                                width: hosts.length * 22.0,
-                                child: Stack(
-                                  children: hosts.asMap().entries.map((entry) {
-                                    final index = entry.key;
-                                    final host = entry.value;
-                                    return Positioned(
-                                      left: index * 14.0,
-                                      child: HostAvatarWidget(hostAvatar: host.avatar),
-                                    );
-                                  }).toList(),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                        // Host Name
-                        FutureBuilder<List<Host>>(
-                          future: _hostsFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
+                              return Center(child: CupertinoActivityIndicator());
                             } else if (snapshot.hasError) {
                               return Center(child: Text('Error: ${snapshot.error}'));
                             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
