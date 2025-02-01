@@ -75,7 +75,7 @@ Padding(
       Row(
         children: [
           Expanded(
-            child: _buildSettingCard('Lịch sử vé', 'setting_ticket_history'),
+            child: _buildSettingCard('Lịch sử vé', '/setting'),
           ),
           SizedBox(width: 8),
           Expanded(
