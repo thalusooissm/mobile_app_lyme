@@ -44,6 +44,7 @@ class _SettingItemState extends State<SettingItem> {
               const SizedBox(width: 16),
               Expanded(
                 child: Container(
+                  width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   decoration: const BoxDecoration(
                     border: Border(

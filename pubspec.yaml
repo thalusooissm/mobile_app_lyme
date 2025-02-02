@@ -32,9 +32,9 @@ flutter:
   uses-material-design: true
   
   assets:
-    - assets/icons/               # Changed to root 'assets' directory
-    - assets/images/              # Changed to root 'assets' directory
-    - assets/data/repositories/   # Corrected typo 'repostiories' -> 'repositories'
+    - lib/assets/icons/               # Changed to root 'assets' directory
+    - lib/assets/images/              # Changed to root 'assets' directory
+    - lib/assets/data/repositories/   # Corrected typo 'repostiories' -> 'repositories'
 
   fonts:
     - family: SFPro
