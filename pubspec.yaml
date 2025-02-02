@@ -12,28 +12,29 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.17.0
-
   english_words: ^4.0.0
   provider: ^6.0.0
   mongo_dart: ^0.10.3
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
   flutter_svg: ^2.0.0
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "lib/assets/images/app_icon.png"  # Changed to root 'assets' directory
 
 flutter:
   uses-material-design: true
   
   assets:
-    - lib/assets/icons/
-    - lib/assets/images/
-    - lib/data/repostiories/
-    # - assets/data/
+    - assets/icons/               # Changed to root 'assets' directory
+    - assets/images/              # Changed to root 'assets' directory
+    - assets/data/repositories/   # Corrected typo 'repostiories' -> 'repositories'
 
   fonts:
     - family: SFPro
@@ -45,7 +46,3 @@ flutter:
           weight: 600
         - asset: assets/fonts/SF-Pro-Display-Medium.otf
           weight: 500
-
-
-
-

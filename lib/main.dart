@@ -42,7 +42,7 @@ class LymeApp extends StatelessWidget {
           case '/home':
             return CupertinoPageRoute(builder: (_) => HomeScreen());
           case '/setting':
-            return CupertinoPageRoute(builder: (_) => SettingScreen());
+            return CupertinoPageRoute(builder: (_) =>  SettingScreen());
           case '/create_password':
             return CupertinoPageRoute(builder: (_) => CreatePasswordScreen());
           case '/event_detail':
