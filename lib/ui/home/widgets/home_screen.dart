@@ -6,7 +6,8 @@ import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/discover/widgets/discover_screen.dart';
 import 'package:lyme_app/ui/home/widgets/main_navigation_bar.dart' as main_nav;
 import 'package:lyme_app/ui/search/widgets/search_screen.dart' as search;
-import 'package:lyme_app/ui/account/widgets/account_screen.dart'as account;  // Assuming these are correctly defined
+import 'package:lyme_app/ui/account/widgets/account_screen.dart'as account; 
+import 'package:lyme_app/ui/my_ticket/widgets/my_ticket_screen.dart' as my_ticket; // Assuming these are correctly defined
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ? SvgPicture.asset(
             'lib/assets/icons/discover_icon_selected.svg',            width: 24,
             height: 24,
-
             placeholderBuilder: (context) => CupertinoActivityIndicator(),
           )
         : SvgPicture.asset(
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
             case 2:
               return Center(child: Text('Tab 3 content'));
             case 3:
-              return Center(child: Text('Tab 4 content'));
+              return my_ticket.MyTicketScreen();
             case 4:
               return account.AccountScreen();
             default:

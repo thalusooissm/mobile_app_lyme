@@ -57,7 +57,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 child: Column(children: [
                   SettingItem(icon: Icons.contact_support_rounded, settingTitle: 'Hỗ trợ', settingPath: ''),
                   SettingItem(icon: Icons.article_rounded, settingTitle: 'Điều khoản và chính sách', settingPath: ''),
-                  SettingItem(icon: Icons.add_circle_outline_rounded, settingTitle: 'Theo dõi Lyme', settingPath: '')
+                  SettingItem(icon: Icons.add_circle_rounded, settingTitle: 'Theo dõi Lyme', settingPath: '')
                 ],)
               ),
             ],
