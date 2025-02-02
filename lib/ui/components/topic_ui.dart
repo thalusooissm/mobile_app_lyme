@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lyme_app/domain/models/topic.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 
 class TopicCard extends StatefulWidget {
-  final String iconAssetPath; // Path for the SVG icon
-  final String topicName; // Name of the topic to display
+  final Topic topic; 
 
-  // Constructor to accept the icon path and topic name
   TopicCard({
-    required this.iconAssetPath,
-    required this.topicName,
+    required this.topic,
   });
 
   @override
@@ -49,7 +47,6 @@ class _TopicCardState extends State<TopicCard> {
         ),
         child: Stack(
           children: [
-            // The card content (always visible)
             Container(
                 padding: const EdgeInsets.all(12),
               child: Column(
@@ -64,15 +61,15 @@ class _TopicCardState extends State<TopicCard> {
                         borderRadius: BorderRadius.circular(50),
                       ),
                     ),
-                    child: SvgPicture.asset(
-                      widget.iconAssetPath,
+                    child: Image.network(
+                      widget.topic.image,
                       height: 28,
                       width: 28,
                     ),
                   ),
                   // Use the passed topic name in the Text widget
                   Text(
-                    widget.topicName,
+                    widget.topic.topicName,
                     style: FontTheme.customStyles['footnoteEmphasized']?.copyWith(
                       color: AppColors.labelPrimaryLight, // Adjust color as needed
                     ),

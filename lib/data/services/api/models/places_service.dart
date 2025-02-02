@@ -1,9 +1,9 @@
 import 'package:lyme_app/domain/models/event_detail.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
-class UsersService {
+class PlacesService {
   static Db? db;
-  static DbCollection? usersCollection;
+  static DbCollection? placeCollection;
 
   static Future<void> connect() async {
     try {
@@ -13,10 +13,11 @@ class UsersService {
       print('Connected to MongoDB');
 
       final collections = await db!.getCollectionNames();
+      print('Available collections: $collections');
 
-      const targetCollection = "users";
+      const targetCollection = "places";
       if (collections.contains(targetCollection)) {
-        usersCollection = db!.collection(targetCollection);
+        placeCollection = db!.collection(targetCollection);
         print('Collection "$targetCollection" found and assigned.');
       } else {
         print('Collection "$targetCollection" does not exist in the database.');
@@ -28,7 +29,7 @@ class UsersService {
 
   static Future<List<Map<String, dynamic>>> getData() async {
     try {
-      final arrData = await usersCollection!.find().toList();
+      final arrData = await placeCollection!.find().toList();
       if (arrData.isEmpty) {
         print('The collection is empty.');
       } else {
@@ -41,48 +42,24 @@ class UsersService {
     }
   }
 
-  static Future<Map<String, dynamic>?> getUserById(int userId) async {
+  static Future<Map<String, dynamic>?> getPlaceById(String placeId) async {
     try {
-      if (usersCollection == null) {
+      if (placeCollection == null) {
         print('Error: usersCollection is not initialized.');
         return null;
       }
 
-      final user = await usersCollection!.findOne(where.eq('user_id', userId));
+      final place = await placeCollection!.findOne(where.eq('place_id', placeId));
 
-      if (user != null) {
-        print('User found: $user');
+      if (place != null) {
+        print('Place found: $place');
       } else {
-        print('No user found with ID: $userId');
+        print('No place found with ID: $placeId');
       }
-      return user;
+      return place;
     } catch (e) {
-      print('Error fetching user by ID: $e');
+      print('Error fetching place by ID: $e');
       return null;
     }
-  } 
-static Future<List<Map<String, dynamic>>> getUsersByIds(List<String> userIds) async {
-  try {
-    if (usersCollection == null) {
-      print('Error: usersCollection is not initialized.');
-      return [];
-    }
-
-    // Convert userIds to List<int>
-    final userIdInts = userIds.map((id) => int.tryParse(id)).whereType<int>().toList();
-
-    final users = await usersCollection!.find(where.oneFrom('user_id', userIdInts)).toList();
-
-    if (users.isNotEmpty) {
-      print('Users found: $users');
-    } else {
-      print('No users found for given IDs.');
-    }
-    return users;
-  } catch (e) {
-    print('Error fetching users by IDs: $e');
-    return [];
   }
-}
-
 }
