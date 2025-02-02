@@ -44,15 +44,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     _placesFuture = fetchPlaces();
      _eventsFuture = _initializeEvents();
 
-    // EventsService.connect().then((_) {
-    //   EventsService.getData().then((data) {
-    //     setState(() {
-    //       _eventsFuture = Future.value(data.map((map) => EventDetail.fromMap(map)).toList());
-    //     });
-    //   });
-    // }).catchError((e) {
-    //   print('Error connecting to MongoDB: $e');
-    // });
   }
 
   Future<List<Place>> fetchPlaces() async {
