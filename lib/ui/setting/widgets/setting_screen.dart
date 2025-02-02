@@ -14,8 +14,8 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Cài đặt'),
-        leading:  Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.labelPrimaryLight),
+        middle: Text('Cài đặt', style: FontTheme.customStyles['bodyEmphasized']?.copyWith(color: AppColors.labelPrimaryLight,),),
+        leading:  Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.labelPrimaryLight, size: 20,),
       ),
       backgroundColor: AppColors.backgroundPrimary,
       child: SafeArea(

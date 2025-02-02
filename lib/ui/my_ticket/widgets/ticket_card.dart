@@ -27,7 +27,7 @@ class _TicketCardState extends State<TicketCard> {
         child: Container(
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: isHovered ? AppColors.fillTertiary : AppColors.backgroundPrimary,
+            color: isHovered ? AppColors.gray4 : AppColors.backgroundPrimary,
             borderRadius: BorderRadius.all(Radius.circular(12)),
             border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
             boxShadow: [
