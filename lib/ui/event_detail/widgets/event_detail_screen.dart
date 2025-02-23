@@ -128,8 +128,12 @@ class EventDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text("Event Details", style: FontTheme.customStyles['title1']),
-        backgroundColor: AppColors.backgroundPrimary,
+        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: true,
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back_ios_new_rounded, size: 20,),
+        ),
       ),
       child: Stack(
         children: [

@@ -27,7 +27,7 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   late Future<List<Place>> _placesFuture;
-  late Future<List<EventDetail>> _eventsFuture;
+  late Future<List<EventDetail>> _eventsFuture, _eventsGridFuture;
   late Future<List<Topic>> _topicsFuture;
 
 
@@ -37,6 +37,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     _placesFuture = _initializePlaces();
      _eventsFuture = _initializeEvents();
      _topicsFuture = _initializeTopics();
+     _eventsGridFuture = _eventsFuture;
 
   }
 
@@ -113,6 +114,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             children: [
               SizedBox(height: 56), // Add padding to avoid overlap with navigation bar
               _buildSectionHeader('Sự kiện nổi bật'),
+              _buildEventGrid(),
               _buildSectionHeader('Chủ đề'),
               SizedBox(height: 16),
               _buildTopicsFutureBuilder(),
@@ -244,22 +246,12 @@ builder: (context, snapshot) {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 16.0, right: 8.0),
-            child: GestureDetector(
-              onTap: () {
-                print('First topic pressed: ${topics.first.topicName}');
-              },
-              child: TopicCard(topic: topics.first),
-            ),
+            child: TopicCard(topic: topics.first),
           ),
           ...topics.skip(1).take(9).map((topic) {
             return Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child: GestureDetector(
-                onTap: () {
-                  print('${topic.topicName} pressed');
-                },
-                child: TopicCard(topic: topic),
-              ),
+              child: TopicCard(topic: topic),
             );
           }).toList(),
         ],
@@ -317,5 +309,45 @@ builder: (context, snapshot) {
         }
       },
     );
+  }
+  
+  _buildEventGrid() {
+    return FutureBuilder<List<EventDetail>>(
+        future: _eventsGridFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CupertinoActivityIndicator());
+          }
+          if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text("No events found."));
+          }
+
+          List<EventDetail> events = snapshot.data!;
+          int totalPages = (events.length / 2).ceil(); // Each page has 2 events
+
+          return PageView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: totalPages,
+            itemBuilder: (context, pageIndex) {
+              // Get the slice of events for this page
+              int start = pageIndex * 2;
+              int end = (start + 2).clamp(0, events.length);
+              List<EventDetail> pageEvents = events.sublist(start, end);
+
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16), // Adjust spacing
+                child: GridView.count(
+                  crossAxisCount: 2, // 2 rows per column
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 0.8, // Adjust for card size
+                  physics: NeverScrollableScrollPhysics(), // Disable internal scroll
+                  children: pageEvents.map((event) => EventCard(eventDetail: event,)).toList(),
+                ),
+              );
+            },
+          );
+        },
+      );
   }
 }

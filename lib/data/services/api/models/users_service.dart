@@ -61,28 +61,27 @@ class UsersService {
       return null;
     }
   } 
-static Future<List<Map<String, dynamic>>> getUsersByIds(List<String> userIds) async {
+static Future<List<Map<String, dynamic>>> getUsersByIds(List<int> userIds) async {
   try {
     if (usersCollection == null) {
       print('Error: usersCollection is not initialized.');
       return [];
     }
 
-    // Convert userIds to List<int>
-    final userIdInts = userIds.map((id) => int.tryParse(id)).whereType<int>().toList();
-
-    final users = await usersCollection!.find(where.oneFrom('user_id', userIdInts)).toList();
+    final users = await usersCollection!.find(
+      where.oneFrom('user_id', userIds), // Directly use `userIds` without re-parsing
+    ).toList();
 
     if (users.isNotEmpty) {
       print('Users found: $users');
     } else {
       print('No users found for given IDs.');
     }
+
     return users;
   } catch (e) {
     print('Error fetching users by IDs: $e');
     return [];
   }
 }
-
 }

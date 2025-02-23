@@ -9,7 +9,7 @@ class Host {
   final String gender;
   final String userName;
   final String avatar;
-  final String hostType; // Required
+  final String? hostType; // Now optional
   final String? bio; // Nullable
 
   Host({
@@ -23,15 +23,11 @@ class Host {
     required this.gender,
     required this.userName,
     required this.avatar,
-    required this.hostType, // Now required
+    this.hostType, // Now optional
     this.bio,
   });
 
   factory Host.fromMap(Map<String, dynamic> map) {
-    if (map['host_type'] == null) {
-      throw ArgumentError('host_type is required but not found in the map');
-    }
-
     return Host(
       userId: map['user_id'] as int,
       fullName: map['full_name'] ?? 'Unknown',
@@ -45,7 +41,7 @@ class Host {
       gender: map['gender'] ?? 'Unknown',
       userName: map['user_name'] ?? 'Anonymous',
       avatar: map['avatar'] ?? '',
-      hostType: map['host_type'] as String, // Required
+      hostType: map['host_type'] as String?, // Now optional
       bio: map['bio'] as String?,
     );
   }
@@ -62,7 +58,7 @@ class Host {
       'gender': gender,
       'user_name': userName,
       'avatar': avatar,
-      'host_type': hostType, // Required field included
+      'host_type': hostType, // Optional field included
       'bio': bio,
     };
   }

@@ -56,6 +56,14 @@ class FontTheme {
       fontWeight: FontWeight.w700,
       fontFamily: 'SFPro',
     ),
+
+    'title2Regular': TextStyle(
+      fontSize: 22,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'SFPro',
+    ),
+
+
     'title3Emphasized': TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,

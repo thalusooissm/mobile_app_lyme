@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 import 'package:lyme_app/ui/auth/sign_up/widgets/create_password_screen.dart';
 import 'package:lyme_app/ui/event_detail/widgets/event_detail_screen.dart';
+import 'package:lyme_app/ui/view_ticket/widgets/view_ticket_screen.dart';
 
 
 void main() {
@@ -47,6 +48,8 @@ class LymeApp extends StatelessWidget {
             return CupertinoPageRoute(builder: (_) => CreatePasswordScreen());
           case '/event_detail':
             return CupertinoPageRoute(builder: (_) => EventDetailScreen());
+          case '/view_ticket':
+            return CupertinoPageRoute(builder: (_) => ViewTicketScreen());
           default:
             return CupertinoPageRoute(builder: (_) => WelcomeScreen());
         }

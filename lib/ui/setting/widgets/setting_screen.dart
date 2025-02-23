@@ -49,7 +49,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               SizedBox(height: 16,),
               Container(
-                                clipBehavior: Clip.hardEdge,
+                clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   color: AppColors.fillTertiary

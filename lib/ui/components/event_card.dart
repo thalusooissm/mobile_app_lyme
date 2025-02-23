@@ -45,18 +45,26 @@ class _EventCardState extends State<EventCard> {
   //   }
   // }
 
-  Future<List<Host>> _initializeHosts() async {
-  await UsersService.connect();
-  final List<Map<String, dynamic>> data = await UsersService.getUsersByIds(
-    widget.eventDetail.hostIds.map((e) => e.toString()).toList(),
-  );
-  if (data.isEmpty) {
-    print('No hosts found in the database.');
+// ✅ Improved version of `_initializeHosts()`
+Future<List<Host>> _initializeHosts() async {
+  try {
+    await UsersService.connect();
+
+    final List<Map<String, dynamic>> data = await UsersService.getUsersByIds(
+      widget.eventDetail.hostIds, // No need for `.map((e) => e.toString()).toList()`
+    );
+
+    if (data.isEmpty) {
+      print('No hosts found in the database.');
+      return [];
+    }
+
+    return data.map((map) => Host.fromMap(map)).toList();
+  } catch (e) {
+    print('Error initializing hosts: $e');
     return [];
   }
-  return data.map((map) => Host.fromMap(map)).toList();
-  }
-
+}
 
   @override
   Widget build(BuildContext context) {
@@ -96,54 +104,56 @@ class _EventCardState extends State<EventCard> {
                     Row(
                       children: [
                         // Host Avatar
-FutureBuilder<List<Host>>(
-  future: _hostsFuture,
-  builder: (context, snapshot) {
-    if (snapshot.connectionState != ConnectionState.done) {
-      return Center(child: CircularProgressIndicator());
-    }
+                        FutureBuilder<List<Host>>(
+                          future: _hostsFuture,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            if (snapshot.hasError) {
+                              return Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'Error: ${snapshot.error}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    SizedBox(height: 8),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _hostsFuture = _initializeHosts(); // Re-fetch data
+                                        });
+                                      },
+                                      child: Text('Retry'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return Center(child: Text('No hosts found.'));
+                            }
 
-    if (snapshot.hasError) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Error: ${snapshot.error}', textAlign: TextAlign.center),
-            SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _hostsFuture = _hostsFuture; // Reload function
-                });
-              },
-              child: Text('Retry'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (!snapshot.hasData || snapshot.data!.isEmpty) {
-      return Center(child: Text('No hosts found.'));
-    }
-
-    final hosts = snapshot.data!;
-    return SizedBox(
-      height: 40, // More flexible size
-      width: hosts.length * 30.0, // Adjust for better spacing
-      child: Stack(
-        children: hosts.asMap().entries.map((entry) {
-          final index = entry.key;
-          final host = entry.value;
-          return Positioned(
-            left: index * 18.0, // Improved spacing
-            child: HostAvatarWidget(hostAvatar: host.avatar),
-          );
-        }).toList(),
-      ),
-    );
-  },
-),                        // Host Name
+                            final hosts = snapshot.data!;
+                            return SizedBox(
+                              height: 40, 
+                              width: hosts.length * 30.0, 
+                              child: Stack(
+                                children: hosts.asMap().entries.map((entry) {
+                                  final index = entry.key;
+                                  final host = entry.value;
+                                  return Positioned(
+                                    left: index * 18.0,
+                                    child: HostAvatarWidget(host: host),
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                          },
+                        ),
                         FutureBuilder<List<Host>>(
                           future: _hostsFuture,
                           builder: (context, snapshot) {
@@ -232,9 +242,9 @@ FutureBuilder<List<Host>>(
 }
 
 class HostAvatarWidget extends StatelessWidget {
-  final String hostAvatar;
+  final Host host;
 
-  const HostAvatarWidget({Key? key, required this.hostAvatar}) : super(key: key);
+  const HostAvatarWidget({Key? key, required this.host}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -243,8 +253,11 @@ class HostAvatarWidget extends StatelessWidget {
       height: 24,
       decoration: ShapeDecoration(
         image: DecorationImage(
-          image: NetworkImage(hostAvatar),
+          image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
           fit: BoxFit.fill,
+          onError: (error, stackTrace) {
+            debugPrint("Image Load Error: $error");
+          },
         ),
         shape: RoundedRectangleBorder(
           side: BorderSide(width: 2, color: Colors.white),

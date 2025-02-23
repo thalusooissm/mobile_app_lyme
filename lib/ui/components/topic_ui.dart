@@ -21,21 +21,6 @@ class _TopicCardState extends State<TopicCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true; // Set to true when the card is pressed down
-        });
-      },
-      onTapUp: (_) {
-        setState(() {
-          _isPressed = false; // Reset when the tap is released
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          _isPressed = false; // Reset if the tap is canceled
-        });
-      },
       child: Container(
         width: 136,
         height: 88,
