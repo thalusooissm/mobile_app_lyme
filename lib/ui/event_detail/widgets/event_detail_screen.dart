@@ -21,23 +21,24 @@ final List<Blast> dummyBlasts = [
     eventId: 101,
     hostId: 1,
     timestamp: DateTime.parse("2025-01-01 12:00:00"),
-    content: "Join us for an exciting event happening this weekend!",
+    content: "Tham gia cùng chúng tôi trong sự kiện thú vị diễn ra vào cuối tuần này!",
   ),
   Blast(
     blastId: 2,
     eventId: 102,
     hostId: 2,
     timestamp: DateTime.parse("2025-01-05 15:30:00"),
-    content: "Dont miss out on the special discounts for early registrations!",
+    content: "Đừng bỏ lỡ ưu đãi đặc biệt khi đăng ký sớm!",
   ),
   Blast(
     blastId: 3,
     eventId: 103,
     hostId: 3,
     timestamp: DateTime.parse("2025-01-10 09:45:00"),
-    content: "Our keynote speaker has just been announced. Check it out!",
+    content: "Diễn giả chính của chúng tôi vừa được công bố. Hãy xem ngay!",
   ),
 ];
+
 
 final List<EventTicket> dummyEventTickets = [
   EventTicket(
@@ -45,7 +46,7 @@ final List<EventTicket> dummyEventTickets = [
     eventId: 101,
     capacity: 100,
     typeName: "VIP",
-    description: "Access to exclusive VIP areas and perks",
+    description: "Tiếp cận những đặc quyền hàng đầu",
     ifFree: false,
     price: 500.0,
     discountPrice: 450.0,
@@ -56,8 +57,8 @@ final List<EventTicket> dummyEventTickets = [
     tickTypeId: 2,
     eventId: 101,
     capacity: 200,
-    typeName: "Standard",
-    description: "General admission with great seating",
+    typeName: "Tiêu chuẩn",
+    description: "Chỗ ngồi tốt, tầm nhìn siêu tuyệt.",
     ifFree: false,
     price: 200.0,
     discountPrice: null,
@@ -68,8 +69,8 @@ final List<EventTicket> dummyEventTickets = [
     tickTypeId: 3,
     eventId: 101,
     capacity: 50,
-    typeName: "Free Pass",
-    description: "Limited free tickets for early registrants",
+    typeName: "Sinh viên",
+    description: "Giới hạn cho những sinh viên",
     ifFree: true,
     price: null,
     discountPrice: null,
@@ -174,7 +175,7 @@ class EventDetailScreen extends StatelessWidget {
                   _listOfHotsts(),
                   SizedBox(height: 40),
                   _buildBlasts(),
-                                    SizedBox(height: 40),
+                  SizedBox(height: 40),
                   _buildEventDescription(),
                 ],
               ),
@@ -478,32 +479,32 @@ class EventDetailScreen extends StatelessWidget {
         style: FontTheme.customStyles['footnoteRegular']?.copyWith(color: AppColors.labelPrimaryDark)),),],);
   }
   
-Widget _buildBlasts() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildHeading(label: 'Lời nhắn'),
-      SizedBox(height: 16),
-      SizedBox(
-        height: 200, // Set a height to prevent unbounded error
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: dummyBlasts.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(
-                left: index == 0 ? 16.0 : 8.0, // Padding left for the first item
-                right: index == dummyBlasts.length - 1 ? 16.0 : 0.0, // Padding right for the last item
-              ),
-              child: BlastCard(
-                blast: dummyBlasts[index],
-              ),
-            );
-          },
+  Widget _buildBlasts() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildHeading(label: 'Lời nhắn'),
+        SizedBox(height: 16),
+        SizedBox(
+          height: 200,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: dummyBlasts.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(
+                  left: index == 0 ? 16.0 : 8.0, // Padding left for the first item
+                  right: index == dummyBlasts.length - 1 ? 16.0 : 0.0, // Padding right for the last item
+                ),
+                child: BlastCard(
+                  blast: dummyBlasts[index],
+                ),
+              );
+            },
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
 }
