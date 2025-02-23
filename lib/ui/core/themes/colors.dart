@@ -80,6 +80,8 @@ class AppColors {
 
   static const Color tabUnselected = Color.fromRGBO(153, 153, 153, 1);
 
+  
+
 
   AppColors(String s);
 

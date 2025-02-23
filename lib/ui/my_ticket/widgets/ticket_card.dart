@@ -21,6 +21,9 @@ class _TicketCardState extends State<TicketCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+    onTap: () {
+      Navigator.pushNamed(context, '/view_ticket');
+    },
       child: MouseRegion(
         onEnter: (_) => setState(() => isHovered = true),
         onExit: (_) => setState(() => isHovered = false),
@@ -190,3 +193,4 @@ decoration: BoxDecoration(
     );
   }
 }
+

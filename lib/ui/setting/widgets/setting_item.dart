@@ -35,6 +35,7 @@ class _SettingItemState extends State<SettingItem> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           color: isHovered ? AppColors.fillPrimary : Colors.transparent, // Change background on hover
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Icon(
                 widget.icon,

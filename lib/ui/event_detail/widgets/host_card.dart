@@ -72,7 +72,7 @@ class _HostCardState extends State<HostCard> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      widget.host.hostType,
+                      'BTC',
                       style: FontTheme.customStyles['footnoteRegular']?.copyWith(
                         color: AppColors.labelSecondaryDark,
                       ),

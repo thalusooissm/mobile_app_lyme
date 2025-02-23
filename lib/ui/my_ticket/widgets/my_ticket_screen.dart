@@ -9,6 +9,7 @@ import 'package:lyme_app/ui/core/themes/theme.dart';
 import 'package:lyme_app/data/services/api/models/tickets_service.dart';
 import 'package:lyme_app/domain/models/ticket.dart';
 import 'package:lyme_app/ui/my_ticket/widgets/ticket_card.dart';
+import 'package:lyme_app/ui/my_ticket/widgets/label_filter.dart';
 
 class MyTicketScreen extends StatefulWidget {
   @override
@@ -18,11 +19,29 @@ class MyTicketScreen extends StatefulWidget {
 class _MyTicketScreenState extends State<MyTicketScreen> {
   late Future<List<Ticket>> _ticketsFuture;
 
+    List<Map<String, dynamic>> dummyData = [
+    {'label': 'Tất cả', 'isSelected': true},
+    {'label': 'Chưa dùng', 'isSelected': false},
+    {'label': 'Đã nhận', 'isSelected': false},
+    {'label': 'Đã dùng', 'isSelected': false},
+    {'label': 'Đã chia sẻ', 'isSelected': false},
+  ];
+
   @override
   void initState() {
     super.initState();
     _ticketsFuture = _initializeTickets();
   }
+
+    void toggleSelection(int index) {
+    setState(() {
+      for (var item in dummyData) {
+        item['isSelected'] = false; // Unselect all
+      }
+      dummyData[index]['isSelected'] = true; // Select only one
+    });
+  }
+
 
   Future<List<Ticket>> _initializeTickets() async {
     await TicketsService.connect();
@@ -69,6 +88,34 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+Container(
+  height: 32, // Adjust this value to match LabelFilter height
+  child: Row(
+    children: [
+      Expanded(
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: dummyData.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(
+                left: index == 0 ? 16 : 8, // First item left padding
+                right: index == dummyData.length - 1 ? 16 : 0, // Last item right padding
+              ),
+              child: GestureDetector(
+                onTap: () => toggleSelection(index),
+                child: LabelFilter(
+                  label: dummyData[index]['label'],
+                  isSelected: dummyData[index]['isSelected'],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    ],
+  ),
+),            SizedBox(height: 16), // Add 16 units of space
               // FutureBuilder to handle async data and build UI accordingly
               FutureBuilder<List<Ticket>>(
                 future: _ticketsFuture,
