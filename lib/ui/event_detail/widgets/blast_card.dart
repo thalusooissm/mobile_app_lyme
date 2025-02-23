@@ -9,10 +9,10 @@ class BlastCard extends StatefulWidget {
   BlastCard({required this.blast});
 
   @override
-  _BlastCardState createState() => _BlastCardState();
+  BlastCardState createState() => BlastCardState();
 }
 
-class _BlastCardState extends State<BlastCard> {
+class BlastCardState extends State<BlastCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -116,6 +116,7 @@ class _BlastCardState extends State<BlastCard> {
             style: FontTheme.customStyles['footnoteRegular']?.copyWith(
               color: AppColors.labelPrimaryDark,
             ),
+            softWrap: true,
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
           ),
