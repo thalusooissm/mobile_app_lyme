@@ -9,13 +9,14 @@ import 'package:lyme_app/ui/core/themes/theme.dart';
 
 class ViewTicketScreen extends StatefulWidget {
   @override
-  _ViewTicketScreenState createState() => _ViewTicketScreenState();
+  ViewTicketScreenState createState() => ViewTicketScreenState();
 }
 
-class _ViewTicketScreenState extends State<ViewTicketScreen> {
+class ViewTicketScreenState extends State<ViewTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      backgroundColor: AppColors.backgroundPrimary,
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.transparent,
         middle: Text(
@@ -25,8 +26,9 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
         ),
         leading: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
-          child: Icon(Icons.arrow_back_ios_new_rounded, 
-            color: AppColors.labelPrimaryLight, 
+          child: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColors.labelPrimaryLight,
             size: 20,
           ),
         ),
@@ -37,7 +39,8 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
+                  image: NetworkImage(
+                      'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -70,113 +73,164 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
         ],
       ),
     );
-  }  
+  }
 
   Widget _buildEventInfoSection() {
-    return           
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
             color: AppColors.backgroundBlur75,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator)
-          ),
-          child: Column(
-            children: [
-              Row(
+            border:
+                Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator)),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Triển lãm Những Địa hạt Phù du',
+                  style:
+                      FontTheme.customStyles['subheadlineEmphasized']?.copyWith(
+                    color: AppColors.labelPrimaryLight,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                      top: BorderSide(
+                          width: 0.33, color: AppColors.nonOpaqueSeparator))),
+              padding: EdgeInsets.only(top: 8),
+              child: Column(
                 children: [
-                  Text('Triển lãm Những Địa hạt Phù du',
-                  style: FontTheme.customStyles['subheadlineEmphasized']?.copyWith(color: AppColors.labelPrimaryLight,),)
-                ],
-              ),
-              SizedBox(height: 4,),
-              Container(
-                decoration: BoxDecoration(border: Border(top: BorderSide(width: 0.33, color: AppColors.nonOpaqueSeparator))),
-                padding: EdgeInsets.only(top: 8),
-                child: Column(
-                  children: [
-                    Row(children: [
+                  Row(
+                    children: [
                       Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
-                          borderRadius: BorderRadius.circular(12),
-                          color: AppColors.fillQuaternary
+                            border: Border.all(
+                                width: 0.33,
+                                color: AppColors.nonOpaqueSeparator),
+                            borderRadius: BorderRadius.circular(12),
+                            color: AppColors.fillQuaternary),
+                        child: Icon(
+                          Icons.alarm_rounded,
+                          size: 20,
+                          color: AppColors.labelPrimaryLight,
                         ),
-                        child: Icon(Icons.alarm_rounded, size: 20, color: AppColors.labelPrimaryLight,)
                       ),
-                      SizedBox(width: 8,),
+                      SizedBox(
+                        width: 8,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('Hôm nay, 21 Tháng 12, 2024',
-                                style: FontTheme.customStyles['footnoteRegular']?.copyWith(color: AppColors.labelPrimaryLight,),)
+                              Text(
+                                'Hôm nay, 21 Tháng 12, 2024',
+                                style: FontTheme.customStyles['footnoteRegular']
+                                    ?.copyWith(
+                                  color: AppColors.labelPrimaryLight,
+                                ),
+                              )
                             ],
                           ),
-                          SizedBox(height: 2,),
+                          SizedBox(
+                            height: 2,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('20:00 - 23:00',
-                                style: FontTheme.customStyles['footnoteRegular']?.copyWith(color: AppColors.labelSecondaryLight,),)
+                              Text(
+                                '20:00 - 23:00',
+                                style: FontTheme.customStyles['footnoteRegular']
+                                    ?.copyWith(
+                                  color: AppColors.labelSecondaryLight,
+                                ),
+                              )
                             ],
                           ),
                         ],
                       )
-                    ],),
-                    SizedBox(height: 12,),
-                    Row(children: [
+                    ],
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    children: [
                       Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
-                          borderRadius: BorderRadius.circular(12),
-                          color: AppColors.fillQuaternary
-                        ),
-                        child: Icon(Icons.location_on_outlined, size: 20, color: AppColors.labelPrimaryLight,)
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 0.33,
+                                  color: AppColors.nonOpaqueSeparator),
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.fillQuaternary),
+                          child: Icon(
+                            Icons.location_on_outlined,
+                            size: 20,
+                            color: AppColors.labelPrimaryLight,
+                          )),
+                      SizedBox(
+                        width: 8,
                       ),
-                      SizedBox(width: 8,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('Nhà hát ABCD',
-                                style: FontTheme.customStyles['footnoteRegular']?.copyWith(color: AppColors.labelPrimaryLight,),)
+                              Text(
+                                'Nhà hát ABCD',
+                                style: FontTheme.customStyles['footnoteRegular']
+                                    ?.copyWith(
+                                  color: AppColors.labelPrimaryLight,
+                                ),
+                              )
                             ],
                           ),
-                          SizedBox(height: 2,),
+                          SizedBox(
+                            height: 2,
+                          ),
                           Row(
                             children: [
-                              Expanded( // Ensures text wraps properly inside Row
+                              Expanded(
+                                // Ensures text wraps properly inside Row
                                 child: Text(
                                   '120/32 Thích Quảng Đức, Phường 5, Quận Phú Nhuận, TP. Hồ Chí Minh',
                                   maxLines: 3,
-                                  overflow: TextOverflow.ellipsis, // Prevents overflow issues
-                                  style: FontTheme.customStyles['footnoteRegular']
-                                      ?.copyWith(color: AppColors.labelSecondaryLight),
+                                  overflow: TextOverflow
+                                      .ellipsis, // Prevents overflow issues
+                                  style: FontTheme
+                                      .customStyles['footnoteRegular']
+                                      ?.copyWith(
+                                          color: AppColors.labelSecondaryLight),
                                 ),
                               ),
                             ],
-                          )                        
+                          )
                         ],
                       )
-                    ],),
-                  ],
-                ),
-              )
-            ],
-          ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-      );
+      ),
+    );
   }
-  
+
   Widget _buildTicketSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -188,9 +242,11 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
               width: double.infinity, // Takes full width of its parent
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
+                border: Border.all(
+                    width: 0.33, color: AppColors.nonOpaqueSeparator),
                 image: DecorationImage(
-                  image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
+                  image: NetworkImage(
+                      'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -201,60 +257,123 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
             left: 0,
             right: 0,
             child: ClipRRect(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)), // Optional: Rounds bottom corners
+              borderRadius: BorderRadius.vertical(
+                  bottom:
+                      Radius.circular(12)), // Optional: Rounds bottom corners
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50), // Adjust blur strength
+                filter: ImageFilter.blur(
+                    sigmaX: 50, sigmaY: 50), // Adjust blur strength
                 child: Container(
                   padding: EdgeInsets.fromLTRB(16, 8, 16, 12),
                   decoration: BoxDecoration(
-                    color: AppColors.backgroundBlur75,
-                    border: Border(top: BorderSide(width: 0.33, color: AppColors.nonOpaqueSeparator))
-                  ),
+                      color: AppColors.backgroundBlur75,
+                      border: Border(
+                          top: BorderSide(
+                              width: 0.33,
+                              color: AppColors.nonOpaqueSeparator))),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Vé mua ngày 12/12/2024.',
-                        style: FontTheme.customStyles['caption1Regular']?.copyWith(color: AppColors.labelSecondaryLight,),),
-                      SizedBox(height: 4,),
+                      Text(
+                        'Vé mua ngày 12/12/2024.',
+                        style:
+                            FontTheme.customStyles['caption1Regular']?.copyWith(
+                          color: AppColors.labelSecondaryLight,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('Loại vé:',
-                            style: FontTheme.customStyles['title2Regular']?.copyWith(color: AppColors.labelSecondaryLight,),),
-                          SizedBox(width: 4,),
-                          Text('Đỉnh nóc',
-                            style: FontTheme.customStyles['title2Emphasized']?.copyWith(color: AppColors.labelPrimaryLight,),),
+                          Text(
+                            'Loại vé:',
+                            style: FontTheme.customStyles['title2Regular']
+                                ?.copyWith(
+                              color: AppColors.labelSecondaryLight,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            'Đỉnh nóc',
+                            style: FontTheme.customStyles['title2Emphasized']
+                                ?.copyWith(
+                              color: AppColors.labelPrimaryLight,
+                            ),
+                          ),
                         ],
                       ),
-                      SizedBox(height: 4,),
+                      SizedBox(
+                        height: 4,
+                      ),
                       Container(
                         padding: EdgeInsets.only(top: 8),
                         decoration: BoxDecoration(
-                          border: Border(top: BorderSide(width: 0.33, color: AppColors.nonOpaqueSeparator))
-                        ),
+                            border: Border(
+                                top: BorderSide(
+                                    width: 0.33,
+                                    color: AppColors.nonOpaqueSeparator))),
                         child: Row(
                           children: [
-                            Text('Khu vực',
-                              style: FontTheme.customStyles['subheadlineRegular']?.copyWith(color: AppColors.labelSecondaryLight,),
+                            Text(
+                              'Khu vực',
+                              style: FontTheme
+                                  .customStyles['subheadlineRegular']
+                                  ?.copyWith(
+                                color: AppColors.labelSecondaryLight,
+                              ),
                             ),
-                            SizedBox(width: 4,),
-                            Text('A',
-                              style: FontTheme.customStyles['subheadlineEmphasized']?.copyWith(color: AppColors.labelPrimaryLight,),
+                            SizedBox(
+                              width: 4,
                             ),
-                            SizedBox(width: 4,),
-                            Text('/',
-                              style: FontTheme.customStyles['subheadlineRegular']?.copyWith(color: AppColors.labelSecondaryLight,),
+                            Text(
+                              'A',
+                              style: FontTheme
+                                  .customStyles['subheadlineEmphasized']
+                                  ?.copyWith(
+                                color: AppColors.labelPrimaryLight,
+                              ),
                             ),
-                            SizedBox(width: 4,),
-                            Text('Hàng',
-                              style: FontTheme.customStyles['subheadlineRegular']?.copyWith(color: AppColors.labelSecondaryLight,),
+                            SizedBox(
+                              width: 4,
                             ),
-                            SizedBox(width: 4,),
-                            Text('12',
-                              style: FontTheme.customStyles['subheadlineEmphasized']?.copyWith(color: AppColors.labelPrimaryLight,),
+                            Text(
+                              '/',
+                              style: FontTheme
+                                  .customStyles['subheadlineRegular']
+                                  ?.copyWith(
+                                color: AppColors.labelSecondaryLight,
+                              ),
                             ),
-                            SizedBox(width: 4,),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'Hàng',
+                              style: FontTheme
+                                  .customStyles['subheadlineRegular']
+                                  ?.copyWith(
+                                color: AppColors.labelSecondaryLight,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              '12',
+                              style: FontTheme
+                                  .customStyles['subheadlineEmphasized']
+                                  ?.copyWith(
+                                color: AppColors.labelPrimaryLight,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
                           ],
                         ),
                       )
@@ -263,15 +382,14 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
                 ),
               ),
             ),
-          )     
+          )
         ],
       ),
     );
   }
-  
+
   Widget _buildButtonSection() {
-    return           
-    Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         children: [
@@ -284,7 +402,8 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.festival_rounded, color: AppColors.primary, size: 22),
+                  Icon(Icons.festival_rounded,
+                      color: AppColors.primary, size: 22),
                   SizedBox(width: 4),
                   Text(
                     'Xem sự kiện',
@@ -308,7 +427,8 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center, // Center content
                 children: [
-                  Icon(Icons.arrow_circle_up_rounded, color: AppColors.primary, size: 22),
+                  Icon(Icons.arrow_circle_up_rounded,
+                      color: AppColors.primary, size: 22),
                   SizedBox(width: 4),
                   Text(
                     'Gửi vé',
@@ -325,4 +445,3 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
     );
   }
 }
-

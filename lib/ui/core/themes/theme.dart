@@ -56,20 +56,16 @@ class FontTheme {
       fontWeight: FontWeight.w700,
       fontFamily: 'SFPro',
     ),
-
     'title2Regular': TextStyle(
       fontSize: 22,
       fontWeight: FontWeight.w400,
       fontFamily: 'SFPro',
     ),
-
-
     'title3Emphasized': TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
-
     'headlineRegular': TextStyle(
       fontSize: 17,
       fontWeight: FontWeight.w600,
@@ -80,53 +76,51 @@ class FontTheme {
       fontWeight: FontWeight.w400,
       fontFamily: 'SFPro',
     ),
+    'bodyEmphasized': TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'SFPro',
+    ),
     'subheadlineRegular': TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w400,
       fontFamily: 'SFPro',
     ),
-
-        'subheadlineEmphasized': TextStyle(
+    'subheadlineEmphasized': TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
-
     'caption1Regular': TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       fontFamily: 'SFPro',
     ),
-
-        'caption2Regular': TextStyle(
+    'caption2Regular': TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w400,
       fontFamily: 'SFPro',
     ),
-
     'caption1Emphasized': TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
-      'footnoteEmphasized': TextStyle(
+    'footnoteEmphasized': TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
-      'footnoteRegular': TextStyle(
+    'footnoteRegular': TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w400,
       fontFamily: 'SFPro',
     ),
-      'calloutEmphasized': TextStyle(
-      fontSize:16,
+    'calloutEmphasized': TextStyle(
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
-
-
-
   };
 }
 
