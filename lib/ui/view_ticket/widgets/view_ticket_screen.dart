@@ -1,24 +1,21 @@
-import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 
 class ViewTicketScreen extends StatefulWidget {
   @override
-  ViewTicketScreenState createState() => ViewTicketScreenState();
+  _ViewTicketScreenState createState() => _ViewTicketScreenState();
 }
 
-class ViewTicketScreenState extends State<ViewTicketScreen> {
+class _ViewTicketScreenState extends State<ViewTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: AppColors.backgroundPrimary,
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.transparent,
+        border: Border(), // Remove bottom shadow
         middle: Text(
           'Vé',
           style: FontTheme.customStyles['bodyEmphasized']
@@ -32,28 +29,25 @@ class ViewTicketScreenState extends State<ViewTicketScreen> {
             size: 20,
           ),
         ),
+        automaticallyImplyLeading: false,
       ),
       child: Stack(
         children: [
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                      'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
-                  fit: BoxFit.cover,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                    'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          Positioned.fill(
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 150.0, sigmaY: 150.0),
-                child: Container(
-                  color: AppColors.backgroundBlur75, // Adjust opacity if needed
-                ),
-              ),
+          BackdropFilter(
+            filter: ImageFilter.blur(
+                sigmaX: 150.0, sigmaY: 150.0), // Adjust blur intensity
+            child: Container(
+              color: Colors.black.withAlpha(
+                  (0.5 * 255).toInt()), // Semi-transparent black overlay
             ),
           ),
           SafeArea(
@@ -65,12 +59,48 @@ class ViewTicketScreenState extends State<ViewTicketScreen> {
                   SizedBox(height: 8),
                   _buildTicketSection(),
                   SizedBox(height: 8),
-                  _buildButtonSection(),
+                  _buildButtonSection(this.context),
                 ],
               ),
             ),
           ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: _buildBottomButton(),
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _buildBottomButton() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(16, 0, 16, 38),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha((0.2 * 255).toInt()),
+              offset: Offset(0, 0),
+              blurRadius: 32,
+            ),
+          ],
+        ),
+        child: CupertinoButton(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(12),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            child: Text(
+              'Sử dụng vé',
+              style: FontTheme.customStyles['headlineRegular']
+                  ?.copyWith(color: AppColors.white),
+            ),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/qr');
+            }),
       ),
     );
   }
@@ -79,154 +109,90 @@ class ViewTicketScreenState extends State<ViewTicketScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-            color: AppColors.backgroundBlur75,
-            borderRadius: BorderRadius.circular(12),
-            border:
-                Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator)),
+          color: AppColors.backgroundBlur75,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(
-                  'Triển lãm Những Địa hạt Phù du',
-                  style:
-                      FontTheme.customStyles['subheadlineEmphasized']?.copyWith(
-                    color: AppColors.labelPrimaryLight,
-                  ),
-                )
-              ],
+            Text(
+              'Triển lãm Những Địa hạt Phù du',
+              style: FontTheme.customStyles['subheadlineEmphasized']
+                  ?.copyWith(color: AppColors.labelPrimaryLight),
+              softWrap: true,
+              maxLines: 2,
             ),
-            SizedBox(
-              height: 4,
+            const SizedBox(height: 4),
+            Divider(
+              thickness: 0.33,
+              color: AppColors.nonOpaqueSeparator,
             ),
-            Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                      top: BorderSide(
-                          width: 0.33, color: AppColors.nonOpaqueSeparator))),
-              padding: EdgeInsets.only(top: 8),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 0.33,
-                                color: AppColors.nonOpaqueSeparator),
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppColors.fillQuaternary),
-                        child: Icon(
-                          Icons.alarm_rounded,
-                          size: 20,
-                          color: AppColors.labelPrimaryLight,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Hôm nay, 21 Tháng 12, 2024',
-                                style: FontTheme.customStyles['footnoteRegular']
-                                    ?.copyWith(
-                                  color: AppColors.labelPrimaryLight,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                '20:00 - 23:00',
-                                style: FontTheme.customStyles['footnoteRegular']
-                                    ?.copyWith(
-                                  color: AppColors.labelSecondaryLight,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 0.33,
-                                  color: AppColors.nonOpaqueSeparator),
-                              borderRadius: BorderRadius.circular(12),
-                              color: AppColors.fillQuaternary),
-                          child: Icon(
-                            Icons.location_on_outlined,
-                            size: 20,
-                            color: AppColors.labelPrimaryLight,
-                          )),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Nhà hát ABCD',
-                                style: FontTheme.customStyles['footnoteRegular']
-                                    ?.copyWith(
-                                  color: AppColors.labelPrimaryLight,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                // Ensures text wraps properly inside Row
-                                child: Text(
-                                  '120/32 Thích Quảng Đức, Phường 5, Quận Phú Nhuận, TP. Hồ Chí Minh',
-                                  maxLines: 3,
-                                  overflow: TextOverflow
-                                      .ellipsis, // Prevents overflow issues
-                                  style: FontTheme
-                                      .customStyles['footnoteRegular']
-                                      ?.copyWith(
-                                          color: AppColors.labelSecondaryLight),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            )
+            const SizedBox(height: 8),
+            _buildEventDetail(
+              icon: Icons.alarm_rounded,
+              title: 'Hôm nay, 21 Tháng 12, 2024',
+              subtitle: '20:00 - 23:00',
+            ),
+            const SizedBox(height: 12),
+            _buildEventDetail(
+              icon: Icons.location_on_outlined,
+              title: 'Nhà hát ABCD',
+              subtitle:
+                  '120/32 Thích Quảng Đức, Phường 5, Quận Phú Nhuận, TP. Hồ Chí Minh',
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildEventDetail(
+      {required IconData icon,
+      required String title,
+      required String subtitle}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildIconContainer(icon),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: FontTheme.customStyles['footnoteRegular']
+                    ?.copyWith(color: AppColors.labelPrimaryLight),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                subtitle,
+                softWrap: true,
+                style: FontTheme.customStyles['footnoteRegular']
+                    ?.copyWith(color: AppColors.labelSecondaryLight),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIconContainer(IconData icon) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
+        borderRadius: BorderRadius.circular(12),
+        color: AppColors.fillQuaternary,
+      ),
+      child: Icon(
+        icon,
+        size: 20,
+        color: AppColors.labelPrimaryLight,
       ),
     );
   }
@@ -239,14 +205,15 @@ class ViewTicketScreenState extends State<ViewTicketScreen> {
           AspectRatio(
             aspectRatio: 1.0, // Ensures the container is a square
             child: Container(
-              width: double.infinity, // Takes full width of its parent
+              width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                     width: 0.33, color: AppColors.nonOpaqueSeparator),
                 image: DecorationImage(
                   image: NetworkImage(
-                      'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
+                    'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -257,126 +224,33 @@ class ViewTicketScreenState extends State<ViewTicketScreen> {
             left: 0,
             right: 0,
             child: ClipRRect(
-              borderRadius: BorderRadius.vertical(
-                  bottom:
-                      Radius.circular(12)), // Optional: Rounds bottom corners
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(12)),
               child: BackdropFilter(
                 filter: ImageFilter.blur(
-                    sigmaX: 50, sigmaY: 50), // Adjust blur strength
+                    sigmaX: 15,
+                    sigmaY: 15), // Reduce blur for better readability
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(16, 8, 16, 12),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
                   decoration: BoxDecoration(
-                      color: AppColors.backgroundBlur75,
-                      border: Border(
-                          top: BorderSide(
-                              width: 0.33,
-                              color: AppColors.nonOpaqueSeparator))),
+                    color: AppColors.backgroundBlur75,
+                    border: Border(
+                      top: BorderSide(
+                          width: 0.33, color: AppColors.nonOpaqueSeparator),
+                    ),
+                  ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Vé mua ngày 12/12/2024.',
-                        style:
-                            FontTheme.customStyles['caption1Regular']?.copyWith(
-                          color: AppColors.labelSecondaryLight,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Loại vé:',
-                            style: FontTheme.customStyles['title2Regular']
-                                ?.copyWith(
-                              color: AppColors.labelSecondaryLight,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'Đỉnh nóc',
-                            style: FontTheme.customStyles['title2Emphasized']
-                                ?.copyWith(
-                              color: AppColors.labelPrimaryLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 8),
-                        decoration: BoxDecoration(
-                            border: Border(
-                                top: BorderSide(
-                                    width: 0.33,
-                                    color: AppColors.nonOpaqueSeparator))),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Khu vực',
-                              style: FontTheme
-                                  .customStyles['subheadlineRegular']
-                                  ?.copyWith(
-                                color: AppColors.labelSecondaryLight,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              'A',
-                              style: FontTheme
-                                  .customStyles['subheadlineEmphasized']
-                                  ?.copyWith(
-                                color: AppColors.labelPrimaryLight,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              '/',
-                              style: FontTheme
-                                  .customStyles['subheadlineRegular']
-                                  ?.copyWith(
-                                color: AppColors.labelSecondaryLight,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              'Hàng',
-                              style: FontTheme
-                                  .customStyles['subheadlineRegular']
-                                  ?.copyWith(
-                                color: AppColors.labelSecondaryLight,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              '12',
-                              style: FontTheme
-                                  .customStyles['subheadlineEmphasized']
-                                  ?.copyWith(
-                                color: AppColors.labelPrimaryLight,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                          ],
-                        ),
-                      )
+                      _buildTicketInfoText('Vé mua ngày 12/12/2024.',
+                          FontTheme.customStyles['caption1Regular']),
+                      const SizedBox(height: 4),
+                      _buildTicketDetailRow('Loại vé:', 'Đỉnh nóc'),
+                      const SizedBox(height: 4),
+                      Divider(
+                          color: AppColors.nonOpaqueSeparator, thickness: 0.33),
+                      const SizedBox(height: 8),
+                      _buildTicketDetailRow('Khu vực', 'A / Hàng 12'),
                     ],
                   ),
                 ),
@@ -388,57 +262,75 @@ class ViewTicketScreenState extends State<ViewTicketScreen> {
     );
   }
 
-  Widget _buildButtonSection() {
+  Widget _buildTicketDetailRow(String label, String value) {
+    return Row(
+      children: [
+        Text(
+          label,
+          style: FontTheme.customStyles['subheadlineRegular']
+              ?.copyWith(color: AppColors.labelSecondaryLight),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          value,
+          style: FontTheme.customStyles['subheadlineEmphasized']
+              ?.copyWith(color: AppColors.labelPrimaryLight),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTicketInfoText(String text, TextStyle? style) {
+    return Text(
+      text,
+      style: style?.copyWith(color: AppColors.labelSecondaryLight),
+    );
+  }
+
+  Widget _buildButtonSection(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         children: [
           Expanded(
-            child: CupertinoButton(
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              color: AppColors.gray5,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.festival_rounded,
-                      color: AppColors.primary, size: 22),
-                  SizedBox(width: 4),
-                  Text(
-                    'Xem sự kiện',
-                    style: FontTheme.customStyles['headlineRegular']
-                        ?.copyWith(color: AppColors.primary),
-                  ),
-                ],
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/event_detail');
-              },
+            child: _buildButton(
+              icon: Icons.festival_rounded,
+              label: 'Xem sự kiện',
+              onPressed: () => Navigator.of(context).pushNamed('/event_detail'),
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
-            child: CupertinoButton(
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              color: AppColors.gray5,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center, // Center content
-                children: [
-                  Icon(Icons.arrow_circle_up_rounded,
-                      color: AppColors.primary, size: 22),
-                  SizedBox(width: 4),
-                  Text(
-                    'Gửi vé',
-                    style: FontTheme.customStyles['headlineRegular']
-                        ?.copyWith(color: AppColors.primary),
-                  ),
-                ],
-              ),
-              onPressed: () {},
+            child: _buildButton(
+              icon: Icons.arrow_circle_up_rounded,
+              label: 'Gửi vé',
+              onPressed: () {}, // Add function later
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) {
+    return CupertinoButton(
+      borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+      color: AppColors.gray5,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center, // Center text & icon
+        children: [
+          Icon(icon, color: AppColors.primary, size: 22),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: FontTheme.customStyles['headlineRegular']
+                ?.copyWith(color: AppColors.primary),
           ),
         ],
       ),

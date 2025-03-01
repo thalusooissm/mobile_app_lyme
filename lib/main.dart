@@ -12,6 +12,7 @@ import 'package:lyme_app/ui/getting_ticket/widgets/ticket_type_selection_screen.
 // import 'package:lyme_app/ui/event_detail/widgets/event_detail_screen.dart';
 import 'package:lyme_app/ui/home/widgets/home_screen.dart';
 import 'package:lyme_app/ui/setting/widgets/setting_screen.dart';
+import 'package:lyme_app/ui/view_ticket/widgets/use_ticket_qr_screen.dart';
 import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class LymeApp extends StatelessWidget {
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        initialRoute: '/success',
+        initialRoute: '/view_ticket',
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/':
@@ -65,6 +66,9 @@ class LymeApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => PaymentScreen());
             case '/success':
               return CupertinoPageRoute(builder: (_) => SuccessScreen());
+            case '/qr':
+              return CupertinoPageRoute(builder: (_) => QRScreen());
+
             default:
               return CupertinoPageRoute(builder: (_) => WelcomeScreen());
           }
