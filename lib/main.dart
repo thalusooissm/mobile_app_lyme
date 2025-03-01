@@ -5,16 +5,22 @@ import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 import 'package:lyme_app/ui/auth/sign_in/widgets/sign_in_screen.dart';
 import 'package:lyme_app/ui/auth/sign_up/widgets/sign_up_screen.dart';
-import 'package:lyme_app/ui/getting_ticket/widgets/ticket_type_selection.dart';
+import 'package:lyme_app/ui/getting_ticket/widgets/payment_forward_screen.dart';
+import 'package:lyme_app/ui/getting_ticket/widgets/success_getting_screen.dart';
+import 'package:lyme_app/ui/getting_ticket/widgets/ticket_confirmation_screen.dart';
+import 'package:lyme_app/ui/getting_ticket/widgets/ticket_type_selection_screen.dart';
 // import 'package:lyme_app/ui/event_detail/widgets/event_detail_screen.dart';
 import 'package:lyme_app/ui/home/widgets/home_screen.dart';
 import 'package:lyme_app/ui/setting/widgets/setting_screen.dart';
 import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:provider/provider.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 import 'package:lyme_app/ui/auth/sign_up/widgets/create_password_screen.dart';
 import 'package:lyme_app/ui/event_detail/widgets/event_detail_screen.dart';
 import 'package:lyme_app/ui/view_ticket/widgets/view_ticket_screen.dart';
+import 'package:lyme_app/ui/getting_ticket/widgets/payment_forward_screen.dart';
+import 'package:lyme_app/ui/getting_ticket/widgets/success_getting_screen.dart';
 
 void main() {
   runApp(LymeApp());
@@ -30,7 +36,7 @@ class LymeApp extends StatelessWidget {
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        initialRoute: '/select_ticket_type',
+        initialRoute: '/success',
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/':
@@ -52,6 +58,13 @@ class LymeApp extends StatelessWidget {
             case '/select_ticket_type':
               return CupertinoPageRoute(
                   builder: (_) => TicketTypeSelectScreen());
+            case '/ticket_confirmation':
+              return CupertinoPageRoute(
+                  builder: (_) => TicketConfirmationScreen());
+            case '/payment_forward_request':
+              return CupertinoPageRoute(builder: (_) => PaymentScreen());
+            case '/success':
+              return CupertinoPageRoute(builder: (_) => SuccessScreen());
             default:
               return CupertinoPageRoute(builder: (_) => WelcomeScreen());
           }

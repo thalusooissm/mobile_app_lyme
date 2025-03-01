@@ -259,8 +259,7 @@ class _TicketTypeSelectScreenState extends State<TicketTypeSelectScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                     color: AppColors.primary,
                     onPressed: () {
-                      // Navigator.of(context)
-                      //     .pushNamed('/ticket_confirmation_screen');
+                      Navigator.of(context).pushNamed('/ticket_confirmation');
                     },
                     child: Text(
                       'Đặt Vé',
