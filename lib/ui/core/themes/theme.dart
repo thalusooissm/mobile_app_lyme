@@ -121,6 +121,11 @@ class FontTheme {
       fontWeight: FontWeight.w600,
       fontFamily: 'SFPro',
     ),
+    'calloutRegular': TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'SFPro',
+    ),
   };
 }
 
