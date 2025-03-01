@@ -4,11 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
 
 import 'package:lyme_app/ui/discover/widgets/discover_screen.dart';
-import 'package:lyme_app/ui/home/widgets/main_navigation_bar.dart' as main_nav;
 import 'package:lyme_app/ui/search/widgets/search_screen.dart' as search;
-import 'package:lyme_app/ui/account/widgets/account_screen.dart'as account; 
-import 'package:lyme_app/ui/my_ticket/widgets/my_ticket_screen.dart' as my_ticket;
-import 'package:lyme_app/ui/interest_screen/widgets/interest_screen.dart' as interest_screen; // Assuming these are correctly defined
+import 'package:lyme_app/ui/account/widgets/account_screen.dart' as account;
+import 'package:lyme_app/ui/my_ticket/widgets/my_ticket_screen.dart'
+    as my_ticket;
+import 'package:lyme_app/ui/interest_screen/widgets/interest_screen.dart'
+    as interest_screen;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,123 +19,66 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0; // Track the selected tab index
+  late int _currentIndex;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    _currentIndex =
+        args != null && args['initialTab'] == 'MyTicketScreen' ? 3 : 0;
+  }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      // navigationBar: CupertinoNavigationBar(
-      //   middle: Text('Home Screen'),
-      // ),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           backgroundColor: AppColors.backgroundBlur75,
-          activeColor: AppColors.primary,  // Set the color when selected
-          inactiveColor: AppColors.tabUnselected, // Set the color when unselected
-         items: [
-  BottomNavigationBarItem(
-    icon: _currentIndex == 0
-        ? SvgPicture.asset(
-            'lib/assets/icons/discover_icon_selected.svg',            width: 24,
-            height: 24,
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          )
-        : SvgPicture.asset(
-            'lib/assets/icons/discover_icon.svg',            width: 24,
-            height: 24,
-
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          ),
-    label: 'Khám phá',
-  ),
-  BottomNavigationBarItem(
-    icon: _currentIndex == 1
-        ? SvgPicture.asset(
-            'lib/assets/icons/search_icon_selected.svg',            width: 24,
-            height: 24,
-
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          )
-        : SvgPicture.asset(
-            'lib/assets/icons/search_icon.svg',            width: 24,
-            height: 24,
-
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          ),
-    label: 'Tìm kiếm',
-  ),
-  BottomNavigationBarItem(
-    icon: _currentIndex == 2
-        ? SvgPicture.asset(
-            'lib/assets/icons/quan_tam_icon_selected.svg',
-                        width: 24,
-            height: 24,
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          )
-        : SvgPicture.asset(
-            'lib/assets/icons/quan_tam_icon.svg',
-            width: 24,
-            height: 24,
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          ),
-    label: 'Quan tâm',
-  ),
-  BottomNavigationBarItem(
-    icon: _currentIndex == 3
-        ? SvgPicture.asset(
-            'lib/assets/icons/my_ticket_icon_selected.svg',            width: 24,
-            height: 24,
-
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          )
-        : SvgPicture.asset(
-            'lib/assets/icons/my_ticket_icon.svg',            width: 24,
-            height: 24,
-
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          ),
-    label: 'Vé của tôi',
-  ),
-  BottomNavigationBarItem(
-    icon: _currentIndex == 4
-        ? SvgPicture.asset(
-            'lib/assets/icons/account_icon_selected.svg',            width: 24,
-            height: 24,
-
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          )
-        : SvgPicture.asset(
-            'lib/assets/icons/account_icon.svg',            width: 24,
-            height: 24,
-
-            placeholderBuilder: (context) => CupertinoActivityIndicator(),
-          ),
-    label: 'Tài khoản',
-  ),
-],
+          activeColor: AppColors.primary,
+          inactiveColor: AppColors.tabUnselected,
+          items: [
+            _buildNavItem('discover', 'Khám phá', 0),
+            _buildNavItem('search', 'Tìm kiếm', 1),
+            _buildNavItem('quan_tam', 'Quan tâm', 2),
+            _buildNavItem('my_ticket', 'Vé của tôi', 3),
+            _buildNavItem('account', 'Tài khoản', 4),
+          ],
           onTap: (index) {
             setState(() {
-              _currentIndex = index;  // Update the selected index
+              _currentIndex = index;
             });
           },
         ),
         tabBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return DiscoverScreen();
-            case 1:
-              return search.SearchScreen();
-            case 2:
-              return interest_screen.InterestScreen();
-            case 3:
-              return my_ticket.MyTicketScreen();
-            case 4:
-              return account.AccountScreen();
-            default:
-              return Container();
-          }
+          return IndexedStack(
+            index: index,
+            children: [
+              DiscoverScreen(),
+              search.SearchScreen(),
+              interest_screen.InterestScreen(),
+              my_ticket.MyTicketScreen(),
+              account.AccountScreen(),
+            ],
+          );
         },
       ),
+    );
+  }
+
+  BottomNavigationBarItem _buildNavItem(
+      String iconName, String label, int index) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        'lib/assets/icons/${iconName}_icon${_currentIndex == index ? "_selected" : ""}.svg',
+        width: 24,
+        height: 24,
+        placeholderBuilder: (context) => CupertinoActivityIndicator(),
+      ),
+      label: label,
     );
   }
 }
