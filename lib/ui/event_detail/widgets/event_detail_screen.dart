@@ -21,24 +21,23 @@ final List<Blast> dummyBlasts = [
     eventId: 101,
     hostId: 1,
     timestamp: DateTime.parse("2025-01-01 12:00:00"),
-    content: "Tham gia cùng chúng tôi trong sự kiện thú vị diễn ra vào cuối tuần này!",
+    content: "Join us for an exciting event happening this weekend!",
   ),
   Blast(
     blastId: 2,
     eventId: 102,
     hostId: 2,
     timestamp: DateTime.parse("2025-01-05 15:30:00"),
-    content: "Đừng bỏ lỡ ưu đãi đặc biệt khi đăng ký sớm!",
+    content: "Dont miss out on the special discounts for early registrations!",
   ),
   Blast(
     blastId: 3,
     eventId: 103,
     hostId: 3,
     timestamp: DateTime.parse("2025-01-10 09:45:00"),
-    content: "Diễn giả chính của chúng tôi vừa được công bố. Hãy xem ngay!",
+    content: "Our keynote speaker has just been announced. Check it out!",
   ),
 ];
-
 
 final List<EventTicket> dummyEventTickets = [
   EventTicket(
@@ -46,7 +45,7 @@ final List<EventTicket> dummyEventTickets = [
     eventId: 101,
     capacity: 100,
     typeName: "VIP",
-    description: "Tiếp cận những đặc quyền hàng đầu",
+    description: "Access to exclusive VIP areas and perks",
     ifFree: false,
     price: 500.0,
     discountPrice: 450.0,
@@ -57,8 +56,8 @@ final List<EventTicket> dummyEventTickets = [
     tickTypeId: 2,
     eventId: 101,
     capacity: 200,
-    typeName: "Tiêu chuẩn",
-    description: "Chỗ ngồi tốt, tầm nhìn siêu tuyệt.",
+    typeName: "Standard",
+    description: "General admission with great seating",
     ifFree: false,
     price: 200.0,
     discountPrice: null,
@@ -69,8 +68,8 @@ final List<EventTicket> dummyEventTickets = [
     tickTypeId: 3,
     eventId: 101,
     capacity: 50,
-    typeName: "Sinh viên",
-    description: "Giới hạn cho những sinh viên",
+    typeName: "Free Pass",
+    description: "Limited free tickets for early registrants",
     ifFree: true,
     price: null,
     discountPrice: null,
@@ -90,7 +89,8 @@ final List<Host> dummyHosts = [
     birthdate: DateTime(1990, 5, 14),
     gender: "Male",
     userName: "john_doe",
-    avatar: "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+    avatar:
+        "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
     hostType: "Organizer",
     bio: "Loves organizing events and connecting people.",
   ),
@@ -104,7 +104,8 @@ final List<Host> dummyHosts = [
     birthdate: DateTime(1985, 11, 20),
     gender: "Female",
     userName: "jane_smith",
-    avatar: "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+    avatar:
+        "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
     hostType: "Speaker",
     bio: "Public speaker and motivator.",
   ),
@@ -118,7 +119,8 @@ final List<Host> dummyHosts = [
     birthdate: null,
     gender: "Female",
     userName: "alice_brown",
-    avatar: "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+    avatar:
+        "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
     hostType: "Volunteer",
     bio: "Passionate about helping out at events.",
   ),
@@ -130,10 +132,12 @@ class EventDetailScreen extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.transparent,
-        automaticallyImplyLeading: true,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back_ios_new_rounded, size: 20,),
+          child: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 20,
+          ),
         ),
       ),
       child: Stack(
@@ -141,16 +145,19 @@ class EventDetailScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'), // Path to your image
+                image: NetworkImage(
+                    'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'), // Path to your image
                 fit: BoxFit.cover, // Makes the image cover the whole screen
               ),
             ),
           ),
           // Blur effect
           BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 150.0, sigmaY: 150.0), // Adjust blur intensity
+            filter: ImageFilter.blur(
+                sigmaX: 150.0, sigmaY: 150.0), // Adjust blur intensity
             child: Container(
-              color: Colors.black.withAlpha((0.5 * 255).toInt()), // Semi-transparent black overlay
+              color: Colors.black.withAlpha(
+                  (0.5 * 255).toInt()), // Semi-transparent black overlay
             ),
           ),
           SafeArea(
@@ -160,7 +167,8 @@ class EventDetailScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 28),
                   _eventThumbnail(
-                    imageUrl: "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+                    imageUrl:
+                        "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
                   ),
                   SizedBox(height: 20),
                   // Padding(
@@ -168,7 +176,7 @@ class EventDetailScreen extends StatelessWidget {
                   //   child: _eventBasicInfo(),
                   // ),
                   SizedBox(height: 40),
-                  _eventSetOfButtons(),
+                  _eventSetOfButtons(context),
                   SizedBox(height: 40),
                   _listOfTickets(),
                   SizedBox(height: 40),
@@ -278,7 +286,7 @@ class EventDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _eventSetOfButtons() {
+  Widget _eventSetOfButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
@@ -288,7 +296,9 @@ class EventDetailScreen extends StatelessWidget {
             child: _primaryActionButton(
               label: 'Đặt vé',
               icon: 'lib/assets/icons/dat_ve_icon.svg',
-              onPressed: _handleJoinEvent,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/select_ticket_type');
+              },
             ),
           ),
           SizedBox(width: 4),
@@ -319,29 +329,26 @@ class EventDetailScreen extends StatelessWidget {
       ),
     );
   }
-  
-  void _handleJoinEvent() {
-      // Handle Join Event action
-    }
 
-    Widget _buildFavoriteButton() {
-      return Container(
-        padding: EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: AppColors.backgroundSecondary,
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: SvgPicture.asset(
-          'lib/assets/icons/add_to_fav_icon.svg',
-          width: 24,
-          height: 24,
-        ),
-      );
-    }
+  Widget _buildFavoriteButton() {
+    return Container(
+      padding: EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: AppColors.backgroundSecondary,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: SvgPicture.asset(
+        'lib/assets/icons/add_to_fav_icon.svg',
+        width: 24,
+        height: 24,
+      ),
+    );
+  }
 
-  Widget _primaryActionButton (
-    {required String label, required String icon, required Function() onPressed}
-  ) {
+  Widget _primaryActionButton(
+      {required String label,
+      required String icon,
+      required Function() onPressed}) {
     return Container(
       child: CupertinoButton(
         color: AppColors.backgroundPrimary,
@@ -349,12 +356,19 @@ class EventDetailScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Column(
           children: [
-            SvgPicture.asset(icon, height: 20, width: 20,),
-            SizedBox(height: 4,),
+            SvgPicture.asset(
+              icon,
+              height: 20,
+              width: 20,
+            ),
+            SizedBox(
+              height: 4,
+            ),
             Text(
               label,
               style: FontTheme.customStyles['caption1Emphasized']?.copyWith(
-                color: AppColors.labelPrimaryLight,),
+                color: AppColors.labelPrimaryLight,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -367,9 +381,10 @@ class EventDetailScreen extends StatelessWidget {
     );
   }
 
-    Widget _secondaryActionButton (
-    {required String label, required String icon, required Function() onPressed}
-  ) {
+  Widget _secondaryActionButton(
+      {required String label,
+      required String icon,
+      required Function() onPressed}) {
     return Container(
       child: CupertinoButton(
         color: AppColors.fillPrimary,
@@ -377,15 +392,21 @@ class EventDetailScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Column(
           children: [
-            SvgPicture.asset(icon, height: 20, width: 20,),
-            SizedBox(height: 4,),
+            SvgPicture.asset(
+              icon,
+              height: 20,
+              width: 20,
+            ),
+            SizedBox(
+              height: 4,
+            ),
             Text(
               label,
               style: FontTheme.customStyles['caption1Regular']?.copyWith(
-                color: AppColors.labelPrimaryDark,),
-                            maxLines: 1,
+                color: AppColors.labelPrimaryDark,
+              ),
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
-      
             ),
           ],
         ),
@@ -395,17 +416,16 @@ class EventDetailScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _listOfTickets() {
-    return
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeading(label: 'Vé'),
-          SizedBox(height: 8),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: 
-                      ListView.builder(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildHeading(label: 'Vé'),
+        SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: dummyEventTickets.length,
@@ -415,9 +435,9 @@ class EventDetailScreen extends StatelessWidget {
               );
             },
           ),
-          ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 
   Widget _buildHeading({
@@ -426,7 +446,8 @@ class EventDetailScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Adjust alignment for text
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Adjust alignment for text
         children: [
           Text(
             label,
@@ -443,7 +464,7 @@ class EventDetailScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _listOfHotsts() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -466,19 +487,24 @@ class EventDetailScreen extends StatelessWidget {
       ],
     );
   }
-  
+
   Widget _buildEventDescription() {
-    return 
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         _buildHeading(label: 'Mô Tả'),
-          SizedBox(height: 16),
-        Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0), 
-        child: Text('💃 Là một cuộc hành trình khám phá sâu sắc về sự phát triển của loài người, một loài thông minh và tự sáng tạo. Thông qua ngôn ngữ hình thể và cảm xúc, các nghệ sĩ sẽ tái hiện lại chặng đường tiến hóa của chúng ta – từ quá khứ đầy dấu ấn đến hiện tại được định hình bởi sự sáng tạo, và tương lai đầy tiềm năng và bất định. 💃 Với những động tác uyển chuyển nhưng không kém phần mạnh mẽ, từng tiết mục múa sẽ kể câu chuyện về sự tò mò không ngừng nghỉ của con người – chúng ta luôn hướng tới tương lai, đặt câu hỏi về vị trí của mình trong thế giới này và khao khát hiểu rõ hơn về giới hạn của bản thân. Từ ký ức về những bước đi đầu tiên của loài người trên mặt đất cho đến những sáng tạo hiện đại, chương trình không chỉ là một hành trình về thể chất mà còn là cuộc phiêu lưu tâm trí, phản ánh quá trình tự vấn và sáng tạo của con người. “Đi Đâu” không chỉ là sự tôn vinh những gì loài người đã đạt được, mà còn là lời mời gọi khán giả cùng suy ngẫm về những khả năng vô tận của tương lai. Hãy cùng đắm chìm trong những cảm xúc mạnh mẽ, nhìn lại chặng đường mà chúng ta đã đi qua và tự hỏi: “Chúng ta có thể tiến xa đến đâu nữa?”', 
-        style: FontTheme.customStyles['footnoteRegular']?.copyWith(color: AppColors.labelPrimaryDark)),),],);
+        SizedBox(height: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+              '💃 Là một cuộc hành trình khám phá sâu sắc về sự phát triển của loài người, một loài thông minh và tự sáng tạo. Thông qua ngôn ngữ hình thể và cảm xúc, các nghệ sĩ sẽ tái hiện lại chặng đường tiến hóa của chúng ta – từ quá khứ đầy dấu ấn đến hiện tại được định hình bởi sự sáng tạo, và tương lai đầy tiềm năng và bất định. 💃 Với những động tác uyển chuyển nhưng không kém phần mạnh mẽ, từng tiết mục múa sẽ kể câu chuyện về sự tò mò không ngừng nghỉ của con người – chúng ta luôn hướng tới tương lai, đặt câu hỏi về vị trí của mình trong thế giới này và khao khát hiểu rõ hơn về giới hạn của bản thân. Từ ký ức về những bước đi đầu tiên của loài người trên mặt đất cho đến những sáng tạo hiện đại, chương trình không chỉ là một hành trình về thể chất mà còn là cuộc phiêu lưu tâm trí, phản ánh quá trình tự vấn và sáng tạo của con người. “Đi Đâu” không chỉ là sự tôn vinh những gì loài người đã đạt được, mà còn là lời mời gọi khán giả cùng suy ngẫm về những khả năng vô tận của tương lai. Hãy cùng đắm chìm trong những cảm xúc mạnh mẽ, nhìn lại chặng đường mà chúng ta đã đi qua và tự hỏi: “Chúng ta có thể tiến xa đến đâu nữa?”',
+              style: FontTheme.customStyles['footnoteRegular']
+                  ?.copyWith(color: AppColors.labelPrimaryDark)),
+        ),
+      ],
+    );
   }
-  
+
   Widget _buildBlasts() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -486,15 +512,19 @@ class EventDetailScreen extends StatelessWidget {
         _buildHeading(label: 'Lời nhắn'),
         SizedBox(height: 16),
         SizedBox(
-          height: 200,
+          height: 200, // Set a height to prevent unbounded error
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: dummyBlasts.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.only(
-                  left: index == 0 ? 16.0 : 8.0, // Padding left for the first item
-                  right: index == dummyBlasts.length - 1 ? 16.0 : 0.0, // Padding right for the last item
+                  left: index == 0
+                      ? 16.0
+                      : 8.0, // Padding left for the first item
+                  right: index == dummyBlasts.length - 1
+                      ? 16.0
+                      : 0.0, // Padding right for the last item
                 ),
                 child: BlastCard(
                   blast: dummyBlasts[index],
@@ -506,5 +536,4 @@ class EventDetailScreen extends StatelessWidget {
       ],
     );
   }
-
 }

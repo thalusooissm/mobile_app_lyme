@@ -7,8 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 
-
-
 class EventTicketCardCompact extends StatefulWidget {
   final EventTicket eventTicket;
 
@@ -31,7 +29,8 @@ class _EventTicketCardCompactState extends State<EventTicketCardCompact> {
           placeholderBuilder: (context) => CircularProgressIndicator(),
         ),
         SizedBox(width: 8),
-        Expanded( // Wrap this container in an Expanded to allow flexible width
+        Expanded(
+          // Wrap this container in an Expanded to allow flexible width
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 16),
             decoration: BoxDecoration(
@@ -48,26 +47,31 @@ class _EventTicketCardCompactState extends State<EventTicketCardCompact> {
               children: [
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start, // Align content to the left
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start, // Align content to the left
                     children: [
                       Row(
                         children: [
-                        Text(
-                              widget.eventTicket.typeName,
-                              style: FontTheme.customStyles['subheadlineEmphasized']?.copyWith(
-                                color: AppColors.labelPrimaryDark,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                          Text(
+                            widget.eventTicket.typeName,
+                            style: FontTheme
+                                .customStyles['subheadlineEmphasized']
+                                ?.copyWith(
+                              color: AppColors.labelPrimaryDark,
                             ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                           Text(
                             ' • Còn ',
-                            style: FontTheme.customStyles['footnoteRegular']?.copyWith(
+                            style: FontTheme.customStyles['footnoteRegular']
+                                ?.copyWith(
                               color: AppColors.labelSecondaryDark,
                             ),
                           ),
                           Text(
                             '${widget.eventTicket.soldAmount}/${widget.eventTicket.capacity}',
-                            style: FontTheme.customStyles['footnoteRegular']?.copyWith(
+                            style: FontTheme.customStyles['footnoteRegular']
+                                ?.copyWith(
                               color: AppColors.labelSecondaryDark,
                             ),
                           ),
@@ -76,7 +80,8 @@ class _EventTicketCardCompactState extends State<EventTicketCardCompact> {
                       SizedBox(height: 4),
                       Text(
                         widget.eventTicket.description,
-                        style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                        style:
+                            FontTheme.customStyles['caption1Regular']?.copyWith(
                           color: AppColors.labelSecondaryDark,
                         ),
                         maxLines: 1,
@@ -92,20 +97,30 @@ class _EventTicketCardCompactState extends State<EventTicketCardCompact> {
                       widget.eventTicket.ifFree
                           ? 'Miễn phí'
                           : '${widget.eventTicket.price}đ',
-                      style: FontTheme.customStyles['subheadlineEmphasized']?.copyWith(
+                      style: FontTheme.customStyles['subheadlineEmphasized']
+                          ?.copyWith(
                         color: AppColors.labelPrimaryDark,
                       ),
                     ),
                     SizedBox(width: 8),
-                    CupertinoButton(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(50),
-                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                      onPressed: () {},
-                      child: Text(
-                        'Đặt',
-                        style: FontTheme.customStyles['subheadlineRegular']?.copyWith(
-                          color: AppColors.labelPrimaryDark,
+                    SizedBox(
+                      height: 30,
+                      width: 48,
+                      child: CupertinoButton(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(50),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed('/select_ticket_type');
+                        },
+                        child: Text(
+                          'Đặt',
+                          style: FontTheme.customStyles['subheadlineRegular']
+                              ?.copyWith(
+                            color: AppColors.labelPrimaryDark,
+                          ),
                         ),
                       ),
                     ),
