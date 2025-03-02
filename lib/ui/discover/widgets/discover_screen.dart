@@ -319,6 +319,7 @@ builder: (context, snapshot) {
   _buildEventGrid() {
     return FutureBuilder<List<EventDetail>>(
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         future: _eventsGridFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -340,6 +341,8 @@ builder: (context, snapshot) {
               int end = (start + 2).clamp(0, events.length);
               List<EventDetail> pageEvents = events.sublist(start, end);
 =======
+=======
+>>>>>>> Stashed changes
       future: _eventsGridFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -358,6 +361,9 @@ builder: (context, snapshot) {
             int start = pageIndex * 2;
             int end = (start + 2).clamp(0, events.length);
             List<EventDetail> pageEvents = events.sublist(start, end);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
             return Padding(
@@ -382,7 +388,10 @@ builder: (context, snapshot) {
     );
   }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
   Widget _buildRecommendList() {
     return Column(
