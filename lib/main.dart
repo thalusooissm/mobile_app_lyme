@@ -9,19 +9,16 @@ import 'package:lyme_app/ui/getting_ticket/widgets/payment_forward_screen.dart';
 import 'package:lyme_app/ui/getting_ticket/widgets/success_getting_screen.dart';
 import 'package:lyme_app/ui/getting_ticket/widgets/ticket_confirmation_screen.dart';
 import 'package:lyme_app/ui/getting_ticket/widgets/ticket_type_selection_screen.dart';
-// import 'package:lyme_app/ui/event_detail/widgets/event_detail_screen.dart';
 import 'package:lyme_app/ui/home/widgets/home_screen.dart';
+import 'package:lyme_app/ui/notification/widgets/notification_screen.dart';
 import 'package:lyme_app/ui/setting/widgets/setting_screen.dart';
 import 'package:lyme_app/ui/view_ticket/widgets/use_ticket_qr_screen.dart';
 import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import 'package:provider/provider.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
 import 'package:lyme_app/ui/auth/sign_up/widgets/create_password_screen.dart';
 import 'package:lyme_app/ui/event_detail/widgets/event_detail_screen.dart';
 import 'package:lyme_app/ui/view_ticket/widgets/view_ticket_screen.dart';
-import 'package:lyme_app/ui/getting_ticket/widgets/payment_forward_screen.dart';
-import 'package:lyme_app/ui/getting_ticket/widgets/success_getting_screen.dart';
 
 void main() {
   runApp(LymeApp());
@@ -37,7 +34,7 @@ class LymeApp extends StatelessWidget {
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        initialRoute: '/view_ticket',
+        initialRoute: '/notification',
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/':
@@ -68,7 +65,8 @@ class LymeApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => SuccessScreen());
             case '/qr':
               return CupertinoPageRoute(builder: (_) => QRScreen());
-
+            case '/notification':
+              return CupertinoPageRoute(builder: (_) => NotificationScreen());
             default:
               return CupertinoPageRoute(builder: (_) => WelcomeScreen());
           }

@@ -19,6 +19,7 @@ import 'package:lyme_app/domain/models/place.dart';
 import 'package:lyme_app/data/services/api/models/events_service.dart';
 import 'package:lyme_app/data/services/api/models/topics_service.dart';
 import 'package:lyme_app/data/services/api/models/places_service.dart';
+import 'package:lyme_app/ui/home/widgets/home_trail_button.dart';
 
 class DiscoverScreen extends StatefulWidget {
   @override
@@ -30,15 +31,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   late Future<List<EventDetail>> _eventsFuture, _eventsGridFuture;
   late Future<List<Topic>> _topicsFuture;
 
-
   @override
   void initState() {
     super.initState();
     _placesFuture = _initializePlaces();
-     _eventsFuture = _initializeEvents();
-     _topicsFuture = _initializeTopics();
-     _eventsGridFuture = _eventsFuture;
-
+    _eventsFuture = _initializeEvents();
+    _topicsFuture = _initializeTopics();
+    _eventsGridFuture = _eventsFuture;
   }
 
   // Future<List<Place>> fetchPlaces() async {
@@ -89,7 +88,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       navigationBar: CupertinoNavigationBar(
         leading: Row(
           children: [
-            Text('Khám Phá', style: FontTheme.customStyles['title3Emphasized']?.copyWith(color: AppColors.labelPrimaryLight)),
+            Text('Khám Phá',
+                style: FontTheme.customStyles['title3Emphasized']
+                    ?.copyWith(color: AppColors.labelPrimaryLight)),
             SizedBox(width: 8),
             Container(
               width: 28,
@@ -102,8 +103,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
                 borderRadius: BorderRadius.circular(50),
               ),
-            ),          ],
+            ),
+          ],
         ),
+        trailing: MainTrailButton(context: context),
         backgroundColor: Colors.white.withAlpha((0.01 * 255).toInt()),
         enableBackgroundFilterBlur: true,
       ),
@@ -112,7 +115,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 56), // Add padding to avoid overlap with navigation bar
+              SizedBox(
+                  height:
+                      56), // Add padding to avoid overlap with navigation bar
               _buildSectionHeader('Sự kiện nổi bật'),
               _buildEventGrid(),
               _buildSectionHeader('Chủ đề'),
@@ -310,9 +315,10 @@ builder: (context, snapshot) {
       },
     );
   }
-  
+
   _buildEventGrid() {
     return FutureBuilder<List<EventDetail>>(
+<<<<<<< Updated upstream
         future: _eventsGridFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -333,21 +339,94 @@ builder: (context, snapshot) {
               int start = pageIndex * 2;
               int end = (start + 2).clamp(0, events.length);
               List<EventDetail> pageEvents = events.sublist(start, end);
+=======
+      future: _eventsGridFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CupertinoActivityIndicator());
+        }
+        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text("No events found."));
+        }
+        List<EventDetail> events = snapshot.data!;
+        int totalPages = (events.length / 2).ceil(); // Each page has 2 events
+        return PageView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: totalPages,
+          itemBuilder: (context, pageIndex) {
+            // Get the slice of events for this page
+            int start = pageIndex * 2;
+            int end = (start + 2).clamp(0, events.length);
+            List<EventDetail> pageEvents = events.sublist(start, end);
+>>>>>>> Stashed changes
 
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16), // Adjust spacing
+              child: GridView.count(
+                crossAxisCount: 2, // 2 rows per column
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 0.8, // Adjust for card size
+                physics:
+                    NeverScrollableScrollPhysics(), // Disable internal scroll
+                children: pageEvents
+                    .map((event) => EventCard(
+                          eventDetail: event,
+                        ))
+                    .toList(),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+<<<<<<< Updated upstream
+=======
+
+  Widget _buildRecommendList() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Lyme Dành Riêng Cho Bạn',
+                style: FontTheme.customStyles['title3Emphasized']?.copyWith(
+                  color: AppColors.labelPrimaryLight,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        FutureBuilder<List<EventDetail>>(
+          future: _eventsGridFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CupertinoActivityIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(child: Text('No events available.'));
+            } else {
+              final events = snapshot.data!;
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16), // Adjust spacing
-                child: GridView.count(
-                  crossAxisCount: 2, // 2 rows per column
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 0.8, // Adjust for card size
-                  physics: NeverScrollableScrollPhysics(), // Disable internal scroll
-                  children: pageEvents.map((event) => EventCard(eventDetail: event,)).toList(),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: events
+                      .map((event) => EventCard(eventDetail: event))
+                      .toList(),
                 ),
               );
-            },
-          );
-        },
-      );
+            }
+          },
+        ),
+      ],
+    );
   }
+>>>>>>> Stashed changes
 }
