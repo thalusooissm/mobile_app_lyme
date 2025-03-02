@@ -19,6 +19,22 @@ class _AccountScreenState extends State<AccountScreen> {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundPrimary,
       navigationBar: CupertinoNavigationBar(
+        trailing: SizedBox(
+          width: 28,
+          height: 28,
+          child: CupertinoButton(
+              color: AppColors.fillPrimary,
+              borderRadius: BorderRadius.circular(20),
+              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              child: Icon(
+                Icons.settings_rounded,
+                size: 20,
+                color: AppColors.primary,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/notification');
+              }),
+        ),
         leading: Row(
           children: [
             Text(
@@ -32,7 +48,8 @@ class _AccountScreenState extends State<AccountScreen> {
               height: 28,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
+                  image: NetworkImage(
+                      'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(50),
@@ -51,67 +68,74 @@ class _AccountScreenState extends State<AccountScreen> {
               _buildSectionHeader(),
               SizedBox(height: 24),
               _buildButton(),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Container(
-                    width: double.infinity,
-                    decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                  width: 0.33,
-                  strokeAlign: BorderSide.strokeAlignCenter,
-                  color: AppColors.nonOpaqueSeparator,
-                            ),
-                        ),
+                  width: double.infinity,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 0.33,
+                        strokeAlign: BorderSide.strokeAlignCenter,
+                        color: AppColors.nonOpaqueSeparator,
+                      ),
                     ),
+                  ),
                 ),
-              ),              
-              SizedBox(height: 16,),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-  child: Column(
-    children: [
-      Row(
-        children: [
-          Expanded(
-            child: _buildSettingCard('Lịch sử vé', '/setting'),
-          ),
-          SizedBox(width: 8),
-          Expanded(
-            child: _buildSettingCard('Thanh toán', 'setting_payment'),
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      Row(
-        children: [
-          Expanded(
-            child: _buildSettingCard('Bạn bè', 'setting_friends'),
-          ),
-          SizedBox(width: 8),
-          Expanded(
-            child: _buildSettingCard('Thông báo', 'setting_noti'),
-          ),
-        ],
-      ),
-    ],
-  ),
-),
-              SizedBox(height: 16,),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildSettingCard('Lịch sử vé', '/setting'),
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: _buildSettingCard(
+                              'Thanh toán', 'setting_payment'),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildSettingCard('Bạn bè', 'setting_friends'),
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: _buildSettingCard('Thông báo', 'setting_noti'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Container(
-                    width: double.infinity,
-                    decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                  width: 0.33,
-                  strokeAlign: BorderSide.strokeAlignCenter,
-                  color: AppColors.nonOpaqueSeparator,
-                            ),
-                        ),
+                  width: double.infinity,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 0.33,
+                        strokeAlign: BorderSide.strokeAlignCenter,
+                        color: AppColors.nonOpaqueSeparator,
+                      ),
                     ),
+                  ),
                 ),
               ),
             ],
@@ -229,57 +253,55 @@ Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: SizedBox(
         width: double.infinity,
-        child:
-          CupertinoButton(
-            onPressed: () {},
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(50),
-            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 14),
-            child: Text(
-              'Chỉnh sửa thông tin',
-              style: FontTheme.customStyles['subheadlineRegular']
-                  ?.copyWith(color: AppColors.labelPrimaryDark),
-            ),
+        child: CupertinoButton(
+          onPressed: () {},
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(50),
+          padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 14),
+          child: Text(
+            'Chỉnh sửa thông tin',
+            style: FontTheme.customStyles['subheadlineRegular']
+                ?.copyWith(color: AppColors.labelPrimaryDark),
           ),
+        ),
       ),
     );
   }
 
-Widget _buildSettingCard(
-  String label,
-  String navigatorPath,
-) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.pushNamed(context, navigatorPath);
-    },
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColors.fillTertiary,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(
-              label,
-              style: FontTheme.customStyles['footnoteEmphasized']
-                  ?.copyWith(color: AppColors.labelPrimaryLight),
-              overflow: TextOverflow.ellipsis,
+  Widget _buildSettingCard(
+    String label,
+    String navigatorPath,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, navigatorPath);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          color: AppColors.fillTertiary,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                label,
+                style: FontTheme.customStyles['footnoteEmphasized']
+                    ?.copyWith(color: AppColors.labelPrimaryLight),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-          SizedBox(width: 8),
-          SvgPicture.asset(
-            'lib/assets/icons/arrow_right_alt.svg',
-            width: 24,
-            height: 24,
-          ),
-        ],
+            SizedBox(width: 8),
+            SvgPicture.asset(
+              'lib/assets/icons/arrow_right_alt.svg',
+              width: 24,
+              height: 24,
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
-}
-  
