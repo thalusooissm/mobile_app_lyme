@@ -35,7 +35,7 @@ class LymeApp extends StatelessWidget {
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        initialRoute: '/chat',
+        initialRoute: '/home',
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/':
@@ -71,7 +71,7 @@ class LymeApp extends StatelessWidget {
             case '/chat':
               return CupertinoPageRoute(builder: (_) => ChatScreen());
             default:
-              return CupertinoPageRoute(builder: (_) => WelcomeScreen());
+              return CupertinoPageRoute(builder: (_) => HomeScreen());
           }
         },
       ),

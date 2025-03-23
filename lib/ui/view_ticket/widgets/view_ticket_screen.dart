@@ -14,6 +14,7 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         backgroundColor: Colors.transparent,
         border: Border(), // Remove bottom shadow
         middle: Text(

@@ -136,6 +136,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         backgroundColor: Colors.transparent,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),

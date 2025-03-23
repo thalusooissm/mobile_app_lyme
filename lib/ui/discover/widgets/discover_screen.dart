@@ -86,6 +86,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundPrimary,
       navigationBar: CupertinoNavigationBar(
+        automaticBackgroundVisibility: false,
         leading: Row(
           children: [
             Text('Khám Phá',
@@ -110,66 +111,68 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         backgroundColor: Colors.white.withAlpha((0.01 * 255).toInt()),
         enableBackgroundFilterBlur: true,
       ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                  height:
-                      56), // Add padding to avoid overlap with navigation bar
-              _buildSectionHeader('Sự kiện nổi bật'),
-              _buildEventGrid(),
-              _buildSectionHeader('Chủ đề'),
-              SizedBox(height: 16),
-              _buildTopicsFutureBuilder(),
-              SizedBox(height: 32),
-              _buildSectionHeader('Địa điểm'),
-              SizedBox(height: 16),
-              _buildPlacesFutureBuilder(),
-              SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Lyme Dành Riêng Cho Bạn',
-                      style:
-                          FontTheme.customStyles['title3Emphasized']?.copyWith(
-                        color: AppColors.labelPrimaryLight,
-                      ),
-                    ),
-                  ],
+      child: Column(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 150,
                 ),
-              ),
-              SizedBox(height: 16),
-              FutureBuilder<List<EventDetail>>(
-                future: _eventsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CupertinoActivityIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No events available.'));
-                  } else {
-                    final events = snapshot.data!;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        children: events
-                            .map((event) => EventCard(eventDetail: event))
-                            .toList(),
+                _buildSectionHeader('Sự kiện nổi bật'),
+                _buildEventGrid(),
+                _buildSectionHeader('Chủ đề'),
+                SizedBox(height: 16),
+                _buildTopicsFutureBuilder(),
+                SizedBox(height: 32),
+                _buildSectionHeader('Địa điểm'),
+                SizedBox(height: 16),
+                _buildPlacesFutureBuilder(),
+                SizedBox(height: 32),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Lyme Dành Riêng Cho Bạn',
+                        style: FontTheme.customStyles['title3Emphasized']
+                            ?.copyWith(
+                          color: AppColors.labelPrimaryLight,
+                        ),
                       ),
-                    );
-                  }
-                },
-              ),
-            ],
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16),
+                FutureBuilder<List<EventDetail>>(
+                  future: _eventsFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CupertinoActivityIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Center(child: Text('No events available.'));
+                    } else {
+                      final events = snapshot.data!;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Column(
+                          children: events
+                              .map((event) => EventCard(eventDetail: event))
+                              .toList(),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
