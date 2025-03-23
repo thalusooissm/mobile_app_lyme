@@ -3,7 +3,7 @@ class EventDetail {
   final String eventName;
   final DateTime startTime;
   final int placeId;
-  final List<int> hostIds; 
+  final List<int> hostIds;
   final int topicId;
   final int chainId;
   final String about;
@@ -16,7 +16,7 @@ class EventDetail {
     required this.eventName,
     required this.startTime,
     required this.placeId,
-    required this.hostIds, 
+    required this.hostIds,
     required this.topicId,
     required this.chainId,
     required this.about,
@@ -46,7 +46,7 @@ class EventDetail {
       );
     } catch (e) {
       print('Error decoding EventDetail: $e');
-      rethrow; // Optional: Throw the error if you want to halt execution.
+      rethrow;
     }
   }
 
@@ -56,7 +56,7 @@ class EventDetail {
       'event_name': eventName,
       'start_time': startTime.toIso8601String(),
       'place_id': placeId,
-      'host_ids': hostIds, 
+      'host_ids': hostIds,
       'topic_id': topicId,
       'chain_id': chainId,
       'about': about,
