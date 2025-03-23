@@ -24,8 +24,7 @@ class AppColors {
   static const Color backgroundSecondary = Color.fromRGBO(242, 242, 247, 1);
   static const Color backgroundTertiary = Color.fromRGBO(255, 255, 255, 1);
 
-
-  static const Color backgroundBlur75 = Color.fromRGBO(242, 242, 247, 0.75);
+  static const Color backgroundBlur75 = Color.fromRGBO(255, 255, 255, 0.75);
 
   static const Color backgroundGroupedPrimary =
       Color.fromRGBO(242, 242, 247, 1);
@@ -74,14 +73,12 @@ class AppColors {
   static const Color vibrantLabelPrimary = Color.fromRGBO(0, 0, 0, 1);
   static const Color vibrantLabelSecondary = Color.fromRGBO(127, 127, 127, 0.5);
   static const Color vibrantLabelTertiary = Color.fromRGBO(127, 127, 127, 0.4);
-  static const Color vibrantLabelQuaternary = Color.fromRGBO(127, 127, 127, 0.2);
+  static const Color vibrantLabelQuaternary =
+      Color.fromRGBO(127, 127, 127, 0.2);
 
   static const Color nonOpaqueSeparator = Color.fromRGBO(84, 84, 86, 0.34);
 
   static const Color tabUnselected = Color.fromRGBO(153, 153, 153, 1);
-
-  
-
 
   AppColors(String s);
 
