@@ -282,7 +282,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     );
   }
 
-  _buildEventGrid() {
+  Widget _buildEventGrid() {
     return FutureBuilder<List<EventDetail>>(
       future: _eventsGridFuture,
       builder: (context, snapshot) {
@@ -294,30 +294,31 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         }
 
         List<EventDetail> events = snapshot.data!;
-        int totalPages = (events.length / 2).ceil(); // Each page has 2 events
+        int totalPages = (events.length / 2).ceil(); // 2 events per page
 
         return PageView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: totalPages,
           itemBuilder: (context, pageIndex) {
-            // Get the slice of events for this page
             int start = pageIndex * 2;
             int end = (start + 2).clamp(0, events.length);
             List<EventDetail> pageEvents = events.sublist(start, end);
+
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16), // Adjust spacing
-              child: GridView.count(
-                crossAxisCount: 2, // 2 rows per column
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                childAspectRatio: 0.8, // Adjust for card size
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 rows per column
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 0.8, // Adjust for card size
+                ),
+                itemCount: pageEvents.length,
                 physics:
                     NeverScrollableScrollPhysics(), // Disable internal scroll
-                children: pageEvents
-                    .map((event) => EventCard(
-                          eventDetail: event,
-                        ))
-                    .toList(),
+                itemBuilder: (context, index) {
+                  return EventCard(eventDetail: pageEvents[index]);
+                },
               ),
             );
           },
@@ -325,51 +326,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       },
     );
   }
-  Widget _buildRecommendList() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Lyme Dành Riêng Cho Bạn',
-                style: FontTheme.customStyles['title3Emphasized']?.copyWith(
-                  color: AppColors.labelPrimaryLight,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        FutureBuilder<List<EventDetail>>(
-          future: _eventsGridFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CupertinoActivityIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No events available.'));
-            } else {
-              final events = snapshot.data!;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  children: events
-                      .map((event) => EventCard(eventDetail: event))
-                      .toList(),
-                ),
-              );
-            }
-          },
-        ),
-      ],
-    );
-  }
-  
+
   Widget _buildRecommendList() {
     return Column(
       children: [

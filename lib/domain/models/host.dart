@@ -36,12 +36,14 @@ class Host {
       fbLink: map['fb_link'] as String?,
       xLink: map['x_link'] as String?,
       birthdate: map['birthdate'] != null
-          ? DateTime.parse(map['birthdate'])
+          ? (map['birthdate'] is String
+              ? DateTime.parse(map['birthdate'])
+              : map['birthdate'] as DateTime)
           : null,
       gender: map['gender'] ?? 'Unknown',
       userName: map['user_name'] ?? 'Anonymous',
       avatar: map['avatar'] ?? '',
-      hostType: map['host_type'] as String?, // Now optional
+      hostType: map['host_type'] as String?,
       bio: map['bio'] as String?,
     );
   }
