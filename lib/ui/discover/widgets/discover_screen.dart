@@ -136,7 +136,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   children: [
                     Text(
                       'Lyme Dành Riêng Cho Bạn',
-                      style: FontTheme.customStyles['title3Emphasized']?.copyWith(
+                      style:
+                          FontTheme.customStyles['title3Emphasized']?.copyWith(
                         color: AppColors.labelPrimaryLight,
                       ),
                     ),
@@ -234,35 +235,35 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Widget _buildTopicsFutureBuilder() {
     return FutureBuilder<List<Topic>>(
       future: _topicsFuture,
-builder: (context, snapshot) {
-  if (snapshot.connectionState == ConnectionState.waiting) {
-    return Center(child: CupertinoActivityIndicator());
-  } else if (snapshot.hasError) {
-    return Center(child: Text('An error occurred: ${snapshot.error}'));
-  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-    return Center(child: Text('No topics available'));
-  } else {
-    final topics = snapshot.data!;
-    print("Topics loaded: ${topics.length}");
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 8.0),
-            child: TopicCard(topic: topics.first),
-          ),
-          ...topics.skip(1).take(9).map((topic) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: TopicCard(topic: topic),
-            );
-          }).toList(),
-        ],
-      ),
-    );
-  }
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CupertinoActivityIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('An error occurred: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No topics available'));
+        } else {
+          final topics = snapshot.data!;
+          print("Topics loaded: ${topics.length}");
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+                  child: TopicCard(topic: topics.first),
+                ),
+                ...topics.skip(1).take(9).map((topic) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: TopicCard(topic: topic),
+                  );
+                }).toList(),
+              ],
+            ),
+          );
+        }
       },
     );
   }
@@ -318,31 +319,6 @@ builder: (context, snapshot) {
 
   _buildEventGrid() {
     return FutureBuilder<List<EventDetail>>(
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        future: _eventsGridFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CupertinoActivityIndicator());
-          }
-          if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("No events found."));
-          }
-
-          List<EventDetail> events = snapshot.data!;
-          int totalPages = (events.length / 2).ceil(); // Each page has 2 events
-
-          return PageView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: totalPages,
-            itemBuilder: (context, pageIndex) {
-              // Get the slice of events for this page
-              int start = pageIndex * 2;
-              int end = (start + 2).clamp(0, events.length);
-              List<EventDetail> pageEvents = events.sublist(start, end);
-=======
-=======
->>>>>>> Stashed changes
       future: _eventsGridFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -351,8 +327,10 @@ builder: (context, snapshot) {
         if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
           return Center(child: Text("No events found."));
         }
+
         List<EventDetail> events = snapshot.data!;
         int totalPages = (events.length / 2).ceil(); // Each page has 2 events
+
         return PageView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: totalPages,
@@ -361,11 +339,6 @@ builder: (context, snapshot) {
             int start = pageIndex * 2;
             int end = (start + 2).clamp(0, events.length);
             List<EventDetail> pageEvents = events.sublist(start, end);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 16), // Adjust spacing
               child: GridView.count(
@@ -387,11 +360,6 @@ builder: (context, snapshot) {
       },
     );
   }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
 
   Widget _buildRecommendList() {
     return Column(
@@ -437,5 +405,4 @@ builder: (context, snapshot) {
       ],
     );
   }
->>>>>>> Stashed changes
 }

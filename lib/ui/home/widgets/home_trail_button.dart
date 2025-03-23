@@ -56,7 +56,7 @@ class _MainTrailButtonState extends State<MainTrailButton> {
                 color: AppColors.primary,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/notification');
+                Navigator.pushNamed(context, '/chat');
               }),
         ),
       ],
