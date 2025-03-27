@@ -33,7 +33,9 @@ class _SettingItemState extends State<SettingItem> {
         onExit: (_) => setState(() => isHovered = false),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          color: isHovered ? AppColors.fillPrimary : Colors.transparent, // Change background on hover
+          color: isHovered
+              ? AppColors.fillPrimary
+              : Colors.transparent, // Change background on hover
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -64,15 +66,15 @@ class _SettingItemState extends State<SettingItem> {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 12,
-                        color: AppColors.labelTertiaryLight,
-                      ),
                     ],
                   ),
                 ),
-              )
+              ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 12,
+                color: AppColors.labelTertiaryLight,
+              ),
             ],
           ),
         ),

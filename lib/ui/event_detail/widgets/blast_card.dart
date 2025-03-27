@@ -6,7 +6,7 @@ import 'package:lyme_app/domain/models/blast.dart';
 class BlastCard extends StatefulWidget {
   final Blast blast;
 
-  BlastCard({required this.blast});
+  const BlastCard({Key? key, required this.blast}) : super(key: key);
 
   @override
   _BlastCardState createState() => _BlastCardState();
@@ -22,7 +22,7 @@ class _BlastCardState extends State<BlastCard> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start, // Align text to start
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +37,8 @@ class _BlastCardState extends State<BlastCard> {
                     color: AppColors.nonOpaqueSeparator,
                   ),
                   image: DecorationImage(
-                    image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
+                    image: NetworkImage(
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -50,60 +51,41 @@ class _BlastCardState extends State<BlastCard> {
                     Row(
                       children: [
                         Text(
-                          'Host Name',
-                          style: FontTheme.customStyles['footnoteRegular']?.copyWith(
+                          'Lực Nguyễn',
+                          style: FontTheme.customStyles['footnoteRegular']
+                              ?.copyWith(
                             color: AppColors.labelPrimaryDark,
                           ),
                           overflow: TextOverflow.ellipsis,
+                          softWrap: false,
                         ),
                         Text(
                           ' • ',
-                          style: FontTheme.customStyles['footnoteRegular']?.copyWith(
+                          style: FontTheme.customStyles['footnoteRegular']
+                              ?.copyWith(
                             color: AppColors.labelSecondaryDark,
                           ),
-                          overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          'Host Role',
-                          style: FontTheme.customStyles['footnoteRegular']?.copyWith(
+                          'Host',
+                          style: FontTheme.customStyles['footnoteRegular']
+                              ?.copyWith(
                             color: AppColors.labelSecondaryDark,
                           ),
                           overflow: TextOverflow.ellipsis,
+                          softWrap: false,
                         ),
                       ],
                     ),
                     SizedBox(height: 2),
-                    Row(
-                      children: [
-                        Text(
-                          'Đăng vào ',
-                          style: FontTheme.customStyles['caption2Regular']?.copyWith(
-                            color: AppColors.labelSecondaryDark,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          '22 Tháng 12 2024',
-                          style: FontTheme.customStyles['caption2Regular']?.copyWith(
-                            color: AppColors.labelSecondaryDark,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          ' lúc ',
-                          style: FontTheme.customStyles['caption2Regular']?.copyWith(
-                            color: AppColors.labelSecondaryDark,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          ' 22:00 ',
-                          style: FontTheme.customStyles['caption2Regular']?.copyWith(
-                            color: AppColors.labelSecondaryDark,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                    Text(
+                      'Đăng vào 22 Tháng 12 2024 lúc 22:00',
+                      style:
+                          FontTheme.customStyles['caption2Regular']?.copyWith(
+                        color: AppColors.labelSecondaryDark,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ],
                 ),
@@ -116,8 +98,9 @@ class _BlastCardState extends State<BlastCard> {
             style: FontTheme.customStyles['footnoteRegular']?.copyWith(
               color: AppColors.labelPrimaryDark,
             ),
-            overflow: TextOverflow.ellipsis,
             maxLines: 5,
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
           ),
         ],
       ),

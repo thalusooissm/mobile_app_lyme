@@ -20,13 +20,13 @@ class _ViewTicketScreenState extends State<ViewTicketScreen> {
         middle: Text(
           'Vé',
           style: FontTheme.customStyles['bodyEmphasized']
-              ?.copyWith(color: AppColors.labelPrimaryLight),
+              ?.copyWith(color: AppColors.labelPrimaryDark),
         ),
         leading: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
           child: Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: AppColors.labelPrimaryLight,
+            color: AppColors.labelPrimaryDark,
             size: 20,
           ),
         ),

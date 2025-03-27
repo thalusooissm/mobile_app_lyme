@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:lyme_app/domain/models/event_detail.dart';
 import 'package:lyme_app/domain/models/host.dart';
 import 'package:lyme_app/ui/core/themes/colors.dart';
@@ -26,6 +27,18 @@ class EventCard extends StatefulWidget {
 class _EventCardState extends State<EventCard> {
   late Future<List<Host>> _hostsFuture;
 
+  List<String> dummyHostNames = [
+    "Lực Nguyễn",
+    "Minh Thi",
+    "Thiện Brown",
+  ];
+
+  List<String> dummyHostImages = [
+    "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+    "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+    "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -46,33 +59,36 @@ class _EventCardState extends State<EventCard> {
   // }
 
 // ✅ Improved version of `_initializeHosts()`
-Future<List<Host>> _initializeHosts() async {
-  try {
-    await UsersService.connect();
+  Future<List<Host>> _initializeHosts() async {
+    try {
+      await UsersService.connect();
 
-    final List<Map<String, dynamic>> data = await UsersService.getUsersByIds(
-      widget.eventDetail.hostIds, // No need for `.map((e) => e.toString()).toList()`
-    );
+      final List<Map<String, dynamic>> data = await UsersService.getUsersByIds(
+        widget.eventDetail
+            .hostIds, // No need for `.map((e) => e.toString()).toList()`
+      );
 
-    if (data.isEmpty) {
-      print('No hosts found in the database.');
+      if (data.isEmpty) {
+        print('No hosts found in the database.');
+        return [];
+      }
+
+      return data.map((map) => Host.fromMap(map)).toList();
+    } catch (e) {
+      print('Error initializing hosts: $e');
       return [];
     }
-
-    return data.map((map) => Host.fromMap(map)).toList();
-  } catch (e) {
-    print('Error initializing hosts: $e');
-    return [];
   }
-}
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+    // String formattedDateTime = DateFormat('HH:mm, dd/MM/yyyy').format(widget.eventDetail.startTime);
+    return CupertinoButton(
+      onPressed: () {
         Navigator.of(context).pushNamed('/event_detail');
-        print('Event card tapped');
       },
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      borderRadius: BorderRadius.circular(0),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(color: Colors.white),
@@ -87,9 +103,10 @@ Future<List<Host>> _initializeHosts() async {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(widget.eventDetail.image),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
-                  border: Border.all(width: 0.33, color: AppColors.nonOpaqueSeparator),
+                  border: Border.all(
+                      width: 0.33, color: AppColors.nonOpaqueSeparator),
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
@@ -104,78 +121,31 @@ Future<List<Host>> _initializeHosts() async {
                     Row(
                       children: [
                         // Host Avatar
-                        FutureBuilder<List<Host>>(
-                          future: _hostsFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-                            if (snapshot.hasError) {
-                              return Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Error: ${snapshot.error}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.red),
-                                    ),
-                                    SizedBox(height: 8),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _hostsFuture = _initializeHosts(); // Re-fetch data
-                                        });
-                                      },
-                                      child: Text('Retry'),
-                                    ),
-                                  ],
-                                ),
+                        SizedBox(
+                          height: 24,
+                          width: (dummyHostImages.length * 24) +
+                              ((dummyHostImages.length - 1) * -6),
+                          child: Stack(
+                            children:
+                                dummyHostImages.asMap().entries.map((entry) {
+                              final index = entry.key;
+                              final imageUrl = entry.value;
+                              return Positioned(
+                                left: index *
+                                    18.0, // Adjust overlap (24px width - 6px overlap)
+                                child: HostAvatarWidget(host: imageUrl),
                               );
-                            }
-                            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                              return Center(child: Text('No hosts found.'));
-                            }
-
-                            final hosts = snapshot.data!;
-                            return SizedBox(
-                              height: 40, 
-                              width: hosts.length * 30.0, 
-                              child: Stack(
-                                children: hosts.asMap().entries.map((entry) {
-                                  final index = entry.key;
-                                  final host = entry.value;
-                                  return Positioned(
-                                    left: index * 18.0,
-                                    child: HostAvatarWidget(host: host),
-                                  );
-                                }).toList(),
-                              ),
-                            );
-                          },
+                            }).toList(),
+                          ),
                         ),
-                        FutureBuilder<List<Host>>(
-                          future: _hostsFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Center(child: CupertinoActivityIndicator());
-                            } else if (snapshot.hasError) {
-                              return Center(child: Text('Error: ${snapshot.error}'));
-                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                              return Center(child: Text('No hosts found.'));
-                            } else {
-                              final hosts = snapshot.data!;
-                              final hostNames = hosts.map((host) => host.fullName).join(', ');
-                              return Text(
-                                hostNames,
-                                style: FontTheme.customStyles['caption1Regular']?.copyWith(
-                                  color: AppColors.labelSecondaryLight,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              );
-                            }
-                          },
+                        Text(
+                          dummyHostNames.join(', '),
+                          style: FontTheme.customStyles['caption1Regular']
+                              ?.copyWith(
+                            color: AppColors.labelSecondaryLight,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                       ],
                     ),
@@ -183,7 +153,8 @@ Future<List<Host>> _initializeHosts() async {
                     // Event Name
                     Text(
                       widget.eventDetail.eventName,
-                      style: FontTheme.customStyles['subheadlineRegular']?.copyWith(
+                      style: FontTheme.customStyles['subheadlineRegular']
+                          ?.copyWith(
                         color: AppColors.labelPrimaryLight,
                       ),
                       maxLines: 2,
@@ -196,15 +167,17 @@ Future<List<Host>> _initializeHosts() async {
                       children: [
                         Row(
                           children: [
-                          Icon(
-                            Icons.watch_later_rounded,
-                            color: AppColors.fillTertiary,
-                            size: 16,
-                          ), 
+                            Icon(
+                              Icons.watch_later_rounded,
+                              color: AppColors.fillTertiary,
+                              size: 16,
+                            ),
                             const SizedBox(width: 4),
                             Text(
-                              '${widget.eventDetail.startTime}',
-                              style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                              DateFormat('HH:mm, dd/MM/yyyy')
+                                  .format(widget.eventDetail.startTime),
+                              style: FontTheme.customStyles['caption1Regular']
+                                  ?.copyWith(
                                 color: AppColors.labelSecondaryLight,
                               ),
                             ),
@@ -215,14 +188,14 @@ Future<List<Host>> _initializeHosts() async {
                           children: [
                             Icon(
                               Icons.explore_rounded,
-                                                          color: AppColors.fillTertiary,
-                            size: 16,
-
+                              color: AppColors.fillTertiary,
+                              size: 16,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              'abc',
-                              style: FontTheme.customStyles['caption1Regular']?.copyWith(
+                              'TP. Hồ Chí Minh',
+                              style: FontTheme.customStyles['caption1Regular']
+                                  ?.copyWith(
                                 color: AppColors.labelSecondaryLight,
                               ),
                             ),
@@ -242,7 +215,7 @@ Future<List<Host>> _initializeHosts() async {
 }
 
 class HostAvatarWidget extends StatelessWidget {
-  final Host host;
+  final String host;
 
   const HostAvatarWidget({Key? key, required this.host}) : super(key: key);
 
@@ -253,7 +226,9 @@ class HostAvatarWidget extends StatelessWidget {
       height: 24,
       decoration: ShapeDecoration(
         image: DecorationImage(
-          image: NetworkImage('https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg'),
+          image: NetworkImage(
+            host,
+          ),
           fit: BoxFit.fill,
           onError: (error, stackTrace) {
             debugPrint("Image Load Error: $error");
