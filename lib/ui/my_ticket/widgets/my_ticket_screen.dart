@@ -90,7 +90,7 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 32, // Adjust this value to match LabelFilter height
+                height: 32,
                 child: Row(
                   children: [
                     Expanded(

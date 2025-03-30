@@ -63,7 +63,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundPrimary,
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.backgroundBlur75,
         middle: Text(
           'Thông báo',
           style: FontTheme.customStyles['bodyEmphasized']
@@ -78,171 +78,169 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
       ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 32,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: filterOptions.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        left: index == 0 ? 16 : 8,
-                        right: index == filterOptions.length - 1 ? 16 : 0,
-                      ),
-                      child: GestureDetector(
-                        onTap: () => updateFilter(index),
-                        child: LabelFilter(
-                          label: filterOptions[index]['label'],
-                          isSelected: filterOptions[index]['isSelected'],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 150,
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: false,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: false,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: false,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: false,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                  NotificationCard(
+                    title: 'Đây là tiêu đề của thông báo',
+                    description:
+                        'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
+                    timestamp: DateTime(2024, 3, 2, 10, 15),
+                    ifRead: true,
+                    thumbnail:
+                        'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                  ),
+                ],
               ),
-              SizedBox(height: 16),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: false,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: false,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: false,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: false,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                    NotificationCard(
-                      title: 'Đây là tiêu đề của thông báo',
-                      description:
-                          'Đừng quên nghệ sĩ yêu thích của bạn sẽ biểu diễn trực tiếp vào ngày mai!',
-                      timestamp: DateTime(2024, 3, 2, 10, 15),
-                      ifRead: true,
-                      thumbnail:
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
-                    ),
-                  ],
-                ),
-              ),
-              // Expanded(
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 16),
-              //     child: Expanded(
-              //       child: ListView.builder(
-              //         itemCount: notifications.length,
-              //         itemBuilder: (context, index) {
-              //           final notification = notifications[index];
-              //           return NotificationCard(
-              //             title: notification['title'],
-              //             description: notification['description'],
-              //             timestamp: notification['timestamp'],
-              //             ifRead: notification['ifRead'],
-              //             thumbnail: notification['thumbnail'],
-              //           );
-              //         },
-              //       ),
-              //     ),
-              //   ),
-              // ),
-            ],
+            ),
           ),
-        ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              bottom: false,
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(
+                    color: AppColors.backgroundBlur75,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: SizedBox(
+                      height: 32,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: filterOptions.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              left: index == 0 ? 16 : 8,
+                              right: index == filterOptions.length - 1 ? 16 : 0,
+                            ),
+                            child: GestureDetector(
+                              onTap: () => updateFilter(index),
+                              child: LabelFilter(
+                                label: filterOptions[index]['label'],
+                                isSelected: filterOptions[index]['isSelected'],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

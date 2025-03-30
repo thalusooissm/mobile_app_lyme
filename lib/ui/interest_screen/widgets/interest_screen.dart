@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lyme_app/domain/models/event_detail.dart';
 import 'package:lyme_app/ui/components/buttons/text_icon_button.dart';
+import 'package:lyme_app/ui/components/event_card.dart';
 
 import 'package:lyme_app/ui/core/themes/colors.dart';
 import 'package:lyme_app/ui/core/themes/theme.dart';
@@ -16,6 +18,20 @@ class InterestScreen extends StatefulWidget {
 }
 
 class _InterestScreenState extends State<InterestScreen> {
+  final dummyEvent01 = EventDetail(
+    eventId: 1,
+    eventName: "Tech Innovators Meetup",
+    startTime: DateTime.parse("2025-04-15 18:00:00"),
+    placeId: 101,
+    hostIds: [1, 2, 3],
+    topicId: 5,
+    chainId: 2,
+    about: "Tham gia ngay.",
+    image: "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+    endTime: DateTime.parse("2025-04-15 21:00:00"),
+    addressId: 202,
+  );
+
   final List<Map<String, String>> followedObjects = [
     {
       'text': 'Chuỗi Triển lãm những địa hạt phù du',
@@ -54,8 +70,10 @@ class _InterestScreenState extends State<InterestScreen> {
     return CupertinoPageScaffold(
         backgroundColor: AppColors.backgroundPrimary,
         navigationBar: CupertinoNavigationBar(
+          backgroundColor: AppColors.backgroundPrimary,
+          automaticBackgroundVisibility: true,
           leading: Row(
-            mainAxisSize: MainAxisSize.min, // Ensure minimal width
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'Quan Tâm',
@@ -68,7 +86,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 height: 28,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/vector.png'), // Fixed path
+                    image: AssetImage('assets/images/vector.png'),
                     fit: BoxFit.fill,
                     scale: 1.5,
                   ),
@@ -78,11 +96,9 @@ class _InterestScreenState extends State<InterestScreen> {
             ],
           ),
           trailing: MainTrailButton(context: context),
-          backgroundColor: AppColors.backgroundPrimary, // More readable opacity
         ),
-        child: SafeArea(
-            child: SingleChildScrollView(
-                child: Column(
+        child: SingleChildScrollView(
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSectionHeader('Sự kiện yêu thích'),
@@ -107,7 +123,7 @@ class _InterestScreenState extends State<InterestScreen> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.8,
+                  childAspectRatio: 0.75,
                 ),
                 itemCount: followedObjects.length,
                 itemBuilder: (context, index) {
@@ -119,7 +135,7 @@ class _InterestScreenState extends State<InterestScreen> {
               ),
             ),
           ],
-        ))));
+        )));
   }
 
   Widget _buildSectionHeader(String title) {
@@ -148,13 +164,11 @@ class _InterestScreenState extends State<InterestScreen> {
   }
 
   Widget _buildListofFavoritEvent() {
-    return Row(
+    return Column(
       children: [
-        Text(
-          'Chuỗi Triển lãm những địa hạt phù du',
-          style: FontTheme.customStyles['headlineRegular']
-              ?.copyWith(color: AppColors.labelPrimaryLight),
-        ),
+        EventCard(eventDetail: dummyEvent01),
+        EventCard(eventDetail: dummyEvent01),
+        EventCard(eventDetail: dummyEvent01),
       ],
     );
   }

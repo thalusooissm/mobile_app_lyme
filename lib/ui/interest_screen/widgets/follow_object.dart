@@ -20,33 +20,35 @@ class FollowedObject extends StatefulWidget {
 class _FollowedObjectState extends State<FollowedObject> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: AppColors.nonOpaqueSeparator,
-                width: 0.33,
+    return CupertinoButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/event_detail');
+        },
+        padding: EdgeInsets.zero,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(
+                  color: AppColors.nonOpaqueSeparator,
+                  width: 0.33,
+                ),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Image.network(
+                  widget.imageUrl,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            clipBehavior: Clip.antiAlias,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.network(
-              widget.imageUrl,
+            SizedBox(height: 8),
+            SizedBox(
               width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: Center(
               child: Text(
                 widget.text,
                 style: FontTheme.customStyles['bodyRegular']?.copyWith(
@@ -55,13 +57,9 @@ class _FollowedObjectState extends State<FollowedObject> {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center, // Ensures text is centered
-                softWrap: true, // Enables text wrapping
               ),
-            ),
-          )        
-        ],
-      )
-    );
+            )
+          ],
+        ));
   }
-
 }

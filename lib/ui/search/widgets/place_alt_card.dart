@@ -21,11 +21,18 @@ class PlaceAltCard extends StatefulWidget {
 class _PlaceAltCardState extends State<PlaceAltCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CupertinoButton(
+      onPressed: () {
+        Navigator.pushNamed(context, '/place_screen');
+      },
+      padding: const EdgeInsets.all(0),
+      borderRadius: BorderRadius.zero,
+      child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(12),
         decoration: ShapeDecoration(
-          color: AppColors.fillTertiary, // Replace AppColors.fillTertiary if not defined
+          color: AppColors
+              .fillTertiary, // Replace AppColors.fillTertiary if not defined
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -41,24 +48,30 @@ class _PlaceAltCardState extends State<PlaceAltCard> {
                   Row(
                     children: [
                       Text(
-                        widget.place.placeName, // Access the place object via `widget`
-                        style: FontTheme.customStyles['footnoteEmphasized']?.copyWith(
-                                    color: AppColors.labelPrimaryLight,
-                                  ),
+                        widget.place
+                            .placeName, // Access the place object via `widget`
+                        style: FontTheme.customStyles['footnoteEmphasized']
+                            ?.copyWith(
+                          color: AppColors.labelPrimaryLight,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4),
                   Row(
-                    children: [                
+                    children: [
                       Text(
                         '1000+',
-                        style: FontTheme.customStyles['caption1Regular']?.copyWith(color: AppColors.labelSecondaryLight,
+                        style:
+                            FontTheme.customStyles['caption1Regular']?.copyWith(
+                          color: AppColors.labelSecondaryLight,
                         ),
                       ),
                       Text(
                         ' Sự kiện',
-                        style: FontTheme.customStyles['caption1Regular']?.copyWith(color: AppColors.labelSecondaryLight,
+                        style:
+                            FontTheme.customStyles['caption1Regular']?.copyWith(
+                          color: AppColors.labelSecondaryLight,
                         ),
                       ),
                     ],
@@ -74,6 +87,7 @@ class _PlaceAltCardState extends State<PlaceAltCard> {
             ),
           ],
         ),
-      );
+      ),
+    );
   }
 }

@@ -308,7 +308,7 @@ class _TicketConfirmationScreenState extends State<TicketConfirmationScreen> {
                     color: AppColors.primary,
                     onPressed: () {
                       Navigator.of(context)
-                          .pushNamed('/success_getting_screen');
+                          .pushNamed('/payment_forward_request');
                     },
                     child: Text(
                       'Thanh Toán',

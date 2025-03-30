@@ -13,18 +13,18 @@ class Blast {
     required this.content,
   });
 
-  // Factory constructor to create a Blast object from a map
   factory Blast.fromMap(Map<String, dynamic> map) {
     return Blast(
       blastId: map['blast_id'] as int,
       eventId: map['event_id'] as int,
       hostId: map['host_id'] as int,
-      timestamp: DateTime.parse(map['timestamp']),
-      content: map['content'] ?? '',
+      timestamp: map['timestamp'] != null && map['timestamp'] is String
+          ? DateTime.tryParse(map['timestamp']) ?? DateTime.now()
+          : DateTime.now(), // Fallback to current time
+      content: map['content']?.toString() ?? '', // Ensure it's a string
     );
   }
 
-  // Convert a Blast object to a map
   Map<String, dynamic> toMap() {
     return {
       'blast_id': blastId,

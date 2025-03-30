@@ -11,7 +11,10 @@ import 'package:lyme_app/ui/getting_ticket/widgets/success_getting_screen.dart';
 import 'package:lyme_app/ui/getting_ticket/widgets/ticket_confirmation_screen.dart';
 import 'package:lyme_app/ui/getting_ticket/widgets/ticket_type_selection_screen.dart';
 import 'package:lyme_app/ui/home/widgets/home_screen.dart';
+import 'package:lyme_app/ui/list_of_events/widgets/list_of_events_screen.dart';
+import 'package:lyme_app/ui/list_of_places_screen/widgets/list_of_places_screen.dart';
 import 'package:lyme_app/ui/notification/widgets/notification_screen.dart';
+import 'package:lyme_app/ui/place_screen/widgets/place_screen.dart';
 import 'package:lyme_app/ui/setting/widgets/setting_screen.dart';
 import 'package:lyme_app/ui/view_ticket/widgets/use_ticket_qr_screen.dart';
 import 'package:lyme_app/ui/welcome/widgets/welcome_screen.dart';
@@ -62,7 +65,7 @@ class LymeApp extends StatelessWidget {
                   builder: (_) => TicketConfirmationScreen());
             case '/payment_forward_request':
               return CupertinoPageRoute(builder: (_) => PaymentScreen());
-            case '/success':
+            case '/success_getting_screen':
               return CupertinoPageRoute(builder: (_) => SuccessScreen());
             case '/qr':
               return CupertinoPageRoute(builder: (_) => QRScreen());
@@ -70,6 +73,13 @@ class LymeApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => NotificationScreen());
             case '/chat':
               return CupertinoPageRoute(builder: (_) => ChatScreen());
+            case '/list_of_events':
+              return CupertinoPageRoute(builder: (_) => ListOfEventsScreen());
+            case '/list_of_places':
+              return CupertinoPageRoute(builder: (_) => ListOfPlacesScreen());
+            case '/place_screen':
+              return CupertinoPageRoute(builder: (_) => PlaceScreen());
+
             default:
               return CupertinoPageRoute(builder: (_) => HomeScreen());
           }

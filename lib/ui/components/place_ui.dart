@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lyme_app/domain/models/place.dart'; 
+import 'package:lyme_app/domain/models/place.dart';
 
 class PlaceCard extends StatelessWidget {
-  final Place place; 
+  final Place place;
 
   const PlaceCard({Key? key, required this.place}) : super(key: key);
 
@@ -10,7 +10,7 @@ class PlaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Tapped on place: ${place.placeName}');
+        Navigator.pushNamed(context, '/place_screen');
       },
       child: Container(
         width: 160,
@@ -29,15 +29,16 @@ class PlaceCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             // Background image
- Positioned.fill(
-  child: ClipRRect(
-    borderRadius: BorderRadius.circular(12),
-    child: Image.network(
-      'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg', // Replace with the actual URL
-      fit: BoxFit.cover, // Optional: adjust the fit to ensure the image fills the space appropriately
-    ),
-  ),
-),
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg', // Replace with the actual URL
+                  fit: BoxFit
+                      .cover, // Optional: adjust the fit to ensure the image fills the space appropriately
+                ),
+              ),
+            ),
             // Gradient overlay
             Positioned.fill(
               child: Container(
@@ -62,7 +63,8 @@ class PlaceCard extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(12),
                 child: Text(
-                  place.placeName, // Access the place name from the Place object
+                  place
+                      .placeName, // Access the place name from the Place object
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,

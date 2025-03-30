@@ -132,16 +132,111 @@ class EventDetailScreen extends StatefulWidget {
 }
 
 class _EventDetailScreenState extends State<EventDetailScreen> {
+  bool isFavorited = false;
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavorited = !isFavorited;
+    });
+    showCustomOverlayToast(
+      context,
+      isFavorited
+          ? "Đã thêm vào danh sách yêu thích!"
+          : "Đã bỏ khỏi danh sách yêu thích!",
+      isFavorited ? Icons.star_rounded : Icons.star_border_rounded,
+    );
+  }
+
+  void showCustomOverlayToast(
+      BuildContext context, String message, IconData icon) {
+    OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Stack(
+        children: [
+          Positioned(
+            bottom: 60,
+            left: 16,
+            right: 16,
+            child: Material(
+              color: Colors.transparent,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12), // Rounded corners
+                child: BackdropFilter(
+                  filter:
+                      ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Blur on Toast
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(
+                          (0.5 * 255).toInt()), // Semi-transparent white
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withAlpha((0.3 * 255).toInt()),
+                          blurRadius: 100,
+                          offset: Offset(0, 10), // Shadow effect
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Icon(icon,
+                            color: AppColors.labelSecondaryLight, size: 24),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            message,
+                            style: FontTheme.customStyles['footnoteRegular']
+                                ?.copyWith(
+                                    color: AppColors.labelSecondaryLight),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    // Insert the overlay into the widget tree
+    Overlay.of(context).insert(overlayEntry);
+
+    // Remove after 3 seconds with fade-out animation
+    Future.delayed(Duration(seconds: 3), () {
+      overlayEntry.remove();
+    });
+  }
+  // void _shareEvent() {
+  //   const String eventName =
+  //       "Hành trình khám phá bản thân qua nhận thức về thực tại";
+  //   const String eventThumbnailUrl =
+  //       "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg";
+
+  //   const String shareText =
+  //       "📢 Khám phá sự kiện: $eventName\n\n🌐 thông qua đường dẫn $eventThumbnailUrl.";
+
+  //   Share.share(shareText);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        automaticBackgroundVisibility: false,
         backgroundColor: Colors.transparent,
+        automaticBackgroundVisibility: false,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Icon(
             Icons.arrow_back_ios_new_rounded,
+            color: AppColors.labelPrimaryLight,
             size: 20,
           ),
         ),
@@ -157,7 +252,6 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               ),
             ),
           ),
-          // Blur effect
           BackdropFilter(
             filter: ImageFilter.blur(
                 sigmaX: 150.0, sigmaY: 150.0), // Adjust blur intensity
@@ -166,33 +260,26 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   (0.5 * 255).toInt()), // Semi-transparent black overlay
             ),
           ),
-          SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 28),
-                  _eventThumbnail(
-                    imageUrl:
-                        "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
-                  ),
-                  SizedBox(height: 20),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  //   child: _eventBasicInfo(),
-                  // ),
-                  SizedBox(height: 40),
-                  _eventSetOfButtons(context),
-                  SizedBox(height: 40),
-                  _listOfTickets(),
-                  SizedBox(height: 40),
-                  _listOfHotsts(),
-                  SizedBox(height: 40),
-                  _buildBlasts(),
-                  SizedBox(height: 40),
-                  _buildEventDescription(),
-                ],
-              ),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 120),
+                _eventThumbnail(
+                  imageUrl:
+                      "https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg",
+                ),
+                SizedBox(height: 20),
+                _eventBasicInfo(),
+                SizedBox(height: 40),
+                _eventSetOfButtons(context),
+                SizedBox(height: 40),
+                _listOfTickets(),
+                _listOfHotsts(),
+                _buildBlasts(),
+                SizedBox(height: 40),
+                _buildEventDescription(),
+              ],
             ),
           ),
         ],
@@ -227,68 +314,77 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   }
 
   Widget _eventBasicInfo() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                CupertinoButton(
+                  padding: EdgeInsets.all(0),
+                  borderRadius: BorderRadius.circular(0),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                        fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.circular(4),
+                      SizedBox(width: 8),
+                      Text(
+                        'LGBT Exposition 2025',
+                        style: FontTheme.customStyles['subheadlineRegular']
+                            ?.copyWith(color: AppColors.labelSecondaryDark),
+                      ),
+                      SizedBox(width: 4),
+                      Icon(Icons.arrow_forward_ios_rounded,
+                          color: AppColors.labelSecondaryDark),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Hành trình khám phá bản thân qua nhận thức về thực tại',
+                        style: FontTheme.customStyles['title2Emphasized']
+                            ?.copyWith(color: AppColors.labelPrimaryDark),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'LGBT Exposition 2024',
-                      style: FontTheme.customStyles['subHeadlineRegular']
-                          ?.copyWith(color: AppColors.labelSecondaryLight),
-                      overflow: TextOverflow.ellipsis,
+                  ],
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '19:00 - 21:00, 21/08 (Ngày mai)',
+                        style: FontTheme.customStyles['footnoteRegular']
+                            ?.copyWith(color: AppColors.labelSecondaryDark),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 4),
-                  SvgPicture.asset(
-                    'lib/assets/icons/arrow_forward_ios.svg',
-                    width: 16,
-                    height: 16,
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Queer Planet Soiree For First Time In 2024',
-                style: FontTheme.customStyles['title2Emphasized']
-                    ?.copyWith(color: AppColors.labelPrimaryLight),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              SizedBox(height: 8),
-              Text(
-                '19:00 - 21:00, 21/08 (Ngày mai)',
-                style: FontTheme.customStyles['footnoteRegular']
-                    ?.copyWith(color: AppColors.labelSecondaryLight),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(width: 8),
-        _buildFavoriteButton(),
-      ],
+          SizedBox(width: 8),
+          _buildFavoriteButton(),
+        ],
+      ),
     );
   }
 
@@ -337,16 +433,21 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   }
 
   Widget _buildFavoriteButton() {
-    return Container(
-      padding: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: AppColors.backgroundSecondary,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: SvgPicture.asset(
-        'lib/assets/icons/add_to_fav_icon.svg',
-        width: 24,
-        height: 24,
+    return CupertinoButton(
+      borderRadius: BorderRadius.circular(50),
+      padding: EdgeInsets.all(0),
+      onPressed: _toggleFavorite,
+      child: Container(
+        padding: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: AppColors.backgroundSecondary,
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Icon(
+          isFavorited ? Icons.star_rounded : Icons.star_border_rounded,
+          color: AppColors.primary,
+          size: 20,
+        ),
       ),
     );
   }
@@ -429,18 +530,20 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       children: [
         _buildHeading(label: 'Vé'),
         SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: dummyEventTickets.length,
-            itemBuilder: (context, index) {
-              return EventTicketCardCompact(
+        ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 16.0), // Moved padding here
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: dummyEventTickets.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 8.0), // Reduce space between items
+              child: EventTicketCardCompact(
                 eventTicket: dummyEventTickets[index],
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ],
     );
@@ -477,18 +580,20 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       children: [
         _buildHeading(label: 'Host'),
         SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: dummyHosts.length,
-            itemBuilder: (context, index) {
-              return HostCard(
+        ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 16.0), // Move padding here
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: dummyHosts.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 8.0), // Reduce space between items
+              child: HostCard(
                 host: dummyHosts[index],
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ],
     );
@@ -512,33 +617,26 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   }
 
   Widget _buildBlasts() {
+    print("Loading Blast..."); // Debugging log
+
+    // Dummy blast data
+    final Blast dummyBlast = Blast(
+      blastId: 1,
+      eventId: 101,
+      hostId: 1,
+      timestamp: DateTime.parse("2025-01-01 12:00:00"),
+      content: "Join us for an exciting event happening this weekend!",
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildHeading(label: 'Lời nhắn'),
         SizedBox(height: 16),
-        SizedBox(
-          height: 200, // Set a height to prevent unbounded error
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: dummyBlasts.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  left: index == 0
-                      ? 16.0
-                      : 8.0, // Padding left for the first item
-                  right: index == dummyBlasts.length - 1
-                      ? 16.0
-                      : 0.0, // Padding right for the last item
-                ),
-                child: BlastCard(
-                  blast: dummyBlasts[index],
-                ),
-              );
-            },
-          ),
-        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: BlastCard(blast: dummyBlast),
+        ), // Displaying only one blast
       ],
     );
   }

@@ -14,8 +14,19 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Cài đặt', style: FontTheme.customStyles['bodyEmphasized']?.copyWith(color: AppColors.labelPrimaryLight,),),
-        leading:  Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.labelPrimaryLight, size: 20,),
+        middle: Text(
+          'Cài đặt',
+          style: FontTheme.customStyles['bodyEmphasized']?.copyWith(
+            color: AppColors.labelPrimaryLight,
+          ),
+        ),
+        leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: AppColors.labelPrimaryLight,
+              size: 20,
+            )),
       ),
       backgroundColor: AppColors.backgroundPrimary,
       child: SafeArea(
@@ -23,43 +34,70 @@ class _SettingScreenState extends State<SettingScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                  color: AppColors.fillTertiary
-                ),
-                child: Column(children: [
-                  SettingItem(icon: Icons.account_balance_rounded, settingTitle: 'Lịch sử giao dịch', settingPath: ''),
-                  SettingItem(icon: Icons.book_online_rounded, settingTitle: 'Lịch sử vé', settingPath: ''),
-                  SettingItem(icon: Icons.diversity_3_rounded, settingTitle: 'Bạn bè', settingPath: '')
-                ],)
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      color: AppColors.fillTertiary),
+                  child: Column(
+                    children: [
+                      SettingItem(
+                          icon: Icons.account_balance_rounded,
+                          settingTitle: 'Lịch sử giao dịch',
+                          settingPath: ''),
+                      SettingItem(
+                          icon: Icons.book_online_rounded,
+                          settingTitle: 'Lịch sử vé',
+                          settingPath: ''),
+                      SettingItem(
+                          icon: Icons.diversity_3_rounded,
+                          settingTitle: 'Bạn bè',
+                          settingPath: '')
+                    ],
+                  )),
+              SizedBox(
+                height: 16,
               ),
-              SizedBox(height: 16,),
-                        Container(
-                                          clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                  color: AppColors.fillTertiary
-                ),
-                child: Column(children: [
-                  SettingItem(icon: Icons.notifications_rounded, settingTitle: 'Thông báo', settingPath: ''),
-                ],)
-              ),
-              SizedBox(height: 16,),
               Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                  color: AppColors.fillTertiary
-                ),
-                child: Column(children: [
-                  SettingItem(icon: Icons.contact_support_rounded, settingTitle: 'Hỗ trợ', settingPath: ''),
-                  SettingItem(icon: Icons.article_rounded, settingTitle: 'Điều khoản và chính sách', settingPath: ''),
-                  SettingItem(icon: Icons.add_circle_rounded, settingTitle: 'Theo dõi Lyme', settingPath: '')
-                ],)
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      color: AppColors.fillTertiary),
+                  child: Column(
+                    children: [
+                      SettingItem(
+                          icon: Icons.notifications_rounded,
+                          settingTitle: 'Thông báo',
+                          settingPath: ''),
+                    ],
+                  )),
+              SizedBox(
+                height: 16,
               ),
+              Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      color: AppColors.fillTertiary),
+                  child: Column(
+                    children: [
+                      SettingItem(
+                          icon: Icons.contact_support_rounded,
+                          settingTitle: 'Hỗ trợ',
+                          settingPath: ''),
+                      SettingItem(
+                          icon: Icons.article_rounded,
+                          settingTitle: 'Điều khoản và chính sách',
+                          settingPath: ''),
+                      SettingItem(
+                          icon: Icons.add_circle_rounded,
+                          settingTitle: 'Theo dõi Lyme',
+                          settingPath: '')
+                    ],
+                  )),
             ],
           ),
         ),
