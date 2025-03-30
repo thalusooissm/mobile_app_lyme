@@ -70,7 +70,6 @@ class _InterestScreenState extends State<InterestScreen> {
     return CupertinoPageScaffold(
         backgroundColor: AppColors.backgroundPrimary,
         navigationBar: CupertinoNavigationBar(
-          backgroundColor: AppColors.backgroundPrimary,
           automaticBackgroundVisibility: true,
           leading: Row(
             mainAxisSize: MainAxisSize.min,
@@ -101,6 +100,7 @@ class _InterestScreenState extends State<InterestScreen> {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 100),
             _buildSectionHeader('Sự kiện yêu thích'),
             SizedBox(height: 16),
             _buildListofFavoritEvent(),
@@ -114,26 +114,25 @@ class _InterestScreenState extends State<InterestScreen> {
               ),
             ),
             SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.75,
-                ),
-                itemCount: followedObjects.length,
-                itemBuilder: (context, index) {
-                  return FollowedObject(
-                    text: followedObjects[index]['text']!,
-                    imageUrl: followedObjects[index]['imageUrl']!,
-                  );
-                },
+            GridView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 16,
+                childAspectRatio: 0.75,
               ),
+              itemCount: followedObjects.length,
+              itemBuilder: (context, index) {
+                return FollowedObject(
+                  text: followedObjects[index]['text']!,
+                  imageUrl: followedObjects[index]['imageUrl']!,
+                );
+              },
             ),
+            SizedBox(height: 120),
           ],
         )));
   }
