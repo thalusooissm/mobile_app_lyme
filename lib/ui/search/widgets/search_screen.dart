@@ -58,6 +58,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        backgroundColor: AppColors.backgroundBlur75,
         leading: Text('Tìm Kiếm',
             style: FontTheme.customStyles['title3Emphasized']
                 ?.copyWith(color: AppColors.labelPrimaryLight)),
@@ -73,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 120),
+              SizedBox(height: 100),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: CupertinoSearchTextField(
@@ -174,6 +175,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
                 },
               ),
+              SizedBox(height: 120),
             ],
           ),
         ),

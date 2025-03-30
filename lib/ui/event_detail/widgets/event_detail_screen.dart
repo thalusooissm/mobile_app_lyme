@@ -214,6 +214,130 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       overlayEntry.remove();
     });
   }
+
+  String noteContent = '';
+  bool isEditing = false;
+
+  void showNoteDialog(BuildContext context) {
+    setState(() {
+      isEditing = true; // Hide the note widget
+    });
+
+    TextEditingController noteController =
+        TextEditingController(text: noteContent);
+
+    showCupertinoModalPopup(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Ghi chú',
+                      style: FontTheme.customStyles['headlineRegular']
+                          ?.copyWith(color: AppColors.labelPrimaryDark),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.backgroundPrimary,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CupertinoTextField.borderless(
+                          padding: EdgeInsets.all(0),
+                          controller: noteController,
+                          cursorColor: AppColors.primary,
+                          maxLines: null,
+                          minLines: 2,
+                          placeholder: 'Nhập ghi chú...',
+                          placeholderStyle:
+                              TextStyle(color: AppColors.labelTertiaryLight),
+                          style: TextStyle(color: AppColors.labelPrimaryLight),
+                          textAlignVertical: TextAlignVertical.top,
+                          keyboardType: TextInputType.multiline,
+                          maxLength: 100,
+                          onChanged: (text) {
+                            if (text.length <= 100) {
+                              noteContent = text;
+                            } else {
+                              noteController.text = noteContent;
+                              noteController.selection =
+                                  TextSelection.fromPosition(
+                                TextPosition(
+                                    offset: noteController.text.length),
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(
+                            color: AppColors.nonOpaqueSeparator,
+                            width: 0.33,
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(
+                            'https://images.pexels.com/photos/1018478/pexels-photo-1018478.jpeg',
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: CupertinoButton(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(50),
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    onPressed: () {
+                      setState(() {
+                        noteContent = noteController.text;
+                        isEditing = false;
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Lưu',
+                      style: FontTheme.customStyles['subheadlineRegular']
+                          ?.copyWith(color: AppColors.labelPrimaryDark),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    ).then((_) {
+      setState(() {
+        isEditing =
+            false; // Ensure the widget is visible again after modal closes
+      });
+    });
+  }
   // void _shareEvent() {
   //   const String eventName =
   //       "Hành trình khám phá bản thân qua nhận thức về thực tại";
@@ -236,7 +360,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
           onTap: () => Navigator.pop(context),
           child: Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: AppColors.labelPrimaryLight,
+            color: AppColors.labelPrimaryDark,
             size: 20,
           ),
         ),
@@ -282,6 +406,82 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               ],
             ),
           ),
+          isEditing || noteContent.isEmpty
+              ? SizedBox()
+              : Positioned(
+                  right: 16,
+                  left: 16,
+                  bottom: 60,
+                  child: ClipRRect(
+                    clipBehavior: Clip.antiAlias,
+                    borderRadius: BorderRadius.circular(50),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: CupertinoButton(
+                        color: AppColors.backgroundBlur75,
+                        padding: EdgeInsets.all(0),
+                        borderRadius: BorderRadius.circular(50),
+                        onPressed: () {
+                          showNoteDialog(context);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(12, 8, 8, 8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.nonOpaqueSeparator,
+                                blurRadius: 100,
+                                offset: Offset(0, 10),
+                              )
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  noteContent,
+                                  style: FontTheme
+                                      .customStyles['footnoteRegular']
+                                      ?.copyWith(
+                                          color: AppColors.labelPrimaryLight),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: Border.all(
+                                    color: AppColors.nonOpaqueSeparator,
+                                    width: 0.33,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.nonOpaqueSeparator,
+                                      blurRadius: 100,
+                                      offset: Offset(0, 10),
+                                    )
+                                  ],
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.network(
+                                    'https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/487395788_1334465281036132_7457939977975030324_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=WhqXB_leM5YQ7kNvgGxU6YM&_nc_oc=Adm0q_00GJkbPa0PIPjZkX8Sj4gfCSYQRcxj3FRKxXWyvMhNGsxjiivSykpWfhB0mmU&_nc_zt=23&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=uBgz7FUbDd17YpwZXD-dvw&oh=00_AYGURUP4KB5VM4ULSpjDlcDlPVInrKp2tmG0TPzeeBRmfQ&oe=67EF079C',
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
         ],
       ),
     );
@@ -408,7 +608,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             child: _secondaryActionButton(
               label: 'Ghi chú',
               icon: 'lib/assets/icons/ghi_chu_icon.svg',
-              onPressed: () {},
+              onPressed: () => showNoteDialog(context),
             ),
           ),
           SizedBox(width: 4),
@@ -497,6 +697,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         color: AppColors.fillPrimary,
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
         borderRadius: BorderRadius.circular(12),
+        onPressed: () {
+          onPressed();
+        },
         child: Column(
           children: [
             SvgPicture.asset(
@@ -517,9 +720,6 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             ),
           ],
         ),
-        onPressed: () {
-          onPressed();
-        },
       ),
     );
   }

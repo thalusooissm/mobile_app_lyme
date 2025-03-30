@@ -84,8 +84,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   alignment: Alignment.bottomCenter,
                                   child: Container(
                                     constraints: BoxConstraints(
-                                      minWidth: 0, // Minimum width constraint
-                                      minHeight: 0, // Minimum height constraint
+                                      minWidth: 0,
+                                      minHeight: 0,
                                     ),
                                     child: AuthenticationModal(),
                                   ),
@@ -120,7 +120,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 }
-
 
 void funcA() {}
 
