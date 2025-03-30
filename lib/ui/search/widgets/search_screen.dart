@@ -85,7 +85,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     color: AppColors.primary,
                     size: 20,
                   ),
-                  // cursorColor: AppColors.primary, // Uncomment if AppColors.primary is defined
                 ),
               ),
               Padding(

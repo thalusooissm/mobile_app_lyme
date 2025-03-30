@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 import 'package:lyme_app/ui/auth/sign_in/widgets/sign_in_screen.dart';
 import 'package:lyme_app/ui/auth/sign_up/widgets/sign_up_screen.dart';
+import 'package:lyme_app/ui/auth/sign_up/widgets/sign_up_success.dart';
 import 'package:lyme_app/ui/chat/widgets/chat_screen.dart';
 import 'package:lyme_app/ui/getting_ticket/widgets/payment_forward_screen.dart';
 import 'package:lyme_app/ui/getting_ticket/widgets/success_getting_screen.dart';
@@ -38,7 +39,7 @@ class LymeApp extends StatelessWidget {
       child: CupertinoApp(
         title: 'Lyme',
         theme: FontTheme.appTheme,
-        initialRoute: '/home',
+        initialRoute: '/',
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/':
@@ -47,6 +48,9 @@ class LymeApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => SignInScreen());
             case '/sign_up':
               return CupertinoPageRoute(builder: (_) => SignUpScreen());
+            case '/sign_up_success':
+              return CupertinoPageRoute(builder: (_) => SignUpSuccess());
+
             case '/home':
               return CupertinoPageRoute(builder: (_) => HomeScreen());
             case '/setting':
