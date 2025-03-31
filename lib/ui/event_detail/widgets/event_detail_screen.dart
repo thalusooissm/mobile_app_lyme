@@ -206,10 +206,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       ),
     );
 
-    // Insert the overlay into the widget tree
     Overlay.of(context).insert(overlayEntry);
 
-    // Remove after 3 seconds with fade-out animation
     Future.delayed(Duration(seconds: 3), () {
       overlayEntry.remove();
     });

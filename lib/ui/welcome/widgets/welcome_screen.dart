@@ -18,8 +18,8 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return CupertinoPageScaffold(
+      child: Container(
         decoration: ShapeDecoration(
           gradient: LinearGradient(
             begin: Alignment(0.99, 0.13),
@@ -68,7 +68,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Text(
                       'Đặt vé. Chia sẻ.\nTham gia dễ dàng.',
                       textAlign: TextAlign.center,
-                      style: FontTheme.customStyles['title1Emphasized'],
+                      style:
+                          FontTheme.customStyles['title1Emphasized']?.copyWith(
+                        color: AppColors.labelPrimaryLight,
+                      ),
                     ),
                   ]),
                   const SizedBox(height: 88.0),

@@ -122,8 +122,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
             _buildConfirmPasswordField(),
             if (_showErrorTextConfirmPassword)
               _buildErrorText(_errorTextConfirmPassword!),
-                        const Spacer(),
-
+            const Spacer(),
             _buildButton(),
             const SizedBox(height: 16),
           ],
@@ -136,7 +135,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 78,),
+        SizedBox(
+          height: 78,
+        ),
         Container(
           width: 64,
           height: 64,
@@ -147,13 +148,12 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
               borderRadius: BorderRadius.circular(100),
             ),
           ),
-          child:           SvgPicture.asset(
+          child: SvgPicture.asset(
             'lib/assets/images/password.svg',
             fit: BoxFit.fitWidth,
             placeholderBuilder: (BuildContext context) =>
                 const CupertinoActivityIndicator(),
           ),
-
         ),
         const SizedBox(height: 16),
         Text(
@@ -173,26 +173,24 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
 
   Widget _buildPasswordField() {
     return _buildTextField(
-      label: 'Mật khẩu',
-      focusNode: _passwordFocusNode,
-      controller: _password,
-      placeholder: 'Nhập mật khẩu',
-      obscureText: !_isPasswordVisible,
-      hideAndShowPassword: true,
-      instruction: true
-    );
+        label: 'Mật khẩu',
+        focusNode: _passwordFocusNode,
+        controller: _password,
+        placeholder: 'Nhập mật khẩu',
+        obscureText: !_isPasswordVisible,
+        hideAndShowPassword: true,
+        instruction: true);
   }
 
   Widget _buildConfirmPasswordField() {
     return _buildTextField(
-      label: 'Xác nhận mật khẩu',
-      focusNode: _confirmPasswordFocusNode,
-      controller: _confirmPassword,
-      placeholder: 'Nhập lại mật khẩu',
-      obscureText: !_isPasswordVisible,
-      hideAndShowPassword: false,
-      instruction: false
-    );
+        label: 'Xác nhận mật khẩu',
+        focusNode: _confirmPasswordFocusNode,
+        controller: _confirmPassword,
+        placeholder: 'Nhập lại mật khẩu',
+        obscureText: !_isPasswordVisible,
+        hideAndShowPassword: false,
+        instruction: false);
   }
 
   Widget _buildTextField({
@@ -226,30 +224,33 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                 ),
               ],
             ),
-            if (hideAndShowPassword) CupertinoButton(
-              onPressed: _togglePasswordVisibility,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              child: Center(
-                child: Text(
-                  _isPasswordVisible ? 'ẨN MẬT KHẨU' : 'HIỆN MẬT KHẨU',
-                  style: FontTheme.customStyles['subheadlineRegular']
-                      ?.copyWith(color: AppColors.primary),
+            if (hideAndShowPassword)
+              CupertinoButton(
+                onPressed: _togglePasswordVisibility,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                child: Center(
+                  child: Text(
+                    _isPasswordVisible ? 'ẨN MẬT KHẨU' : 'HIỆN MẬT KHẨU',
+                    style: FontTheme.customStyles['subheadlineRegular']
+                        ?.copyWith(color: AppColors.primary),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
-        if (instruction) Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(
-            'Mật khẩu phải chứa ít nhất 8 ký tự, có cả chữ hoa, chữ thường, số và ký tự đặc biệt.',
-            style: FontTheme.customStyles['caption1Regular']
-                ?.copyWith(color: AppColors.labelSecondaryLight),
+        if (instruction)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            child: Text(
+              'Mật khẩu phải chứa ít nhất 8 ký tự, có cả chữ hoa, chữ thường, số và ký tự đặc biệt.',
+              style: FontTheme.customStyles['caption1Regular']
+                  ?.copyWith(color: AppColors.labelSecondaryLight),
+            ),
           ),
-        ),
         const SizedBox(height: 4),
-                const SizedBox(height: 4),
+        const SizedBox(height: 4),
         CupertinoTextField(
           focusNode: focusNode,
           controller: controller,
@@ -286,9 +287,11 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     return SizedBox(
       width: double.infinity,
       child: CupertinoButton(
-        onPressed: isButtonDisabled ? null : () {
-          Navigator.of(context).pushNamed('/home');
-        },
+        onPressed: isButtonDisabled
+            ? null
+            : () {
+                Navigator.of(context).pushNamed('/sign_up_success');
+              },
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         color: AppColors.primary,
         borderRadius: BorderRadius.circular(12),
